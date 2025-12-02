@@ -1,0 +1,488 @@
+   ‣ Attendance registration App:
+
+
+
+     Satoshi  CSC3160 Wed. 8:30-9:50                  TB102
+     Nakamura         Fri. 10:30-11:50
+
+
+
+
+ • It's active 15 minutes before class starts until 20 minutes
+   after class start time.
+
+ • It’s active on two time slots on Wednesdays
+   and Fridays; any mismatched check-ins will be
+   filtered out.
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                 1
+CSC3160 - Fundamentals of Speech and Language
+          Processing
+
+
+   Lecture 10
+   Syntax - Structure of
+   sentences
+              Satoshi Nakamura (SDS)
+
+
+
+                                                2
+                                            Schedule
+                  2025       Date    Class No. Topics
+                     9        3          1     Lecture 1 Introduction
+                              5          2     Lecture 2 Sound and acoustics
+                                               Lecture 3 Lecture 3 Understanding human speech
+                               10        3
+                                               production
+                               12        4     Lecture 4 Speech Perception
+                               17        5     Lecture 5 Digital Speech Processing
+                               19        6     Lecture 6 Speech representation
+                               24        7     Lecture 7 Phonetics
+                               26        8     Lecture 8 Text processing (No speech coding )
+         (make-up)             28        9     Lecture 9 Words
+                 10            (1)   Holiday
+                               (3)   Holiday
+                               (8)   Holiday
+                               10       10     Lecture 10 Syntax
+       (make-up?)              11       11     No class
+                               15       12     Lecture 11 Word embeddings
+                               17       13     Lecture 12 Language models
+                               22       14     Midterm Summary
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                                                3
+                                            Schedule
+                                                                              Attention:
+                                                                          Schedule changed
+                 2024        Date   Class No. Topics
+                               24      15    Midterm Exam
+                               29      16    Lecture 13 Statistical MT
+                               31      17    Lecture 14 Neural MT (Encoder-Decoder)
+              11                5      18    Lecture 15 Transformer
+                                7      19    Lecture 16 Self Supervised Modeling
+                               12      20    No class (Absent for International Conference)
+                               14      21    Lecture 17 Automatic Speech Recognition
+                               19      22    Lecture 18 Text to Speech Synthesis
+                               21      23    Lecture 19 Chatbot
+                               26      24    Lecture 20 QA
+                               28      25    Lecture 21 LLM
+              12                3      26    Lecture 22 Affects
+                                5      27    Summary for the Final Exam
+                                             Report Review (SN: Absent for International
+                               10      28
+                                             Conference)
+                               12      29    Final Exam
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                                              4
+                                   Assignment Plan
+
+
+            Assignment   Scope    Release Deadlin Answer session+
+                 No                          e       Tutorial
+                  1     Class 1-7   9/26   10/10      10/17
+                  2    Class 8-12   9/28   10/17     (10/22)
+                  3    Class 16-22 11/1    11/26      11/28
+                  4      Report    10/24    12/3      12/10
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                    5
+                                   Midterm Exam
+   • Mid-term exam: October 24 10:30-12:30
+                              th
+
+         • Scope: Lecture 1- 13 (all lectures until the midterm exam)
+
+         • Condition
+              • No mobile phone, Pad, or PC.
+              • 1-page both-side cheat sheet
+              • no magnifying glass
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                        6
+                                   Hands-on
+   • Requests for Hands-on
+         • We will try to prepare some hands-on in the future class.
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                       7
+                                   Agenda
+            • Recap
+            • Concept of syntax and constituency
+            • Context-free grammar
+            • Cocke-Kasami-Younger (CKY) algorithm
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                     8
+           Why do we need to learn morphology?
+   • The creation of new words
+   • The modification of existing words. We create new words
+     out of old ones all the time
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160              10/15/25         9
+                                                                   9
+                       Morpheme: Affixes
+   • Affixes
+         • Prefixes                    Independently
+              • de-pend, in-correct
+         • Suffixes
+              • depend-ent, love-ly
+         • Infixes (not common)
+              • edu-ma-cation
+         • Circumfixes
+              • an affix which has two parts, one placed
+                at the start of a word, and the other at the end.
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                                    10/15/25   10
+                                                                                    10
+              Functional differences in morphology
+   • Inflectional morphology
+         • Adds information to a word consistent with its context within a sentence
+           ( ←Syntax requirement)
+              • Student -> students
+              • Sleep -> sleeping
+              • Listen -> listening
+
+   • Derivational morphology (← New word. Different Part of Speech)
+         • Creates new words with new meanings (and often with new parts of speech)
+              • Sing -> singer
+              • Beauty -> beautiful
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                                   10/15/25           11
+                                                                                           11
+Satoshi Nakamura, CUHKSZ CSC3160   10/15/25   12
+                                                   12
+        POS tagging as a sequence labeling task
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160      10/15/25    13
+                                                       13
+                                   Agenda
+   • Recap
+   • Concept of syntax and constituency
+   • Context-free grammar
+   • Cocke-Kasami-Younger (CKY) algorithm
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                            14
+Satoshi Nakamura, CUHKSZ CSC3160
+                                   15
+                              Syntax is not Morphology
+  • Morphology deals with the internal structure of words
+  • Syntax deals with combinations of words
+
+
+  • Morphology is usually irregular
+  • Syntax has its irregularities, but it is usually regular
+       • Syntax is mostly made up of general rules that apply across-
+         the-board
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                        16
+                                   Constituency
+     • Constituent: a group of neighboring words that relate more
+       closely to one another than to other words in the sentence
+     • Constituents larger than a word are called phrases
+          • Noun phrases
+          • Prepositional phrases
+          • Verb phrases
+     • Phrases can contain other phrases
+     • One way of viewing the structure of a sentence is as a
+       collection of nested constituents
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                    17
+                                   Noun phrase (NP)
+   • a phrase that has a noun or pronoun as its head
+     or performs the same grammatical function as a noun
+
+
+        • The elephant arrived
+        • It arrived.
+        • Elephants arrived.
+        • The big pretty elephant arrived.
+        • The elephant she loves arrived.
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                           18
+                               Prepositional phrase (PP)
+    • I arrived on Tuesday.
+    • I arrived in March.
+    • I arrived under the leaking roof.
+
+
+
+
+    • Every prepositional phrase contains a noun phrase
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                           19
+                                   Verb phrase(VP)
+ • A verb phrase in English consists of a verb followed
+   by assorted other things
+      • VP → Verb NP
+            • I prefer an afternoon lecture
+      • VP → Verb NP PP
+            • have a lecture in the afternoon
+      • VP → Verb PP
+            • Teaching on Tuesday
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                          20
+                                   Is a string constituent?
+• Substitution test                                    He talks [in class]
+     • Can the string be replaced by a
+       single word?
+                                                       He talks there
+
+• Movement test
+     • Can the string be moved around in               [In class], he talks
+       the sentence?
+
+
+• Answer test                                          Where does he talk?
+     • Can the string be the answer to a               [In class]
+       question?
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                              21
+                                   Chomsky hierarchy
+  • Type-0 grammars include all formal
+    grammars
+  • Type-1 grammars generate context-
+    sensitive languages                        Type-0
+
+  • Type-2 grammars generate the
+                                                 Type-1
+    context-free languages
+  • Type-3 grammars generate the                    Type-2
+    regular languages, which can be
+                                                        Type-3
+    described using regular expressions
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                 22
+                                   Context-free grammar
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                          23
+                                   Rules or productions
+
+• Context-free
+      • production rules are
+        independent of the context
+
+
+      • There is no context in the left
+        hand side (LHS) of rules
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                          24
+                              Terminal vs Non-terminal
+     • Terminal: The symbols that
+       correspond to words in the
+       language                                       VP → Verb NP
+     • Non-terminal: The symbols
+       that express abstractions over                  Non-terminal
+       these terminals
+
+
+                          Noun → lecture              Verb → teaching
+
+           Non-terminal            Terminal    Non-terminal   Terminal
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                         25
+                  Lexicon: Terminal vs Non-terminal
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                      26
+                                         S: Start symbol
+  • The formal language defined by a CFG is the set of strings that
+    are derivable from the designated start symbol
+  • Each grammar must have one designated start symbol
+  • S is usually interpreted as the “sentence” node
+
+
+
+                                           S → NP VP
+
+                                   I prefer an afternoon lecture
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                      27
+                              A (Constituency) Parse Tree
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                            28
+       Cocke-Kasami-Younger (CKY) algorithm
+
+   • Bottom-up parsing
+        • Start with words
+
+
+   • Dynamic programming
+        • save the results in a table/chart
+        • re-use these results in finding larger constituents
+
+
+   • Presumes a CFG in Chomsky Normal Form
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                29
+                                   Chomsky Normal Form
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                         30
+                        Chomsky Normal Form (CNF)
+   • Any CFG can be converted into weakly equivalent CNF
+   • In CNF, each non-terminal generates two non-terminals
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                             31
+                        Chomsky Normal Form (CNF)
+
+      • Left hand side (LHS) rules         VP → Verb NP PP ❌
+           • LHS will have non-terminals
+                                           VP → Verb NP    ✔
+
+                                           VP → teaching NP ❌
+      • Right hand side (RHS) rules
+           • Two non-terminals             VP → eat
+                                                           ✔
+           • One terminal
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                32
+Satoshi Nakamura, CUHKSZ CSC3160
+                                   33
+                                   CKY algorithm
+
+• Fills the upper-triangular
+  matrix a column at a
+  time
+     • From left to right
+     • From bottom to top
+• This scheme
+  guarantees that at
+  each point in time we
+  have all the information
+  we need
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                   34
+                                            CKY algorithm
+
+
+
+
+                                   https://web.stanford.edu/~jurafsky/slp3/17.pdf
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                                    35
+                                   CKY Example
+
+
+
+
+                                   https://web.stanford.edu/~jurafsky/slp3/17.pdf
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                                    36
+Satoshi Nakamura, CUHKSZ CSC3160
+                                   37
+                                    Ambiguity
+• Structural ambiguity occurs when the grammar can assign more
+  than one parse to a sentence
+
+
+
+
+    One morning I shot an elephant in my pajamas
+
+
+
+
+ Satoshi Nakamura, CUHKSZ CSC3160
+                                                                 38
+                                   Summary
+
+• Concept of syntax and constituency
+     • Syntax deals with combinations of words
+• Context-free grammar
+     • production rules are independent of the context
+• Cocke-Kasami-Younger (CKY) algorithm
+     • Bottom-up parsing - start with words
+     • Dynamic programming
+     • Presumes a CFG in Chomsky Normal Form
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                         39
+                                    Reading
+
+• Chapter 18: Context-Free Grammars and Constituency Parsing
+        https://web.stanford.edu/~jurafsky/slp3/18.pdf
+
+
+
+
+ Satoshi Nakamura, CUHKSZ CSC3160
+                                                               40
+

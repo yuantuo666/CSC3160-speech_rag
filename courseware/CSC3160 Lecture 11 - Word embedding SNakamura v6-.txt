@@ -1,0 +1,868 @@
+   ‣ Attendance registration App:
+
+
+
+     Satoshi  CSC3160 Wed. 8:30-9:50                  TB102
+     Nakamura         Fri. 10:30-11:50
+
+
+
+
+ • It's active 15 minutes before class starts until 20 minutes
+   after class start time.
+
+ • It’s active on two time slots on Wednesdays
+   and Fridays; any mismatched check-ins will be
+   filtered out.
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                 1
+CSC3160 - Fundamentals of Speech and Language
+Processing
+
+
+
+                                Lecture 11
+                        Embedding: Representations of
+                           the meaning of words
+                                   Satoshi Nakamura
+
+
+                                          2
+Satoshi Nakamura, CUHKSZ CSC3160                      10/22/25   2
+                                            Schedule
+                  2025       Date    Class No. Topics
+                     9        3          1     Lecture 1 Introduction
+                              5          2     Lecture 2 Sound and acoustics
+                                               Lecture 3 Lecture 3 Understanding human speech
+                               10        3
+                                               production
+                               12        4     Lecture 4 Speech Perception
+                               17        5     Lecture 5 Digital Speech Processing
+                               19        6     Lecture 6 Speech representation
+                               24        7     Lecture 7 Phonetics
+                               26        8     Lecture 8 Text processing (No speech coding )
+         (make-up)             28        9     Lecture 9 Words
+                 10            (1)   Holiday
+                               (3)   Holiday
+                               (8)   Holiday
+                               10       10     Lecture 10 Syntax
+       (make-up?)              11       11     No class
+                               15       12     Lecture 11 Word embeddings
+                               17       13     Lecture 12 Language models
+                               22       14     Midterm Summary
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                                                3
+                                            Schedule
+                                                                              Attention:
+                                                                          Schedule changed
+                 2024        Date   Class No. Topics
+                               24      15    Midterm Exam
+                               29      16    Lecture 13 Statistical MT
+                               31      17    Lecture 14 Neural MT (Encoder-Decoder)
+              11                5      18    Lecture 15 Transformer
+                                7      19    Lecture 16 Self Supervised Modeling
+                               12      20    No class (Absent for International Conference)
+                               14      21    Lecture 17 Automatic Speech Recognition
+                               19      22    Lecture 18 Text to Speech Synthesis
+                               21      23    Lecture 19 Chatbot
+                               26      24    Lecture 20 QA
+                               28      25    Lecture 21 LLM
+              12                3      26    Lecture 22 Affects
+                                5      27    Summary for the Final Exam
+                                             Report Review (SN: Absent for International
+                               10      28
+                                             Conference)
+                               12      29    Final Exam
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                                              4
+                                      Assignment Plan
+
+
+         Assignment                  Scope     Release Deadline Answer session+
+              No                                                   Tutorial
+               1                    Class 1-7    9/26   10/10       10/17
+               2                   Class 8-12    9/28   10/21      (10/22)
+               3                   Class 16-22   11/1   11/26       11/28
+               4                     Report     10/24    12/3       12/10
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                                  5
+                                   Midterm Exam
+   • Mid-term exam: October 24 10:30-12:30
+                              th
+
+         • Scope: Lecture 1- 13 (all lectures until the midterm exam)
+
+         • Condition
+              • No mobile phone, Pad, or PC.
+              • 1-page both-side cheat sheet
+              • no magnifying glass
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                        6
+                                   Hands-on and Tutorial
+   • Requests for Hands-on
+         • hands-on will be released on BB
+
+   • Tutorials
+         • We have a tutorial this Friday.
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                           7
+                                   Agenda
+     • Recap
+     • Word sense and their relations
+     • Word representation and embedding
+     • Measuring semantic similarity
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160            10/22/25   8
+                                   Constituency
+     • Constituent: a group of neighboring words that relate more
+       closely to one another than to other words in the sentence
+     • Constituents larger than a word are called phrases
+          • Noun phrases
+          • Prepositional phrases
+          • Verb phrases
+     • Phrases can contain other phrases
+     • One way of viewing the structure of a sentence is as a
+       collection of nested constituents
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                    9
+                                   Chomsky hierarchy
+  • Type-0 grammars include all formal
+    grammars
+  • Type-1 grammars generate context-
+    sensitive languages                        Type-0
+
+  • Type-2 grammars generate the
+                                                 Type-1
+    context-free languages
+  • Type-3 grammars generate the                    Type-2
+    regular languages, which can be
+                                                        Type-3
+    described using regular expressions
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                 10
+                                   Rules or productions
+
+• Context-free
+      • production rules are
+        independent of the context
+
+
+      • There is no context in the left
+        hand side (LHS) of rules
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                          11
+                              A (Constituency) Parse Tree
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                            12
+                                   Chomsky Normal Form
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                         13
+Satoshi Nakamura, CUHKSZ CSC3160
+                                   14
+                                            CKY algorithm
+
+
+
+
+                                   https://web.stanford.edu/~jurafsky/slp3/17.pdf
+
+Satoshi Nakamura, CUHKSZ CSC3160
+                                                                                    15
+                                    Ambiguity
+• Structural ambiguity occurs when the grammar can assign more
+  than one parse to a sentence
+
+
+
+
+    One morning I shot an elephant in my pajamas
+
+
+
+
+ Satoshi Nakamura, CUHKSZ CSC3160
+                                                                 16
+                                   Agenda
+     • Recap
+     • Word sense and their relations
+     • Word representation and embedding
+     • Measuring semantic similarity
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160            10/22/25   17
+        Bank
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160   10/22/25   18
+        Bank
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160   10/22/25   19
+                                   Bank
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160          10/22/25   20
+                                        Word sense
+       • Word sense vs Lemma
+
+                        Lemma
+
+               Play (N)
+                • a theatrical performance of a drama, "the play lasted two hours"
+Sense           • a preset plan of action in team sports, "the coach drew up the plays for
+                  her team"
+                • a state in which action is feasible, "the ball was still in play"; "insiders said
+                  the company's stock was in play"
+                • utilization or exercise, "the play of the imagination"
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                                          10/22/25             21
+           Distributional Hypothesis (Lenci, 2008)
+
+
+  • At least certain aspects of the meaning of lexical expressions
+   depend on their distributional properties in the linguistic contexts
+
+
+  • The degree of semantic similarity between two linguistic
+   expressions is a function of the similarity of the two linguistic
+   contexts in which they can appear
+
+
+Satoshi Nakamura@SDS AIR6001/MDS6105/CSC5010                              22
+                                   Word sense (concept)
+
+     • He wrote several plays but only one was produced on Broadway
+     • Insiders said the company's stock was in play
+     • The runner was out on a play by the shortstop
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                          10/22/25   23
+                 Relations between senses: Synonymy
+     • Synonyms have the same meaning in some or all contexts
+          • couch/sofa
+          • large/big
+          • water/H2O
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160               10/22/25         24
+                  Relations between senses: Similarity
+     • Words with similar meanings
+     • Not synonyms, but sharing some element of meaning
+          • Car, bicycle
+          • Cow, horse
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                   10/22/25   25
+             Relations between senses: Relatedness
+     • Also named as word association
+     • Words can be related in any way, perhaps via a semantic
+       frame or field
+
+
+          • Similar: coffee, tea
+          • Related (but not similar)
+               • coffee, cup
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                10/22/25         26
+                 Relations between senses: Antonymy
+     • Senses that are opposites with respect to only one
+       feature of meaning
+
+
+          • Examples
+               • Short/long
+               • Hot/cold
+               • In/out
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160              10/22/25      27
+              Relations between senses: Connotation
+     • Affective meaning of words
+          • fake, knockoff, forgery
+          • copy, replica, reproduction
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160           10/22/25   28
+                                   Cross lingual
+                    • Banana
+                    • 香蕉
+                    • バナナ
+                    • 바나나
+                    • plátano
+                    • quả chuối
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                   10/22/25   29
+                         Cross-lingual word embedding
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                 10/22/25   30
+                                   Word representation
+     • Five-word vocabulary: man, walk, woman, swim, ask
+          • 1-of-N encoding/one-hot encoding
+
+               • [1, 0, 0, 0, 0]: man
+               • [0, 1, 0, 0, 0]: walk
+               • [0, 0, 1, 0, 0]: woman
+               • [0, 0, 0, 1, 0]: swim
+               • [0, 0, 0, 0, 1]: ask
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                         10/22/25   31
+                    Word (Embedding) representations
+
+
+
+        [1, 0, 0, 0, 0]: man
+        [0, 1, 0, 0, 0]: walk
+        [0, 0, 1, 0, 0]: woman
+        [0, 0, 0, 1, 0]: swim
+        [0, 0, 0, 0, 1]: ask
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160             10/22/25   32
+                                   Co-occurrence matrix
+     • Term-document matrix
+          • Each row represents a word in the vocabulary
+          • Each column represents a document from some collection of
+            documents
+
+
+     • Term-term matrix
+          • The columns are labeled by words rather than documents
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                       10/22/25      33
+           Words as vectors: Document dimensions
+
+
+
+
+                      Similar words have similar vectors
+                       because they tend to occur in similar documents
+
+Satoshi Nakamura, CUHKSZ CSC3160                         10/22/25        34
+                                    Term-document matrix
+     • Originally defined as a means of finding similar documents
+
+
+
+
+                                   Similar documents had similar vectors
+
+Satoshi Nakamura, CUHKSZ CSC3160                                  10/22/25   35
+                                   Spatial visualization
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                           10/22/25   36
+                                   Term-term matrix
+     • The columns are labeled by words rather than documents
+     • Two words are similar in meaning if their context vectors are
+       similar
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                        10/22/25       37
+                   Words as vectors: Word dimensions
+     • word-word co-occurrence matrix
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160             10/22/25   38
+                                   Spatial visualization
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                           10/22/25   39
+       Is the raw frequency a good representation?
+     • Motivation
+          • Frequency is clearly useful
+          • However, overly frequent words like
+
+                                   the, and, it
+
+             are not very informative about the context
+
+
+                                        We need to balance
+
+Satoshi Nakamura, CUHKSZ CSC3160                             10/22/25   40
+                                               TF-IDF
+     • Term frequency (t: term id, d: document id)
+
+
+
+
+                                   Instead of using raw count, we take log:
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                                  10/22/25    41
+                                    TF-IDF
+     • DF: Document Frequency
+          • df is a term t that the number of documents it occurs in
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                          10/22/25     42
+                                   TF-IDF
+     • Inverse document frequency
+
+
+
+
+    N is the total number of documents.
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160            10/22/25   43
+                                   TF-IDF
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160            10/22/25   44
+                      Semantic similarity measurement
+
+
+
+  Words in the semantic
+  space
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160               10/22/25   45
+                                   Inner/dot product
+     • The dot product between two vectors is a scalar
+
+
+
+
+           The dot product tends to be high
+           when the two vectors have large values in the same dimensions
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                       10/22/25        46
+                                   Dot-product: problem
+     • Dot-product favors long vectors (i.e. vectors with larger norm)
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                          10/22/25       47
+                                   Cosine similarity
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                       10/22/25   48
+                         Cosine similarity: Interpretation
+
+
+
+       • +1: same direction
+       • 0: orthogonal
+       • -1: opposite directions
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                     10/22/25   49
+                                   5
+Satoshi Nakamura, CUHKSZ CSC3160   0
+                                       10/22/25   50
+                    Pointwise Mutual Information (PMI)
+      • Do events x and y co-occur more than if they were independent?
+
+
+
+
+      PMI between two words
+            • Do words x and y co-occur more than if they were independent?
+
+
+
+
+                                   Section 6.6: https://web.stanford.edu/~jurafsky/slp3/6.pdf
+                                                                                                           51
+Satoshi Nakamura, CUHKSZ CSC3160                                                                10/22/25   51
+                      Embedding: short, dense vector
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160              10/22/25   52
+                               Sparse versus dense vectors
+     TF-IDF (or PMI) vectors are
+        • long (length |V|= 20,000 to 50,000)
+        • sparse (most elements are zero)
+     Alternative: learn vectors which are
+        • short (length 50-1000)
+        • dense (most elements are non-zero)
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                       10/22/25   53
+                               Sparse versus dense vectors
+     • Why dense vectors?
+          • Short vectors may be easier to use as features in machine learning
+            (fewer weights to tune)
+          • Dense vectors may generalize better than explicit counts
+          • Dense vectors may do better at capturing synonymy:
+               • car and automobile are synonyms; but are distinct dimensions
+               • a word with car as a neighbor and a word with automobile as a neighbor
+                 should be similar, but aren't
+
+     • In practice, they work better
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                                   10/22/25          54
+         Static embedding: one fixed embedding for
+                 each word in the vocabulary
+
+
+      Dynamic embedding: the vector for each
+      word is different in different contexts
+
+
+Satoshi Nakamura, CUHKSZ CSC3160       10/22/25      55
+                                     Word2vec
+     Popular embedding method
+     Very fast to train
+     Idea: predict rather than count
+     Word2vec provides various options. We'll do:
+                  skip-gram with negative sampling (SGNS)
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                            10/22/25   56
+                      Word2vec (Mikolov et al., 2013)
+                                                      • CBOW: use the surrounding
+                                                        words to predict a center
+                                                        word. Continuous “Bag of
+                                                        “Words
+
+
+                                                      • Ski-gram: use the middle
+                                                        word to predict surrounding
+                                                        words in a window
+
+                                                                                57
+   Satoshi
+Satoshi    Nakamura@SDS
+        Nakamura,           AIR6001/MDS6105/CSC5010
+                  CUHKSZ CSC3160                                 10/22/25       57
+                      Skip-gram (Mikolov et al., 2013)
+
+                                                      𝑦! = 𝑠𝑜𝑓𝑡𝑚𝑎𝑥 𝑊′ ∗ ℎ
+
+
+
+
+                                                      𝑦! = 𝑠𝑜𝑓𝑡𝑚𝑎𝑥 𝑊′ ∗ ℎ
+
+
+
+
+                                                      𝑦! = 𝑠𝑜𝑓𝑡𝑚𝑎𝑥 𝑊′ ∗ ℎ
+                𝑊!∗# : map 𝑥$ 𝑡𝑜 ℎ$
+                𝑊′#∗! : map ℎ$ 𝑡𝑜 𝑦%
+                       Estimate ∶ 𝑊!∗# , 𝑊′#∗!
+                                                                            58
+   Satoshi
+Satoshi    Nakamura@SDS
+        Nakamura,           AIR6001/MDS6105/CSC5010
+                  CUHKSZ CSC3160                      10/22/25              58
+                     Skip-gram with negative samples
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160              10/22/25   59
+                                        Word2vec
+     Instead of counting how often each word w occurs near "apricot"
+        • Train a classifier on a binary prediction task:
+          • Is w likely to show up near "apricot"?
+
+     We don’t actually care about this task
+          • But we'll take the learned classifier weights as the word embeddings
+
+     Big idea: self-supervision:
+          • A word c that occurs near apricot in the corpus acts as the gold "correct
+            answer" for supervised learning
+          • No need for human labels
+          • Bengio et al. (2003); Collobert et al. (2011)
+
+Satoshi Nakamura, CUHKSZ CSC3160                                 10/22/25           60
+         Approach: predict if candidate word c is a "neighbor"
+
+     1. Treat the target word t and a neighboring context
+        word c as positive examples.
+     2. Randomly sample other words in the lexicon to get
+        negative examples
+     3. Use logistic regression to train a classifier to distinguish
+        those two cases
+     4. Use the learned weights as the embeddings
+
+Satoshi Nakamura, CUHKSZ CSC3160                    10/22/25       61
+                                     Skip-Gram Training Data
+
+                Assuming a +/- 2 word window, given training sentences
+
+
+                                   …lemon, a [tablespoon of apricot jam, a] pinch…
+                                         c1          c2      c3       c4
+                                                           [target]
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                                           10/22/25   62
+                                        Skip-Gram Classifier
+     (assuming a +/- 2 word window)
+
+      …lemon, a [tablespoon of apricot jam, a] pinch…
+                                   c1        c2     c3       c4
+                                                  [Traget]
+     Goal: train a classifier that is given a candidate (word, context) pair
+                      (apricot, jam)
+                      (apricot, aardvark)
+                     …
+     And assigns each pair a probability:
+                   P(+|w, c)
+                   P(−|w, c) = 1 − P(+|w, c)
+Satoshi Nakamura, CUHKSZ CSC3160                                  10/22/25     63
+            Skip-gram and Skip-gram with Negative Sampling
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160               10/22/25      64
+                                           Semantic similarity
+
+
+
+
+                          Example: Vectors in Embedding Representation Space by Word2vec
+Satoshi Nakamura, CUHKSZ CSC3160                                                     10/22/25   65
+                                        Summary
+     • Word sense and their relations
+
+
+     • Word representation
+          • We focus on sparse representation in today’s lecture
+          • Term-document matrix
+          • Term-term matrix
+          • TF-IDF
+
+
+     • Measure semantic similarity
+     • Word2Vec
+          • Skipgram
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                                   10/22/25   66
+                                      Reading and tools
+
+     • Word embedding colab
+          • https://colab.research.google.com/github/pytorch/tutorials/blob/gh-
+            pages/_downloads/363afc3b7c522e4e56981679c22f1ad6/word_embeddings_tutorial.ipynb
+          • https://colab.research.google.com/github/tensorflow/text/blob/master/docs/guide/word_e
+            mbeddings.ipynb
+
+
+
+     • Chapter 6: Vector Semantics and Embeddings
+          • https://web.stanford.edu/~jurafsky/slp3/5.pdf
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                                           10/22/25              67
+             Appendex: CFG vs CSG:
+             Context-Sensitive Grammar
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160         10/22/25   68
+       Context-Free Grammar vs Context-
+       Sensitive Grammar
+
+      With concrete examples (a^n b^n) and (a^n b^n c^n)
+      Formal Languages & Automata
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160             10/22/25      69
+                                   Big Picture
+      • CFG (Context-Free): rules of the form A → γ (single
+        nonterminal on the left)
+      • CSG (Context-Sensitive): rules of the form αAβ → αγβ (context
+        may appear; length non-decreasing)
+      • CSG ⊃ CFG: CSG is strictly more expressive than CFG
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                      10/22/25      70
+        CFG Example: L = { a^n b^n | n ≥ 0 }
+      • Equal number of a's and b's
+      • Classic context-free language; simple grammar suffices
+
+
+      Grammar:
+      S → a S b | ε
+
+      Derivation (n=3):
+      S ⇒ a S b ⇒ a a S b b ⇒ a a a S b b b ⇒ a a a b b b
+Satoshi Nakamura, CUHKSZ CSC3160                    10/22/25     71
+                                   Why L is Context-Free
+
+      • Each expansion adds one a on the left and one b on the right
+      • Invariant: |a| = |b| is maintained by recursive structure
+      • Left-hand side is always a single nonterminal (S)
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                       10/22/25     72
+      CSG Example: L = { a^n b^n c^n | n
+                    ≥1}
+    • Requires synchronizing counts across three symbols
+    • Not context-free (pumping lemma for CFLs)
+    • But context-sensitive (accepted by linear bounded automata)
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                    10/22/25        73
+                              One CSG for a^n b^n c^n
+                                   (length non-decreasing)
+      • Use temporary markers B and C and context to synchronize
+        counts
+      • All rules are non-contracting (|rhs| ≥ |lhs|)
+
+       1) S → a S B C | a b c
+       2) C B → B C
+       3) a B → a b
+       4) b B → b b
+       5) b C → b c
+       6) c C → c c
+
+Satoshi Nakamura, CUHKSZ CSC3160                         10/22/25   74
+                                   Derivation Sketch for n = 3
+     • Build stacks of a·B·C, finalize the last triple as abc
+     • Shuffle markers (CB → BC), then finalize locally with context
+       rules
+                    S
+                    ⇒ a S B C
+                    ⇒ a a S B C B C
+                    ⇒ a a a b c B C B C
+                    ⇒ a a a B B B C C C
+                    ⇒ a a a b b b C C C
+                    ⇒ a a a b b b c c c
+Satoshi Nakamura, CUHKSZ CSC3160                            10/22/25   75
+                         CFG vs CSG: What Differs
+
+      • Rule shape: CFG forbids context on the left; CSG allows it
+      • Power: CFG handles two-way dependencies; CSG handles
+        three-way and copying patterns
+      • Parsing: CFG parsing is polynomial (e.g., CYK O(n^3)); CSG
+        recognition is far more expensive
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                      10/22/25       76
+                                   Quick Checklist
+
+      • Two synchronized blocks → likely CFG
+      • Three or more synchronized blocks → likely needs CSG
+      • Copying/duplication → beyond CFG
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                     10/22/25   77
+                                   Summary
+
+      • CFG: single-nonterminal LHS; efficient parsing
+      • CSG: contextual constraints; strictly more expressive
+      • a^n b^n is CFG; a^n b^n c^n is CSG (not CFG)
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                         10/22/25   78
+

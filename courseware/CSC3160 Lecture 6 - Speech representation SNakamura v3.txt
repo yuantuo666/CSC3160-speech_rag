@@ -1,0 +1,590 @@
+   ‣ Attendance registration App:
+
+
+
+     Satoshi  CSC3160 Wed. 8:30-9:50              TB102
+     Nakamura         Fri. 10:30-11:50
+
+
+
+
+ • It's active 15 minutes before class starts until 20
+   minutes after class start time.
+ • It’s active from 8:30–9:50 and 10:30–11:50 on
+   Wednesdays and Fridays; any mismatched check-
+   ins will be filtered out.
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                 9/19/25
+                                                                    1
+ CSC3160 - Fundamentals of Speech and Language Processing
+
+
+
+
+              Lecture 5: Speech
+               Representation
+
+
+                                                                     spectrum
+
+                                            Satoshi Nakamura (SDS)
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                 9/19/25
+                                                                                    2
+                                                   Schedule
+                     2025        Date       Class No. Topics
+                        9         3             1     Lecture 1 Introduction
+                                  5             2     Lecture 2 Sound and acoustics
+                                                      Lecture 3 Lecture 3 Understanding human speech
+                                   10           3
+                                                      production
+                                   12           4     Lecture 4 Speech Perception
+                                   17           5     Lecture 5 Digital Speech Processing
+                                   19           6     Lecture 6 Speech representation
+                                   24           7     Lecture 7 Phonetics
+                                   26           8     Lecture 8 Speech Coding
+                                   28           9     Lecture 9 Text processing
+                        10         (1)      Holiday
+                                   (3)      Holiday                                           Attention:
+                                   (8)      Holiday                                       Schedule changed
+                                   10          10     Lecture 10 Words
+                                   11          11     Lecture 11 Syntax
+                                   15          12     Lecture 12 Word embeddings
+                                   17          13     Lecture 13 Language models
+                                   22          14     Midterm Summary
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                            9/19/25
+                                                                                                               3
+                                                    Schedule
+                                                                                      Attention:
+                                                                                  Schedule changed
+                    2024        Date        Class No. Topics
+                                   24          15    Midterm Exam
+                                   29          16    Lecture 14 Statistical MT
+                                   31          17    Lecture 15 Neural MT (Encoder-Decoder)
+                 11                 5          18    Lecture 16 Transformer
+                                    7          19    Lecture 17 Self Supervised Modeling
+                                   12          20    No class (Absent for International Conference)
+                                   14          21    Lecture 18 Automatic Speech Recognition
+                                   19          22    Lecture 19 Text to Speech Synthesis
+                                   21          23    Lecture 20 Chatbot
+                                   26          24    Lecture 21 QA
+                                   28          25    Lecture 22 LLM
+                 12                 3          26    Lecture 23 Affects
+                                    5          27    Summary for the Final Exam
+                                                     Report Review (SN: Absent for International
+                                   10          28
+                                                     Conference)
+                                   12          29    Final Exam
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                        9/19/25
+                                                                                                           4
+                                            Outline
+      • Recap
+      • Information in human speech
+      • Speech production
+      • Source filter model
+      • Timbre
+      • Prosody
+      • Cepstrum
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura             9/19/25
+                                                                5
+                                            Digital sound waves
+
+      • Computers deal with discrete data (zeros and ones)
+
+            • We need to convert (sample) the continuous signal into digital
+              presentation
+                 • Sampling converts continuous time axis to discrete time axis to sample time-
+                   varying voltage signal.
+                 • Quantization replaces each real number of the signal voltage with an
+                   approximation from a finite set of discrete values.
+
+
+            • Before: Time Axis: Continuous, Amplitude(voltage) Axis: Continuous
+            • After:         Time Axis: Discrete, Amplitude Axis: Discrete
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                   9/19/25
+                                                                                                      6
+                               Sampling: Nyquist frequency
+
+
+
+                                                    ???
+                1 cycle
+
+
+
+
+                Sampling Period               Sampling frequency >2f
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                              9/19/25
+                                                                                 7
+                                            Windowing
+      • The straightforward windowing is to apply a rectangular window
+      • The borders of segments are then visible as discontinuities, which are
+        incongruent with the real-world signal
+
+
+
+
+                                                                                      30
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                   9/19/25
+                                                                                           8
+                                       Windowing for analysis
+      • Windowing functions are smooth functions that go to zero at the borders
+      • Hanning and Hamming windows as an example
+
+
+
+
+                                                   https://www.skyradar.com/blog/windowing-functions-in-radar-technology
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                               9/19/25
+                                                                                                                           9
+                                            Windowing: Framing
+      • Hop size/Frame shift
+      • Window size
+
+
+
+                              Window size
+
+
+                     Hop size/frame shift
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                        9/19/25
+                                                                           10
+                  Discrete Fourier Transform(DFT)
+
+
+• DFT
+                                                $%&
+                                                      %'()*!/$
+                                       𝑋 𝑘 = $𝑥 𝑛 𝑒
+                                                !"#
+
+
+
+• 𝑋 𝑘 is the k-th frequency component. It shows how many of the
+ frequency k waves is inside the signal.
+
+
+
+    CSC3160 2025-2026 Term 1 Satoshi Nakamura                     9/19/25
+                                                                            11
+                                                Convolution
+      • Convolution is a mathematical way of combining two signals to form a
+        third signal.
+      • It is the single most important technique in Digital Signal Processing.
+      • Using the strategy of impulse decomposition, systems are described by a
+        signal called the impulse response.
+
+
+                                                        $%&
+
+                                            𝐹[𝑘] ∗ 𝐺[𝑘] = ( 𝑓 𝑚 𝑔 𝑘 − 𝑚
+                                                        !"#
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                         9/19/25
+                                                                                            12
+                                            Window and DFT
+
+      • Windowed DFT
+                                                     $%&
+                                                                 '()*!
+                                             ,                 %
+                                            𝑋 [𝑘] = $ 𝑥 𝑛 𝑤 𝑛 𝑒 $
+                                                     !"#
+
+
+
+      • In spectrum domain
+                                                 ,
+                                               𝑋 [𝑘] = 𝑋[𝑘] ∗ 𝑊[𝑘]
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                9/19/25
+                                                                                   13
+                                                                                 Convolution
+                 X(k)
+                                                                    h(m) 0.5     1   0.5   0   0
+                        1     2         2         1     1
+
+                 K-m    K-4       k-3       K-2       K-1    k             m=0
+
+
+
+                                                                 filter        source
+                         .%&
+                 s(𝑘) = ∑-"# ℎ 𝑚 𝑥(𝑘 − 𝑚)                                                                 𝑆(𝑛) = 𝐻 𝑛 𝑋(𝑛)
+                                                            Convolution in time domain                  Multiplication in frequency domain
+
+
+                         .%&                                                                            s(𝑛) = 𝑤 𝑛 𝑥(𝑛)
+                 S(𝑘) = ∑-"# 𝑊 𝑚 𝑋(𝑘 − 𝑚)
+                                                        Convolution in frequency domain                   Windowing in time domain
+
+
+
+
+                                                  Transfer function              impulse           Frequency Response of the transfer function
+                         .%&
+                 s(𝑘) = ∑-"# ℎ 𝑚 𝑥(𝑘 − 𝑚)                                                                     S(𝑛) = 𝐻 𝑛
+                                                            Convolution in time domain                  Multiplication in frequency domain
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                                                             9/19/25
+                                                                                                                                                 14
+                                            Outline
+      • Recap
+      • Information in human speech
+      • Speech production
+      • Source filter model
+      • Timbre
+      • Prosody
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura             9/19/25
+                                                                15
+                                              Source-filter model
+
+
+
+
+                                                                    Image credit: MIT OCW
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                           16
+                 Fundamental frequency and Formant
+     • F0 and harmonics kF0
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura            9/19/25
+                                                               17
+                                     Fundamental frequency
+      • F0 of an individual speaker
+        depends primarily on the
+        length of the vocal folds
+
+
+      • Typically F0 range 80 to 450
+        Hz
+      • L: period length
+      • F0 = 1 / L
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                    9/19/25
+                                                                       18
+                                            Spectrum
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura              9/19/25
+                                                                 19
+                                            Spectrogram
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                 9/19/25
+                                                                    20
+                                            Cepstrum
+
+                                                       : Fundamental Frequency Signal
+                                                             (Excitation Signal)
+
+
+
+             Voc
+              al
+             Trac
+              t                                          : Spectrum of Vocal Tract
+                        /a//a//a/
+
+
+                F0                                                    : Convolution
+           (Excitation)
+
+                                                                 : Speech Spectrum
+                                                                     : Speech
+                                                                  Power Spectrum
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                   9/19/25
+                                                                                        21
+                                                         Cepstrum
+
+                         %&
+    𝐶/"" (𝑡) = 𝐹               log 𝑃00 (𝑓)
+                         %&
+    𝐶/## (𝑡) = 𝐹               log 𝑃11 (𝑓)
+    𝐹 !" 𝑃 (𝑓) : Inverse Fourier Transform
+
+   𝐶/!! (𝑡) = 𝐶/"" 𝑡 + 𝐶/## (𝑡)
+                                                             Low          High
+         Low quefrency area        High quefrency area     Quefrency    Quefrency
+                                                          Vocal Tract     F0
+
+
+                                                                                              second
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                           9/19/25
+                                                                                              22
+                                                                 Cepstrum
+
+
+
+
+                                       https://colab.research.google.com/drive/1j7o7gmlYED8r0AICb1Re-waULZ4DYWk6?usp=sharing
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                                                      9/19/25
+                                                                                                                                         23
+                                            Cepstrum
+      • F0 is usually prominently visible as a peak in the cepstrum
+      • Quefrencies q can be easily converted to frequencies f by f = 1 / q
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                     9/19/25
+                                                                                        24
+                                            Mel scale
+      • Demo: Mel-scale from 200 to 1500, in intervals of 50
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                      9/19/25
+                                                                         25
+                                            Mel scale
+      • Mel scale is a perceptual scale of pitches judged by listeners to be equal
+        in distance from one another
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                   9/19/25
+                                                                                      26
+                                            Mel filterbank
+      • Filterbank
+            • triangle-centres are at the
+              frequencies corresponding to
+              equal distance steps on the mel
+              scale
+
+
+      • Higher frequencies, above 6.5
+        kHz in particular, are poorly
+        modelled
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                    9/19/25
+                                                                       27
+                                            Prosody
+      • Pitch
+      • Loudness
+      • Duration: Length of each segment (phone, syllable, word, phrase, etc)
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                9/19/25
+                                                                                   28
+                                   No F0 for unvoiced region
+
+
+
+
+                                               Voiced region                                                   Unvoiced region
+
+
+                                  https://colab.research.google.com/drive/1j7o7gmlYED8r0AICb1Re-waULZ4DYWk6?usp=sharing
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                                                        9/19/25
+                                                                                                                                           29
+                                            Duration
+      • Duration of speech sounds can help to convey meaning and differentiate
+        between words
+
+
+      • Duration and boundaries of speech units are important features for many
+        downstream tasks
+            • Speech recognition
+            • Text-to-speech synthesis
+            • etc
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                9/19/25
+                                                                                   30
+                                                  Duration
+                                            spectrogram
+
+
+
+
+          Ma               Ma                             Ma   Ma
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                           9/19/25
+                                                                              31
+                                            Energy
+      • Energy or intensity determines the loudness
+      • Loudness is perception of intensity or energy
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura               9/19/25
+                                                                  32
+                                            Jitter and shimmer
+      • Jitter: Variations in signal frequency
+      • Shimmer: Variations in signal amplitude
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                        9/19/25
+                                                                           33
+                                            Jitter and shimmer
+      • Jitter and shimmer are caused by irregular vocal fold vibration
+            • Perceived as roughness, breathiness, or hoarseness in a speaker’s voice
+            • Measuring them is a common way to detect voice pathologies
+
+
+      • Personal habits such as smoking or alcohol consumption might increase
+        the level of jitter and shimmer in voice
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                          9/19/25
+                                                                                             34
+                                             Jitter
+      • A common way: Average absolute difference between consecutive
+        periods
+
+
+
+
+            • Ti are the extracted F0 period lengths and N is the number of extracted F0
+              periods
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                           9/19/25
+                                                                                              35
+                                            Shimmer
+      • The difference between the amplitudes of consecutive periods multiplied
+        by 20
+
+
+
+
+            • Ai are the extracted peak-to-peak amplitude data and N is the number of
+              extracted fundamental frequency periods
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                       9/19/25
+                                                                                          36
+                      Matching of Different Duration Patterns
+                            Dynamic Time Wrapping
+               • Well-known technique for measuring
+                 similarity between two sequences which
+                 may vary in speed.
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                       9/19/25
+                                                                          37
+                                            How It works [DTW]
+                   j
+                                                                      t: input sequence
+                                                                      r: reference sequence
+
+                r(j)                                  # #"" ! !       Local paths: 0-45-90 degrees
+             r(j-1)
+                                                                      DTW of two sequences:
+                                                                       # $"" ! ! = % $" ! ( $ $ ! ! +
+                                                                           ' # $"" ! ( #! $
+                                                                           !                 !
+                                                                       %&' & # $" ( #" ! ( #!#
+                                                                           ! # $" ( #" ! ! !
+                                                                           %                 "
+
+                                             t(i-1) t(i)          i
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                               9/19/25
+                                                                                                                  38
+                  RESTRICTIONS ON THE WARPING FUNCTION
+                     Monotonicity:
+                     does not go back in time index.          j
+
+                                                                   i
+                     Continuity:
+                     does not jump in time index.
+                                                              j
+
+                                                                   i
+                      Boundary Conditions:                  m
+                      starts at the bottom left and ends
+                      at the top right                       j
+
+                                                           (1,1)       i       n
+
+                     Warping Window:                                       r
+                     not too far from the diagonal            j
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                          i               9/19/25
+                                                                                             39
+                                            Summary
+      • Spectrogram
+      • Cepstrum
+      • Prosody
+            • Pitch - Fundamental frequency
+            • Loudness - Energy
+            • Duration
+            • Jitter and Shimmer
+      • DTW: Dynamic Time Warping
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura             9/19/25
+                                                                40
+                                            Readings
+      • Chapter 3: Basic Representations
+            • https://speechprocessingbook.aalto.fi/Representations/Representations.html
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                        9/19/25
+                                                                                           41
+

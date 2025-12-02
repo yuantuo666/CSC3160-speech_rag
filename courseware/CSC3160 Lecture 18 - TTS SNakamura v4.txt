@@ -1,0 +1,458 @@
+      ‣ Attendance registration App:
+
+
+
+        Satoshi  CSC3160 Wed. 8:30-9:50          TB102
+        Nakamura         Fri. 10:30-11:50
+
+
+
+
+• It's active 15 minutes before class starts until 20
+  minutes after class start time.
+• It’s active on two time slots on Wednesdays and
+  Fridays; any mismatched check-ins will be filtered out.
+
+
+CSC3160 Satoshi Nakamura                                    12/1/25
+                                                                      1
+CSC3160 - Fundamentals of Speech and Language
+          Processing
+
+
+
+
+    Lecture 18:
+    Text-to-Speech Synthesis
+    Satoshi Nakamura
+
+
+                                                12/1/25   2
+                                          Schedule
+                   2024    Date   Class No. Topics
+                            24       15    Midterm Exam
+                            29       16    Lecture 13 Statistical MT
+                            31       17    Lecture 14 Neural MT (Encoder-Decoder)
+                11           5       18    Lecture 15 Transformer
+                             7       19    Lecture 16 Self Supervised Modeling
+                            12       20    No class (Absent for International Conference)
+                            14       21    Lecture 17 Automatic Speech Recognition
+                            19       22    Lecture 18 Text to Speech Synthesis
+                            21       23    Lecture 19 Chatbot
+                            26       24    Lecture 20 QA
+                            28       25    Lecture 21 LLM
+                12           3       26    Lecture 22 Affects
+                             5       27    Summary for the Final Exam
+                                           Report Review (SN: Absent for International
+                            10       28
+                                           Conference)
+                            12       29    Final Exam
+CSC3160 Satoshi Nakamura                                                              12/1/25
+                                                                                                3
+                              Assignment Plan
+
+
+            Assignment       Scope     Release Deadline Answer session+
+                 No                                        Tutorial
+                  1         Class 1-7    9/26   10/10       10/17
+                  2        Class 8-12    9/28   10/21      (10/22)
+                  3        Class 13-21   11/7   11/26       11/28
+                  4          Report     10/24    12/3       12/10
+
+
+
+
+CSC3160 Satoshi Nakamura                                           12/1/25
+                                                                             4
+                               Agenda
+
+• Recap
+• Applications
+• Overview of text to speech
+• Frontend
+• Acoustic model
+• Waveform generator
+• Tools and readings
+
+
+
+
+                                        12/1/25
+                                                  5
+                             Statistical ASR
+
+
+                                        P(W,X)
+
+
+
+
+       • Acoustic Model: Probability of generative model to produce X given W
+       • Language Mode: Language model probability of W
+       • Find the most probable W sequence with highest probability
+
+
+
+CSC3160 Satoshi Nakamura                                              12/1/25
+                                                                                6
+                           Hidden Markov Model (HMM)
+                             Three States (Left to Right)
+
+
+
+
+                             Generate variable length spectrum
+CSC3160 Satoshi Nakamura                                         12/1/25
+                                                                           7
+                                            Layers of models
+                                     Hello word                 Search space is usually all possible
+      Language                       Good afternoon             sentences in a language
+        model                        Good morning
+                                     …
+                                                                             Pronunciatio      good: g uh d
+                                                                               n model         morning: m ao r n ih ng
+
+
+                           /g/ /uh/ /d/ /m/ /ao/ /r/ /n/ /ih/ /ng/
+                                                                                                           Acoustic
+                                                                                                            model
+
+                                                                                                       Each phoneme is
+                                                                                                       represented by a three-state
+                                                                                                       hidden Markov model
+
+                                                                                                          Feature vector
+                                                                                                          sequence
+CSC3160 Satoshi Nakamura                                                                                            12/1/25
+                                                                                                                                 8
+                           A more formal view of ASR
+                                                       Probability of
+                                                       sentences
+
+                                                           Language
+                                                             model
+
+
+
+              Speech            Feature                     Viterbi                       Recognized
+              waveform         Extraction                  Decoder                        words
+                             Extracting
+                             useful
+                             information
+
+
+                                             Acoustic                    Pronunciatio
+                                              model                        n model
+                                           Probabilistic                Word to phoneme
+                                           templates of                 mapping
+                                           phonemes
+
+CSC3160 Satoshi Nakamura                                                                               12/1/25
+                                                                                                                 9
+                   End-to-end ASR
+
+
+        • End-to-end ASR systems try to
+          do ASR with a single model
+        • Three main approaches
+             • Connectionist Temporal
+               Classification
+             • RNN Transducers
+             • Sequence-to-Sequence
+                            Figure adapted from [2111.01690] Recent
+                            Advances in End-to-End Automatic Speech
+                            Recognition (arxiv.org)
+
+CSC3160 Satoshi Nakamura                                              12/1/25
+                                                                                10
+     Connectionist Temporal Classification (CTC)
+ • Produce a label each frame. As
+   feature frames is usually much
+   longer than label sequence, CTC
+   introduces a blank label ”B”
+   between two labels.
+ • Collapse: Merge the same labels
+   and remove blank labels “B”.
+ • Strength: No frame level
+   alignment required, sum over all                                              Figure adapted from “Tara Sainath - End-to-End Speech Recognition:
+                                                                                 The Journey from Research to Production – YouTube”
+   possible alignments
+         Graves, A. and Jaitly, N., 2014, June. Towards end-to-end speech recognition with recurrent neural
+         networks. In International conference on machine learning (pp. 1764-1772). PMLR.
+
+
+CSC3160 Satoshi Nakamura                                                                                                             12/1/25
+                                                                                                                                                 11
+                              Sequence-to-sequence (S2S)
+
+        • S2S is also called attention
+          encoder decoder (AED)
+        • Encoder: similar to acoustic model
+        • Attention: alignment model
+        • Decoder: similar to pronunciation
+          and language model
+        • Offline model
+        Chan, W., Jaitly, N., Le, Q.V. and Vinyals, O., 2015. Listen, attend and spell. arXiv
+        preprint arXiv:1508.01211.                                                              Figure adapted from [2111.01690] Recent Advances
+        Chorowski, J.K., Bahdanau, D., Serdyuk, D., Cho, K. and Bengio, Y., 2015. Attention-    in End-to-End Automatic Speech Recognition
+        based models for speech recognition. Advances in neural information processing          (arxiv.org)
+        systems, 28.
+CSC3160 Satoshi Nakamura                                                                                                            12/1/25
+                                                                                                                                                   12
+                               Agenda
+
+• Recap
+• Applications
+• Overview of text to speech
+• Frontend
+• Acoustic model
+• Waveform generator
+• Tools and readings
+
+
+
+
+                                        12/1/25   12/1/25
+                                                            13
+                               Speech Synthesis
+
+
+        Homer Dudley's Speech
+      Synthesisers, "The Vocoder"
+        (1940) & "Voder"(1939)
+
+
+
+
+                                                                                              The Voder at the world fair 1939
+
+
+
+
+CSC3160 Satoshi Nakamura     https://web.archive.org/web/20080515171705/http://www.obsolete.com/120_years/machines/vocoder/      12/1/25
+                                                                                                                                           14
+                           Speech Synthesis
+
+
+
+
+CSC3160 Satoshi Nakamura                      12/1/25
+                                                        15
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                       12/1/25
+                                                                                 16
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                       12/1/25
+                                                                                 17
+                                                     “Simon”
+
+
+
+
+                                                                 12/1/25
+                                                                               18
+                                                                           1
+Satoshi Nakamura@ SDS CSC5052 CREDIT: Zhizheng Wu CSC3160 2023             8
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                                19
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                       12/1/25
+                                                                                 20
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                       12/1/25
+                                                                                 21
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                                22
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                       12/1/25
+                                                                                 23
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                       12/1/25
+                                                                                 24
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                                25
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                                26
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                                27
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                                28
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                                29
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   30
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   31
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   32
+                                shooting                              shooting
+
+
+
+
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019              12/1/25
+                                                                                 12/1/25   33
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   34
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   35
+                                                                      P(x(0)*
+                                                                      P(x(1)|x(0))*
+                                                                      P(x(2)|x(1),x(0))*…
+                                                                      Same as language
+                                                                      modeling
+
+
+
+
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019                     12/1/25
+                                                                                        12/1/25   36
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   37
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   38
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   39
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   40
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   41
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   42
+                           Acoustic model - RNN based
+   • Tacotron2: A sequence-to-sequence model based on
+     Recurrent Neural Networks
+
+
+
+
+                           Shen, Jonathan, et al. "Natural tts synthesis by conditioning wavenet on mel spectrogram predictions." 2018 IEEE international conference on acoustics, speech and signal processing (ICASSP). IEEE, 2018.
+
+
+
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019                                                                                                                                                                     12/1/25
+                                                                                                                                                                                                                                        12/1/25   43
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   44
+                           Acoustic model - RNN based
+   • Attention
+
+
+
+
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                       12/1/25
+                                                                                 45
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   46
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   47
+                Acoustic model - Transformer based
+   • FastSpeech2: parallel generation and not depending on the
+     location attention
+
+
+
+
+                              Ren, Yi, Chenxu Hu, Xu Tan, Tao Qin, Sheng Zhao, Zhou Zhao, and Tie-Yan Liu. "Fastspeech 2: Fast and high-quality end-to-end text to speech." arXiv preprint arXiv:2006.04558 (2020).
+
+
+
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019                                                                                                                                                   12/1/25
+                                                                                                                                                                                                                       12/1/25
+                                                                                                                                                                                                                                 48
+                                   Vocoder: Flow based
+   • AF (autoregressive flow) and IAF (inverse autoregressive flow)
+         • Parallel inference of IAF student
+         • Parallel training of AF teacher
+
+
+
+
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                       12/1/25
+                                                                                 49
+                                  Vocoder: GAN based
+   • MelGAN: Generator + Discriminator
+
+
+
+
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                       12/1/25
+                                                                                 50
+                              Vocoder: Diffusion based
+   • Diffusion probabilistic model
+         • Forward process: diffusion
+         • Reverse process: denoising
+
+
+
+
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                       12/1/25
+                                                                                 51
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   52
+                                          Summary
+   • Recap
+         • Statistical Text-to-speech synthesis
+         • HMM acoustic models
+         • Generate smooth trajectory
+   • Today’s topic
+         • Neural Text-to-speech synthesis
+         • Deep Neural Network-based Waveform Generator: Wavenet
+         • Deep Neural Network-based Parameter Generator:
+              • Tacotron: Encoder-decoder with Attention
+              • CNN
+         • Training corpus, tools
+
+
+CSC3160 Satoshi Nakamura                                           12/1/25
+                                                                             53
+                                                                             53
+                                 Readings
+   • Keiichi Tokuda: INTERSPEECH 2019
+     https://www.sp.nitech.ac.jp/~tokuda/INTERSPEECH2019.pdf
+   • Xu Tan: INTERSPEECH2022
+   https://github.com/tts-tutorial/interspeech2022?tab=readme-
+   ov-file
+   • Text-to-Speech Synthesis
+         • https://www.cambridge.org/core/books/texttospeech-
+           synthesis/D2C567CEF939C7D15B2F1232992C7836
+
+
+
+CSC3160 Satoshi Nakamura                                        12/1/25
+                                                                          54
+                                      Tools
+   • TTS open-source
+         • https://github.com/open-mmlab/Amphion
+         • https://github.com/coqui-ai/TTS
+         • https://github.com/espnet/espnet
+
+
+
+
+CSC3160 Satoshi Nakamura                           12/1/25
+                                                             55
+                                  TTS: VITS
+   • Recipe
+         • https://github.com/open-mmlab/Amphion/tree/main/egs/tts/VITS
+
+
+
+
+CSC3160 Satoshi Nakamura                                             12/1/25
+                                                                               56
+                           TTS: FastSpeech2
+   • Recipe
+         • https://github.com/open-
+           mmlab/Amphion/tree/main/egs/tts/FastSpeech2
+
+
+
+
+CSC3160 Satoshi Nakamura                                 12/1/25
+                                                                   57
+

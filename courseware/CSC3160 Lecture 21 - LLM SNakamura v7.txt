@@ -1,0 +1,867 @@
+                         CTE Questionnaire
+
+
+
+       ‣ Attendance registration App:
+         Satoshi  CSC3160 Wed. 8:30-9:50                              TB102
+         Nakamura         Fri. 10:30-11:50
+
+
+
+
+• It's active 15 minutes before class starts until 20
+  minutes after class start time.
+• It’s active on two time slots on Wednesdays and
+  Fridays; any mismatched check-ins will be filtered out.
+
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201           2025/12/1
+                                                                                          1
+Lecture 21: Large
+Language Models
+Satoshi Nakamura
+
+
+
+
+                   CTE Questionnaire
+                       Schedule
+ 2024   Date   Class No. Topics
+         24       15    Midterm Exam
+         29       16    Lecture 13 Statistical MT
+         31       17    Lecture 14 Neural MT (Encoder-Decoder)
+11        5       18    Lecture 15 Transformer
+          7       19    Lecture 16 Self Supervised Modeling
+         12       20    No class (Absent for International Conference)
+         14       21    Lecture 17 Automatic Speech Recognition
+         19       22    Lecture 18 Text to Speech Synthesis
+         21       23    Lecture 19 Chatbot and Dialogue System
+         26       24    Lecture 20 QA
+         28       25    Lecture 21 LLM
+12        3       26    Lecture 22 Affects
+          5       27    Summary for the Final Exam
+                        Report Review (SN: Absent for International
+         10       28
+                        Conference)
+         12       29    Final Exam                CTE Questionnaire
+                                                                  2025/12/1
+                                                                              3
+                Assignment Plan
+
+
+Assignment     Scope     Release Deadline Answer session+
+     No                                      Tutorial
+      1       Class 1-7    9/26   10/10       10/17
+      2      Class 8-12    9/28   10/21      (10/22)
+      3      Class 13-21   11/7    12/3       11/28
+      4        Report     10/24    12/3       12/10
+
+
+
+                                        CTE Questionnaire
+                                                      2025/12/1
+                                                                  4
+                      Condition of Final Exam
+• Time: 10:30-12:30, December 12, 2025
+• Venue: Liwen Hall
+• Shut off your mobile phones and all other electronic devices (smart watches, ..)
+  and bring them in front of the room.
+• Place your student ID card on your desk.
+• You have 120 minutes to complete the exam.
+• You are allowed to bring one self-made sheet of A4 paper (with arbitrary notes on
+  both sides) for your personal use in this exam. You can use software or suitable
+  devices to generate/create your cheat sheet (including tablets, iPads, etc) and
+  bring a printed version to the exam.
+• Other tools and electronic devices are not allowed. Failure to comply with these
+  rules will be recorded.
+
+                                                           CTE Questionnaire
+                                                                            2025/12/1
+                                                                                        5
+                             Continued
+• If you need extra sheets, call us. Please remember to write all answers in
+  the answer book. We will only check your answer book when scoring.
+• Please do not use red or green pens or a pencil.
+• If you need to go to the toilet, call us. Only one person may leave the
+  room at a time.
+• An announcement will be made 10 minutes before the official
+  examination time ends. From that point on, no one will be allowed to
+  leave the room to minimize distraction.
+• If you finish the exam before the last 10 minutes, you may leave the class
+  room after handing us your complete exam sheet, answer book and
+  notes.
+                                                       CTE Questionnaire
+                                                                      2025/12/1
+                                                                                  6
+                            Makeup Exam
+• If you have unavoidable conflicts or illness, you can request a
+  makeup exam. Keep in mind the following if you want to request
+  the make-up exam.
+  • The total score is adjusted to 80.
+  • The request should be sent by 23:59, Dec. 11.
+  • The makeup exam must take place by Dec. 15.
+  • When you request this, you must send us emails with evidence of your
+    situation and the preferred time for the exam.
+• Argument Session
+  • We will provide an opportunity for an argument for the
+    Final Exam later.
+                                                       CTE Questionnaire
+                                                                       2025/12/1
+                                                                                   7
+                                   Contents
+   • Recap
+   • What are the Large Language Models
+   • How large are they.
+   • Why LLMs
+   • Emergent capability
+   • In-context-learning
+   • Chain of thoughts
+   • Zero-shot/few-shot COT training
+
+                                              CTE Questionnaire
+Satoshi Nakamura, CSC3160     01/12/2025                          8
+           What is question answering?
+• The goal of question answering is to build systems that
+  automatically answer questions posed by humans in a natural
+  language
+
+
+
+            Question        QA system        Answer
+
+
+
+
+                                            CTE Questionnaire
+                                                                9
+                         Reading comprehension: BERT
+
+
+
+
+                                 Credit: https://mccormickml.com/2020/03/10/question-answering-with-a-fine-tuned-BERT/   CTE Questionnaire
+CSC 3160, Satoshi Nakamura, CUHKSZ                                                                                                     2025/12/1
+                                                                                                                                                   10
+Reading comprehension: BERT
+
+
+
+
+  Credit: https://mccormickml.com/2020/03/10/question-answering-with-a-fine-tuned-BERT/   CTE Questionnaire
+                                                                                                              11
+                          Entity linking
+• Done in (roughly) two stages: mention detection and mention
+  disambiguation
+
+
+
+
+                                                  CTE Questionnaire
+                                                                      12
+                          Large Language Models for QA
+                                         M: Mask
+
+
+
+
+                                                   CTE Questionnaire
+CSC 3160, Satoshi Nakamura, CUHKSZ                               2025/12/1
+                                                                             13
+                                   Contents
+   • Recap
+   • What are the Large Language Models
+   • How large are they.
+   • Why LLMs
+   • Emergent capability
+   • In-context-learning
+   • Chain of thoughts
+   • Zero-shot/few-shot COT training
+
+                                              CTE Questionnaire
+Satoshi Nakamura, CSC3160     01/12/2025                          14
+          Slide credit:
+Slide credit: Prof. Benyou Wang
+       CSC6203/CIE6201
+
+
+                       CTE Questionnaire
+                                           15
+What are Large Language models (LLMs)?
+
+
+
+
+                           CTE Questionnaire
+                                               16
+                                                      Background
+
+
+                • language model
+
+
+
+
+                                Liu et al., Representation Learning for Natural Language Processing, Springer, 2020
+
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                                   2025/12/1
+                                                                                                                                  17
+                               What is language modeling?
+           A language model assigns a probability to a N-gram
+                                        !    "
+                                    𝑓: 𝑉 → 𝑅
+
+
+
+
+                                                                      CTE Questionnaire
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                 2025/12/1
+                                                                                                18
+                            What is language modeling?
+           A language model assigns a probability to a N-gram
+                                        !    "
+                                    𝑓: 𝑉 → 𝑅
+
+
+
+
+                                                       Sfklkljf fskjhfkjsh kjfs fs kjhkjhs fsjhfkshkjfh          Low probability
+
+
+
+
+                                                      ChatGPT is all you need                                    high probability
+
+
+
+
+                                                                                                          CTE Questionnaire
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                                          2025/12/1
+                                                                                                                                         19
+                            What is language modeling?
+           A language model assigns a probability to a N-gram
+                                        !    "
+                                    𝑓: 𝑉 → 𝑅
+
+
+         A conditional language model assigns a probability of a word given
+         some conditioning context
+                                                                      !#$              "
+                                                              𝑔: (𝑉         , 𝑉) → 𝑅
+                                                                                            '()! ⋯)" )
+         And             𝒑 𝒘𝒏 𝒘𝟏 ⋯ 𝒘𝒏#𝟏 ) = 𝑔(𝑤$ ⋯ 𝑤!#$ , 𝑤) =
+                                                                                           '()! ⋯)"#! )
+
+
+
+
+                                                                                             CTE Questionnaire
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                        2025/12/1
+                                                                                                                       20
+                            What is language modeling?
+           A language model assigns a probability to a N-gram
+                                        !    "
+                                    𝑓: 𝑉 → 𝑅
+
+
+         A conditional language model assigns a probability of a word given
+         some conditioning context
+                                                                      !#$              "
+                                                              𝑔: (𝑉         , 𝑉) → 𝑅
+                                                                                            '()! ⋯)" )
+         And             𝒑 𝒘𝒏 𝒘𝟏 ⋯ 𝒘𝒏#𝟏 ) = 𝑔(𝑤$ ⋯ 𝑤!#$ , 𝑤) =
+                                                                                           '()! ⋯)"#! )
+
+
+
+
+                      𝒑 𝒘𝒏 𝒘𝟏 ⋯ 𝒘𝒏#𝟏 ) is the foundation of modern large language models (GPT, ChatGPT, etc.)
+
+                                                                                             CTE Questionnaire
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                             2025/12/1
+                                                                                                                            21
+            Language model using neural networks
+                                                                                        output：   在
+
+
+         GPT-3/ChatGPT/GPT4 have
+                                                      Back-box neural networks：
+         175B+ parameters
+         Humans have 100B+ neurons
+
+
+
+
+                                                     input：      我        思       故         我
+
+                                                                                      CTE Questionnaire
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                   2025/12/1
+                                                                                                                  22
+                                        Language models: Narrow Sense
+         A probabilistic model that assigns a probability to every ﬁnite sequence (grammatical or not)
+
+
+
+
+         GPT-3 still acts in this way but the model is implemented as a very large neural network of 175-
+         billion parameters!
+
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                            2025/12/1
+                                                                                                           23
+                         Language models: Broad Sense
+                        Decoder-only models (GPT-x models)
+                                                                        The latter two usually
+                 ❖
+
+
+                 ❖      Encoder-only models (BERT, RoBERTa, ELECTRA)
+                 ❖      Encoder-decoder models (T5, BART)
+                                                                       involve a different pre-
+                                                                          training objective.
+
+
+
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                 2025/12/1
+                                                                                                24
+                                                             PLM vs. LLM
+                                                                          We do not explicitly mention pre-training because
+                                                                          pre-training and training use the same language
+                                                                          models objective (e.g., autoregressive generation)
+
+              • Pre-trained language model
+              • Large pre-trained Language Model (LLM)
+
+
+
+
+                       Image source: https://liuquncn.github.io/talks/20220228-Thai-AI-engineer-group/Huge-Pre-trained-Language-Models.public.pdf
+
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                                                                 2025/12/1
+                                                                                                                                                                25
+                                     How Large are “Large” LMs?
+
+
+
+
+     More recent models: PaLM (540B), OPT (175B), BLOOM (176B)…
+      https://huggingface.co/blog/large-language-models               Image source: https://hellofuture.orange.com/en/the-gpt-3-language-model-revolution-or-evolution/
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                                                               2025/12/1
+                                                                                                                                                                          26
+                           Large Language Models –
+                            yottaFlops of Compute
+
+
+
+
+https://web.stanford.edu/class/cs224n/slides/cs224n-2023-lecture11-prompting-rlhf.pdf 1 yotta =   1024 FLOPs: floating point operations
+ Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                         2025/12/1
+                                                                                                                                          27
+                                     Large Language Models –
+                                     Hundreds of Billions of Tokens
+
+
+
+
+             https://babylm.github.io/
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201   2025/12/1
+                                                                                  28
+           Some basics for large language models
+        • Scalable network architecture (Transformer vs. CNN/RNN)
+
+        • Scalable objective (conditional/auto-regressive LM vs. Masked LM)
+
+
+                                    Loss
+
+
+
+
+                                                                                             Model size
+
+
+
+
+        • Scalable data (plain texts are everywhere vs. supervised data)
+              • https://github.com/esbatmop/MNBVC
+
+                   OpenAI, GPT-4 Technical Report, https://cdn.openai.com/papers/gpt-4.pdf
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                       2025/12/1
+                                                                                                                      29
+                                        How Large are “Large” LMs?
+
+             ❖      Today, we mostly talk about two models:
+                       ➢Medium-sized models: BERT/RoBERTa models (100M or 300M), T5 models
+                        (220M, 770M, 3B)
+                       ➢“Very” large LMs: models of 100+ billion parameters
+
+             ❖      Larger model sizes needs larger computation, more expensive during inference
+             ❖      Different sizes of LMs have different ways to adapt and use them
+                       ➢ Fine-tuning, zero-shot/few-shot prompting, in-context learning…
+             ❖      Emergent properties arise from model scale
+             ❖      Trade-off between model size and corpus size
+
+
+
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                2025/12/1
+                                                                                                               30
+                                                                      Why LLMs?
+
+
+
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201               2025/12/1
+                                                                                              31
+                              Why Larger language models
+    • More world knowledge (LAMA)
+         • Language models as knowledge base?
+
+    • Larger capacity to learn problem-solving Abilities
+         • Coding, revising articles, reasoning etc.
+
+    • Better generalization to unseen tasks
+
+
+
+
+    • Emergent ability
+
+    Jared Kaplan et. al Scaling Laws for Neural Language Models
+    Jason Wei et. Al. Emergent Abilities of Large Language Models.
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201   2025/12/1
+                                                                                  32
+                                                                      Why LLMs?
+         Generalization :
+            One single model to solve many NLP tasks
+
+
+
+
+                                                                                  https://arxiv.org/pdf/1910.10683.pdf
+
+
+
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                      2025/12/1
+                                                                                                                         33
+                                                                      Why LLMs?
+      Emergent properties in LLMs:
+         Some ability of LM is not present in smaller models but is present in larger models
+      Emergent Capability: Few-shot prompting
+
+
+
+
+          > A few-shot prompted task is emergent if it
+          achieves random accuracy for small models
+          and above-random accuracy for large
+          models.
+
+
+
+      https://docs.google.com/presentation/d/1yzbmYB5E7G8lY2-KzhmArmPYwwl7o7CUST1xRZDUu1Y/edit?resourcekey=0-6_TnUMoK WCk_FN2BiPxmbw#slide=id.g1fc34b3ac18_0_27
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                                                                          2025/12/1
+                                                                                                                                                                         34
+                                                                      Why LLMs?
+          ●      Emergent Abilities
+                    ○     Some ability of LM is not present in smaller models but is present in larger models
+
+
+
+
+              https://docs.google.com/presentation/d/1yzbmYB5E7G8lY2-KzhmArmPYwwl7o7CUST1xRZDUu1Y/edit?resourcekey=0-6_TnUMoK
+              WCk_FN2BiPxmbw#slide=id.g1fc34b3ac18_0_27
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                                        2025/12/1
+                                                                                                                                       35
+                                                Emergent Capability –
+                                                  In-Context Learning
+
+
+
+
+                                                           https://arxiv.org/pdf/2005.14165.pdf
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang
+CSC6203/CIE6201
+                                                                                                  2025/12/1
+                                                                                                              36
+                                                Emergent Capability –
+                                                  In-Context Learning
+
+
+
+
+          https://www.cs.princeton.edu/courses/archive/fall22/cos597G/lectures/lec04.pdf
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang
+CSC6203/CIE6201
+                                                                                           2025/12/1
+                                                                                                       37
+                                                Emergent Capability –
+                                                  In-Context Learning
+
+
+
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang
+CSC6203/CIE6201
+                                                                        2025/12/1
+                                                                                    38
+                                         Emergent Capability –
+                                       Chain of Thoughts Prompting
+
+
+
+
+          https://arxiv.org/pdf/2201.11903.pdf
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang
+CSC6203/CIE6201
+                                                                     2025/12/1
+                                                                                 39
+                                        Emergent Capability –
+                                      Chain of Thoughts Prompting
+
+
+
+
+              https://arxiv.org/pdf/2201.11903.pdf
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201   2025/12/1
+                                                                                  40
+                                               Emergent Capability –
+                                               Zero Shot CoT Prompting
+
+
+
+
+          https://arxiv.org/pdf/2205.11916.pdf
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang
+CSC6203/CIE6201
+                                                                         2025/12/1
+                                                                                     41
+                                           Emergent Capability –
+                                          Self-Consistency Prompting
+
+
+
+
+             https://arxiv.org/pdf/2203.11171.pdf
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang
+CSC6203/CIE6201
+                                                                       2025/12/1
+                                                                                   42
+                                                Emergent Capability –
+                                                Least-to-Most Prompting
+
+
+
+
+     https://arxiv.org/pdf/2205.10625.pdf
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang
+CSC6203/CIE6201
+                                                                          2025/12/1
+                                                                                      43
+                    Emergent Capability –
+                 Augmented Prompting Abilities
+        Advanced Prompting Techniques                                     Ask a human to
+
+
+           ●     Zero-shot CoT Prompting                              ●   Explain the rationale
+           ●     Self-Consistency                                     ●   Double check the answer
+           ●     Divide-and-Conquer                                   ●   Decompose to easy subproblems
+
+
+
+          Large Language Models demonstrate some human-like behaviors!
+
+
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                             2025/12/1
+                                                                                                            44
+     Emergent Capability - Zero Shot CoT Prompting
+
+
+
+
+          https://arxiv.org/pdf/2205.11916.pdf
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201   2025/12/1
+                                                                                  45
+                                                                     Why LLMs?
+                                                                                                          Benefit from new technology
+     Emergent Capability: Few-shot prompting                                                 RLHF: Reinforcement Learning with Human Feedback
+
+
+
+
+                                                                                                 Bai et al., 2022.
+                                                                                                                                                  RLHF helps
+                                                                                                                RLHF hurts                        performance
+                                                                                                                performance
+            https://docs.google.com/presentation/d/1yzbmYB5E7G8lY2-KzhmArmPYwwl7o7CUST1xRZDUu1Y/edit?resourcekey=0-6_TnUMoK WCk_FN2BiPxmbw#slide=id.g1fc34b3ac18_0_27
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang
+CSC6203/CIE6201
+                                                                                                                                                              2025/12/1
+                                                                                                                                                                          46
+                                        To be or not to be Large?
+  Inverse scaling can become U-shaped: To be large ?                                                           Inverse Scaling Prize: Not to be large?
+
+          Small language model → “glib”                                   Large language model →“glib”
+
+                                              Medium language model →“gold”
+
+
+
+
+                                                                                                         See:
+                                                                                                           ❖      TruthfulQA: The largest models were generally
+                                                                                                                  the least truthful
+                                                                                                           ❖      https://github.com/inverse-scaling/prize
+                                                                                                           ❖      https://irmckenzie.co.uk/round1
+
+
+    Inverse scaling can become U-shaped, 2022. J. Wei, Y. Tay, & Q. Le.
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                                                                   2025/12/1
+                                                                                                                                                                  47
+                                                What are ChatGPT and GPT-4?
+
+
+
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201           2025/12/1
+                                                                                          48
+                           From 2020 GPT-3 to 2022 ChatGPT
+
+
+
+
+      https://yaofu.notion.site/How-does-GPT-Obtain-its-Ability-Tracing-Emergent-Abilities-of-Language-Models-to-their-Sources-b9a57ac0fcf74f30a1ab9e3e36fa1dc1
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                                                              2025/12/1
+                                                                                                                                                                  49
+   RLHF: Reinforcement Learning by Human
+                  Feedback
+• fine-tune large language models (LLMs) so that their responses
+  better align with human preferences, beyond just learning
+  language patterns.
+• It's used in systems like ChatGPT, InstructGPT, and Claude to
+  make models more helpful, honest, and harmless.
+
+
+
+
+                                                                   50
+                          3-Stage Training Process: RLHF
+   • 1. Supervised Fine-Tuning (SFT)
+         • Use instruction–response pairs created by humans. The model learns to
+           follow instructions by supervised learning.
+         • Example:json
+         { "instruction": "Translate this sentence into French.", "input": "How are
+         you?", "output": "Comment ça va ?"}
+
+
+         • This stage is often referred to as instruction tuning.
+
+
+
+
+Satoshi Nakamura@SDS, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201       2025/12/1
+                                                                                          51
+                          3-Stage Training Process: RLHF
+   • 2. Reward Model (RM) Training
+         • Collect multiple model outputs for the same prompt.
+         • Have humans rank them from best to worst.
+         • Train a reward model to predict which response a human would prefer.
+         • Example:
+               • Prompt: Explain black holes to a 10-year-old.
+               • Output A: A black hole is...Output B: It's a region of spacetime...
+
+
+               • Human preference: A > B
+         • → Reward model learns to give A a higher score
+
+
+Satoshi Nakamura@SDS, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                2025/12/1
+                                                                                                   52
+                          3-Stage Training Process: RLHF
+   • 3. Reinforcement Learning (PPO)
+         • Use PPO (Proximal Policy Optimization) to fine-tune the model.
+         • The model is updated to generate outputs that maximize the reward
+           score given by the reward model.
+         • PPO helps stabilize training and prevent large, harmful policy updates.
+
+
+
+
+Satoshi Nakamura@SDS, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201     2025/12/1
+                                                                                        53
+Three important abilities that the initial GPT-3 exhibit:
+         ❏       Language generation: follow a prompt and then generate a completion of the given prompt.
+         ❏       In-context learning: Follow a few examples of a given task and then generate the solution for a new
+                 test case.
+         ❏       World knowledge: including factual knowledge and commonsense.
+
+ Where do these abilities come from?
+          Large-scale pretraining [175B parameters model on 300B tokens]
+
+             ●     Language generation ability comes from the language modeling training objective.
+             ●     World knowledge comes from the 300B token training corpora (or where else it could be).
+             ●     In-context learning ability, as well as its generalization behavior, is still elusive. There is some studies on why
+                   language model pretraining induces in-context learning, and why in-context learning behaves so differently than
+                   fine-tuning. Here are some materials, we may spend a lecture focusing on this.
+                      a.  https://thegradient.pub/in-context-learning-in-context/ (Highly-recommended)
+                      b.  http://ai.stanford.edu/blog/understanding-incontext/
+                      c.  https://arxiv.org/abs/2211.15661
+                      d.  https://arxiv.org/abs/2212.10559
+                      e.    https://arxiv.org/pdf/2209.10063.pdf
+  https://yaofu.notion.site/How-does-GPT-Obtain-its-Ability-Tracing-Emergent-Abilities-of-Language-Models-to-their-Sources-b9a57ac0fcf74f30a1ab9e3e36fa1dc1
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                                                          2025/12/1
+                                                                                                                                                              54
+                               Code-Davinci-002 & Text-Davinci-002, training on code,
+                                              tuning on instructions
+                                                                                       New abilities:
+                                                                                          ❏ Responding to human instruction: previously,
+                                                                                            the outputs of GPT-3 were mostly high-frequency
+                                                                                            prompt-completion patterns within the training
+                                                                                            set. Now the model generates reasonable answers
+                                                                                            to the prompt.
+                                                                                          ❏ Code generation and code understanding:
+                                                                                            obviously, because the model is trained on code.
+                                                                                          ❏ Complex reasoning with chain-of-thought:
+                                                                                            previously, the model could not do tasks requiring
+                                                                                            multi-step reasoning with chain-of-thought.
+                                                                                                  ❏     CoT paper the first version reports that davinci performance
+                                                                                                        on GSM8K accuracy 12.4 v.s. the 5th version reports code-
+                                                                                                        davinci-002 accuracy 63.1
+
+
+      Are these abilities already there after pretraining or later injected by fine-tuning?
+        ❏     There is still no hard evidence showing training on code is absolutely the reason for
+              CoT and complex reasoning.
+       https://yaofu.notion.site/How-does-GPT-Obtain-its-Ability-Tracing-Emergent-Abilities-of-Language-Models-to-their-Sources-b9a57ac0fcf74f30a1ab9e3e36fa1dc1
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                                                               2025/12/1
+                                                                                                                                                                   55
+                                                What’s ChatGPT
+    • Phase 1: pre-training
+         • Learn general world knowledge, ability, etc.
+
+    • Phase 2: Supervised finetuning
+         • Tailor to tasks (unlock some abilities)
+
+    • Phase 3: RLHF
+         • Tailor to humans
+         • Even you could teach ChatGPT to do something
+
+
+        Most of these were explored by InstructGPT. The only difference is that it is further trained with chat data, as an
+        success of product (plus engineering).
+     T Schick et. al. Toolformer: language models can teach themselves to use tools. https://arxiv.org/abs/2302.04761
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                                           2025/12/1
+                                                                                                                                          56
+                                                                            GPT-4
+   ❏       Make progress towards multilingualism: GPT-4 is able to answer thousands of multiple-choice questions in 26
+           languages with a high degree of accuracy.
+   ❏       Longer memory for conversations: ChatGPT can process 4,096 tokens. Once this limit was reached, the model lost
+           track. GPT-4 can process 32,768 tokens. Enough for an entire short story on 32 A4 pages.
+   ❏       Multimodal input: not only text can be used as input, but also images in which GPT-4 can describe objects. (It is
+           not released yet)
+
+GPT-4 Technical Report from OpenAI
+       ❏     Only contains a small amount of detail: “[...] given both the competitive landscape and the
+             safety implications of large-scale models like GPT-4, this report contains no further details about
+             the architecture (including model size), hardware, training compute, dataset construction,
+             training method or similar.” From Technical Report.
+       ❏     GPT-4’s score on the bar exam was similar to that of the top ten percent of graduates, while
+             ChatGPT ranked in among the ten percent that scored the worst.
+       ❏     OpenAI hired more than 50 experts who interacted with and tested the model over an extended
+             period of time.
+
+   It was finished in August 2022. It takes 7 months for security alignment
+       https://www.adesso.de/en/news/blog/a-brief-introduction-to-gpt-4-2.jsp
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                            2025/12/1
+                                                                                                                           57
+                                               Open questions
+    • The source of Reasoning?
+         • In-context learning
+         • COT
+    • Emergent ability？
+    • Where is its border？
+    • Alignment makes it generalize better？
+    • Why so longer context? Can it be longer?
+    • Continue scaling up？
+    • Could “data plus RLHF” achieve AGI? If not, what else?
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201   2025/12/1
+                                                                                  58
+                           Difficulties to Replicate ChatGPT
+    • Computing resources: money is all you need
+    • Data and annotation:
+          • Very careful data cleaning、 filtering、selection strategies (training is expensive)
+          • Plain corpora(https://github.com/esbatmop/MNBVC)
+          • Transferable SFT data (instruction tuning)
+          • human feedback data (model-dependent, non Transferable)
+    • Algorithms
+          • Has some open-source implementation in general
+          • Engineering work is not easy (including training tricks and efficient deployment)
+          • Releasing a model is easy, keeping polishing it is not!
+    • Talents (first-tier young researchers, average age of Open AI guys is 32）
+         <OpenAI ChatGPT团队北京研究报告>. Aminer和智谱研究.2023.02
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                    2025/12/1
+                                                                                                   59
+                                       Well-known strategies
+    • Probably initialized from a well-trained models
+         • GLM-130 （Chinese and English）
+         • OPT（mainly English）
+         • Bloom （multilingual）
+         • Pangu-alpha（Chinese）
+         • CPM（Chinese）
+         • LLaMA (mainly English)
+         • Alpaca (LLaMA 7b + Self-instruct)
+         • Chinese- Alpaca
+         • ChatGLM（6B）
+         • Baichuan
+
+    • ChatGPT Distillation
+         • Self-instruct
+         • Training on ChatGPT conversations
+
+    • RL from human feedback
+
+
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201   2025/12/1
+                                                                                  60
+                               Provide hands-on practice:
+  Github Repositories
+  • nanoGPT https://github.com/karpathy/nanoGPT
+  • minGPT https://github.com/karpathy/minGPT
+  • Llama2.c https://github.com/karpathy/llama2.c
+  • TinyLLaMA https://github.com/eivindbohler/tinyllama
+
+  •   HautuoGPT
+  •   GPT review
+  •   GPT API
+  •   LLMZoo
+  •   LLMFactory
+
+
+
+
+                                                                      https://github.com/orgs/FreedomIntelligence
+Satoshi Nakamura, CUHKSZ, Slide credit: Benyou Wang CSC6203/CIE6201                                 2025/12/1
+                                                                                                                61
+                                  Summary
+   • What are the Large Language Models
+   • How large are they.
+   • Why LLMs
+   • Emergent capability
+   • In-context-learning
+   • Chain of thoughts
+   • Zero-shot/few-shot COT training
+
+
+
+
+Satoshi Nakamura, CSC3160     01/12/2025    62
+

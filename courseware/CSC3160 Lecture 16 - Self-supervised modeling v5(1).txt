@@ -1,0 +1,616 @@
+        ‣ Attendance registration App:
+
+
+
+             Satoshi                CSC3160             Wed. 8:30-9:50             TB102
+            Nakamura                                    Fri. 10:30-11:50
+
+
+
+
+   ‣ It's active 15 minutes before class starts until 20 minutes
+        after class start time.
+   ‣ It’s active on two time slots on Wednesdays
+        and Fridays; any mismatched check-ins will
+        be filtered out.
+
+                                                                                     1
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University
+          Satoshi Nakamura@ SDS, CSC5052/AIR6063                                           2025/12/1   1
+                           CSC3160: Fundamentals of
+                        Speech and Language Processing
+                                                            Image: catalyst-magazine.org
+
+
+
+
+                  Lecture 16 :Self-supervised Learning
+                                              2
+
+Satoshi Nakamura@ SDS, CSC5052/AIR6063
+                                         Satoshi Nakamura                             2
+          Schedule
+                          2024           Date               Class No. Topics
+                                            24                    15           Midterm Exam
+                                            29                    16           Lecture 13 Statistical MT
+                                            31                    17           Lecture 14 Neural MT (Encoder-Decoder)
+                     11                     5                     18           Lecture 15 Transformer
+                                            7                     19           Lecture 16 Self Supervised Modeling
+                                            12                    20           No class (Absent for International Conference)
+                                                                                                                                     Online
+                                            14                    21           Lecture 17 Automatic Speech Recognition
+                                            19                    22           Lecture 18 Text to Speech Synthesis
+                                            21                    23           Lecture 19 Chatbot
+                                            26                    24           Lecture 20 QA
+                                            28                    25           Lecture 21 LLM
+                     12                     3                     26           Lecture 22 Affects
+                                            5                     27           Summary for the Final Exam
+                                            10                    28           Report Review (SN: Absent for International Conference)
+                                            12                    29                    3
+                                                                               Final Exam
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University
+          Satoshi Nakamura@ SDS, CSC5052/AIR6063                                                                     2025/12/1                3
+          Assignment Plan
+
+
+             Assignment No                                Scope                    Release   Deadline   Answer session+
+                                                                                                           Tutorial
+                            1                         Class 1-7                     9/26      10/10          10/17
+                            2                        Class 8-12                     9/28      10/21         (10/22)
+                            3                        Class 13-21                    11/1      11/26          11/28
+                            4                          Report                      10/24       12/3          12/10
+
+
+
+
+                                                                                      4
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University
+          Satoshi Nakamura@ SDS, CSC5052/AIR6063                                                          2025/12/1       4
+                                        Agenda
+ • Recap
+ • Today’s topics
+      • Self-supervised learning
+      • Word2vec
+      • GPT
+      • BERT
+      • Wave2vec
+      • Hubert
+      • Summary
+
+Satoshi Nakamura@SDS, AIR6063/CSC5052            2025/12/1   55
+                Transformer
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford   2025/12/1
+                                                                                    6
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University   2025/12/1
+                                                                                               7
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University   2025/12/1
+                                                                                               8
+                                                                           0.007   0.002
+
+
+
+                                                                           ＋
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University           2025/12/1
+                                                                                                       9
+                                                                                   Map multihead vector to
+                                                                                   dmodel vector first.
+
+                                                                                   Choice1:
+                                                                                   dhead=dmodel/#head
+                                                                                   then concatenate.
+
+                                                                                   Choice2:
+                                                                                   Map m-multi-head
+                                                                                   output column vector
+                                                                                   z*=zh1⊕zh2⊕..⊕zhm,
+                                                                                   zhk∊dhead , into vector
+                                                                                   z ∊Rdmodel by
+                                                                                   z= W z* (W:dmodel x dhead)
+
+
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University                 2025/12/1
+                                                                                                             10
+                                                   Cross Attention
+
+
+
+
+                        K, V
+
+
+
+                                          Q
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford   2025/12/1
+                                                                                    11
+                                        Agenda
+
+ • Recap
+ • Today’s topics
+      • Self-supervised learning
+      • Word2vec
+      • GPT
+      • BERT
+      • Wave2vec
+      • Hubert
+      • Summary
+
+
+Satoshi Nakamura@SDS, AIR6063/CSC5052            2025/12/1   12
+                                                             12
+                       Natural Language Processing:
+                   Distributional Hypothesis (Lenci, 2008)
+
+
+  • At least certain aspects of the meaning of lexical expressions
+   depend on their distributional properties in the linguistic contexts
+
+
+  • The degree of semantic similarity between two linguistic
+   expressions is a function of the similarity of the two linguistic
+   contexts in which they can appear
+
+
+Satoshi Nakamura@SDS AIR6001/MDS6105/CSC5010                              13
+                     Word2vec (Mikolov et al., 2013)
+                                               • CBOW: use the surrounding words
+                                                 to predict a center word.
+                                                 Continuous “Bag of “Words
+
+
+                                               • Ski-gram: use the middle word to
+                                                 predict surrounding words in a
+                                                 window
+
+
+
+
+Satoshi Nakamura@SDS AIR6001/MDS6105/CSC5010
+                                                                                    15
+                         CBOW (Mikolov et al., 2013)
+
+                                               • “The cat sat on floor.”
+
+
+                                               • Windows size :4 (±2)
+
+
+
+
+Satoshi Nakamura@SDS AIR6001/MDS6105/CSC5010
+                                                                           16
+                         CBOW (Mikolov et al., 2013)
+
+                                                                • Windows size =2
+
+
+
+
+                                               𝑈 ∈ ℝ |" # $ |
+                                                                   𝑦# = 𝑠𝑜𝑓𝑡𝑚𝑎𝑥̇ 𝑈 ∗ 𝑣#
+                                                                        𝑈 ∈ ℝ|"#$|
+
+
+
+
+Satoshi Nakamura@SDS AIR6001/MDS6105/CSC5010
+                                                                                          17
+                     Skip-gram (Mikolov et al., 2013)
+
+                                                 𝑦# = 𝑠𝑜𝑓𝑡𝑚𝑎𝑥 𝑊′ ∗ ℎ
+
+
+
+
+                                                 𝑦# = 𝑠𝑜𝑓𝑡𝑚𝑎𝑥 𝑊′ ∗ ℎ
+
+
+
+
+                                                 𝑦# = 𝑠𝑜𝑓𝑡𝑚𝑎𝑥 𝑊′ ∗ ℎ
+             𝑊$∗" : map 𝑥& 𝑡𝑜 ℎ&
+             𝑊′"∗$ : map ℎ& 𝑡𝑜 𝑦'
+                   Estimate ∶ 𝑊$∗" , 𝑊′"∗$
+
+Satoshi Nakamura@SDS AIR6001/MDS6105/CSC5010
+                                                                       18
+          Examples of self-supervision in NLP
+
+• Word2vec
+ • Mikolov et al. released word2vec
+   embeddings pretrained on 100 billion
+  word Google News dataset.
+
+
+ • Embeddings exhibited meaningful
+   properties despite being trained with
+   no hand-labeled data.
+
+
+
+
+   Mikolov, Tomas, et al. "Distributed representations of words and phrases and their
+   compositionality." Advances in neural information processing systems 26 (2013).
+
+                                                                                        01/12/2025
+                                                                                                     19
+          Examples of self-supervision in NLP
+
+• Word2vec
+ • Pretrained word2vec embeddings
+   can be used to initialize the first layer     sentiment
+   of downstream models
+
+
+ • Improved performance on many
+   downstream NLP tasks, including
+   sentence classification, machine
+   translation, and sequence tagging             Named Entity
+    • Most useful when downstream data
+      is limited
+    • Still being used in applications in
+      industry today!
+                                                01/12/2025
+                                                             20
+      Examples of self-supervision in NLP
+
+• GPT(language models)
+ • Language modeling (informal definition): predict the next word in a
+   sequence of text
+
+
+
+
+  • Why is language modeling a good pretext task ?
+
+
+
+
+                                                               01/12/2025
+                                                                            21
+        Examples of self-supervision in NLP
+
+• GPT(language models)
+ • Pretrain on language modeling (pretext task)
+   • Self-supervised learning
+   • Large, unlabeled datasets
+                                            Copy
+                                            weights
+
+ • Finetune on downstream task (e.g. sentiment
+   analysis)
+   • Supervised learning for finetuning
+   • Small, hand-labeled datasets
+
+
+
+
+                                                      01/12/2025
+                                                                   22
+       Examples of self-supervision in NLP
+
+• GPT(language models)
+ • Pretrained on the BooksCorpus (7000 unique books)
+ • Achieved state-of-the-art on downstream question answering tasks (as well as natural
+   language inference, semantic similarity, and text classification tasks)
+
+
+
+
+  Radford, Alec, et al. "Improving language understanding by generative pre-training." (2018).
+                                                                                   01/12/2025
+                                                                                                 23
+        Examples of self-supervision in NLP
+
+• BERT(Masked language models)
+ • Consider predicting the next word for the following example:
+
+
+
+
+  • What if you have more (bidirectional) context?
+
+
+
+
+ • Information from the future can be helpful for language understanding!
+
+
+                                                                            01/12/2025
+                                                                                         24
+         Examples of self-supervision in NLP
+
+• BERT(Masked language models)
+ • With bidirectional context, if we aren’t careful, model can “cheat” and see next word
+
+
+
+
+ • What if we mask out some words and ask the model to predict them?
+
+
+
+
+                                                                                      01/12/2025
+                                                                                                   25
+Masked language model
+
+
+
+
+                        26
+          Examples of self-supervision in NLP
+• BERT(Masked language models)
+ • How do you decide how much to mask?
+                                                                               The model training cannot focus
+                                                                               on the masked region. More epochs.
+
+
+
+
+ • For BERT, 15% of words are randomly chosen words to be predicted. Of these words:
+     • 80% replaced with [MASK]
+     • 10% replaced with random word
+     • 10% remain the same
+     This encourages BERT to learn a good representation of each word, including non-masked
+     words, as well as transfer better to downstream tasks with no [MASK] tokens.
+  Devlin, Jacob, et al. "Bert: Pre-training of deep bidirectional transformers for language understanding." arXiv preprint
+  arXiv:1810.04805 (2018).
+                                                                                                                01/12/2025
+                                                                                                                             27
+Next sentence prediction
+
+
+
+
+                           28
+          Examples of self-supervision in NLP
+• BERT(Masked language models)
+ • Pretrained on BooksCorpus (800M words) and English Wikipedia (2500M words)
+ • Set state-of-the-art on the General Language Understanding Evaluation (GLUE)
+   benchmark.
+   • Tasks include sentiment analysis, natural language inference, semantic similarity
+
+
+                                                                          CoLA (Corpus of Linguistic Acceptability)
+                                                                          SST-2 (Stanford Sentiment Treebank)
+                                                                          MRPC (Microsoft Research Paraphrase Corpus)
+                                                                          STS-B (Semantic Textual Similarity Benchmark)
+                                                                          QQP (Quora Question Pairs)
+                                                                          MNLI (Multi-Genre Natural Language Inference)
+                                                                          QNLI (Question Natural Language Inference)
+                                                                          RTE (Recognizing Textual Entailment)
+                                                                          WNLI (Winograd Schema Challenge)
+
+   Devlin, Jacob, et al. "Bert: Pre-training of deep bidirectional transformers for language
+   understanding." arXiv preprint arXiv:1810.04805 (2018).
+                                                                                                    01/12/2025
+                                                                                                                  29
+       Examples of self-supervision in Speech
+• Some speech-specific issues
+  • Unlike text, speech is a continuous signal with no fixed vocabulary
+  • Speech is continuous in time, with no boundaries between lexical units
+  • Speech includes informative information besides the words: speaker, accent, emotion, …
+    • Which information we want to keep may depend on the downstream task
+    • In practice, most common self-supervised speech models have been optimized for ASR
+
+
+
+
+        Mohamed et al., "Self-supervised speech representation learning: A review" IEEE Journal of Selected
+        Topics in Signal Processing 16(6):1179-1210, October 2022.
+                                                                                                              01/12/2025
+                                                                                                                           30
+    Examples of self-supervision in Speech
+
+• wav2vec 2.0
+ • The task: Predict masked speech frames
+ • Contrastive loss
+   • Predicted frame representations should be
+     similar to quantized input features at the
+     same frame
+   • … and different from inputs at different
+     frames
+
+
+
+
+                                                  01/12/2025
+                                                               31
+   Feature               Wave2Vec                        Wave2Vec 2.0
+ Architecture          Simple encoder              Transformer-based design
+
+Training Method   Adjacent frame prediction     Masked self-supervised learning
+
+   Feature              Local features           High-dimensional features with
+Representation                                       contextual information
+Data Efficiency   Requires a large amount of    Effectively utilizes unlabeled data
+                         labeled data
+
+  Application     Limited to preprocessing in   Broad tasks (recognition, emotion
+    Scope             speech recognition                  analysis, etc.)
+
+ Performance              Moderate                       State-of-the-art
+
+
+
+
+                                                                               01/12/2025
+                                                                                            32
+          Examples of self-supervision in Speech
+
+ • wav2vec 2.0
+     • First major improvements on ASR using
+       selfsupervised learning
+     • 2020: wav2vec 2.0 improves performance
+       and labeled data efficiency on the
+       LibriSpeech benchmark
+         • Matches a supervised model using only 1% of the labeled
+           data (100 hours -> 1 hour)
+
+
+
+
+[1] Lüscher et al., RWTH ASR Systems for LibriSpeech: Hybrid vs Attention,
+Interspeech, 2019
+[2] Synnaeve et al., End-to-end ASR: from Supervised to Semi-Supervised
+Learning with Modern Architectures, arXiv:1911.08460, 2020
+[3] Baevski et al., wav2vec 2.0: A Framework for Self-supervised Learning of
+Speech Representations, NeurIPS, 2020
+                                                                               01/12/2025
+                                                                                            33
+    Examples of self-supervision in Speech
+
+• HuBERT (Hidden-unit BERT)
+  • Uses quantization like wav2vec 2.0, but
+    BERT-like masked prediction loss
+  • Iterates quantization and re-training
+
+
+  • The task: Predict masked speech frames
+  • Log loss (cross-entropy)
+
+
+
+
+                                              01/12/2025
+                                                           34
+     Examples of self-supervision in Speech
+
+• HuBERT (Hidden-unit BERT)
+  • Subsequent iterations: Quantize HuBERT
+    features from previous iteration
+    • Which layer of previous iteration? One
+      that is good for phonetic classification
+    • In practice: Layer 6 for iteration 1, layer 9
+      for iteration 2
+
+
+
+
+                                                      01/12/2025
+                                                                   35
+                 Wave2Vec 2.0 vs. HuBERT
+
+ Feature          Wave2Vec 2.0                      HuBERT
+Clustering Latent representations      Acoustic features (e.g., MFCC or
+Target     (continuous values)         intermediate representations)
+
+Purpose of Generate targets for        Generate pseudo-teacher
+Clustering contrastive learning        labels
+
+                                      Performed at the initial stage
+           Progresses alongside model
+Timing                                and fixed (may update in
+           training
+                                      subsequent stages)
+Output     Predicted labels for masked Pseudo speech units (discrete
+Format     regions                     teacher labels)
+
+                                                                01/12/2025
+                                                                             36
+   Examples of self-supervision in Speech
+
+• What do speech encoders “know”?
+ • What we know
+   • Self-supervised models are great! Most state-of-the-art speech systems use
+     them
+   • Some layers seem more important than others, depending on the task
+
+
+ • What we want to know
+   • What kind of linguistic information is encoded in each model, and in each layer?
+   • How is linguistic information distributed across time?
+   • How does the pretext task affect what is learned?
+   • Can the results guide how we use models for downstream tasks?
+
+
+                                                                                        01/12/2025
+                                                                                                     37
+          Examples of self-supervision in Speech
+• Layer-wise analysis of speech encoders
+Method: Extract layer-wise representations, and measure their “similarity” to
+external linguistic variables
+
+
+
+
+                                                                                01/12/2025
+                                                                                             38
+    Examples of self-supervision in Speech
+
+• Similarity with spectral features
+
+
+
+
+                                             01/12/2025
+                                                          39
+    Examples of self-supervision in Speech
+
+• Similarity with “local” features (output of CNN)
+
+
+
+
+                                                     01/12/2025
+                                                                  40
+   Examples of self-supervision in Speech
+
+• Phonetic content (similarity with phone 1-hot vectors)
+
+
+
+
+                                                           01/12/2025
+                                                                        41
+   Examples of self-supervision in Speech
+
+• Word content (similarity with word 1-hot vectors)
+
+
+
+
+                                                      01/12/2025
+                                                                   42
+      Examples of self-supervision in Speech
+Implications: Improved fine-tuning?
+The final few layers are less stable, and encode less phone and word identity
+information
+                   Re-initialize final layers before fine-tuning?
+Results with wav2vec 2.0 on LibriSpeech test-other set:
+
+
+
+
+Re-initialization of final layers improves performance, especially in the lowest-
+resource setting
+
+                                                                                    01/12/2025
+                                                                                                 43
+                             Summary
+
+• Recap
+• Self-supervised learning
+  • SimCLR
+  • Word2vec
+  • GPT
+  • BERT
+  • Wave2vec
+  • Hubert
+
+
+                                       01/12/2025
+                                                    44
+

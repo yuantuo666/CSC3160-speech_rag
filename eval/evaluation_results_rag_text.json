@@ -1,0 +1,1002 @@
+[
+    {
+        "question_id": 1,
+        "query_text": "For how long is the attendance registration application active relative to the class start time?\nOption A: 10 minutes before, 15 after. Option B: 15 minutes before, 20 after. Option C: 20 minutes before, 15 after. Option D: 15 minutes before, 15 after. ",
+        "response": "B: 15 minutes before, 20 after.",
+        "eval_result": "Correct",
+        "correct_answer": "15 minutes before, 20 after.",
+        "is_correct": true,
+        "duration_seconds": 3.525596857070923,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 2,
+        "query_text": "What is the date and time span scheduled for the Final Exam?\nOption A: 10:30-12:30, Dec 5. Option B: 10:30-12:30, Dec 12. Option C: 8:30-9:50, Dec 12. Option D: 10:30-11:50, Dec 14. ",
+        "response": "Option B: 10:30-12:30, Dec 12.",
+        "eval_result": "Correct",
+        "correct_answer": "10:30-12:30, Dec 12.",
+        "is_correct": true,
+        "duration_seconds": 1.0480477809906006,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 3,
+        "query_text": "In the 3-Stage RLHF training process, what is the third stage?\nOption A: Supervised Fine-Tuning. Option B: Reward Model Training. Option C: Reinforcement Learning (PPO). Option D: Policy Optimization Learning. ",
+        "response": "C: Reinforcement Learning (PPO).",
+        "eval_result": "Correct",
+        "correct_answer": "Reinforcement Learning (PPO).",
+        "is_correct": true,
+        "duration_seconds": 0.8412621021270752,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 4,
+        "query_text": "What kind of probability does a conditional language model assign?\nOption A: A finite sequence. Option B: Word given context. Option C: A complete N-gram. Option D: An ungrammatical sequence. ",
+        "response": "B: Word given context.",
+        "eval_result": "Correct",
+        "correct_answer": "Word given context.",
+        "is_correct": true,
+        "duration_seconds": 0.8455600738525391,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 5,
+        "query_text": "What two tasks define the Retriever-Reader framework in Information Retrieval based Factoid QA?\nOption A: Document retrieval, span identification. Option B: Mention detection, disambiguation. Option C: Query mapping, semantic parsing. Option D: Knowledge base, fact searching. ",
+        "response": "Option A: Document retrieval, span identification.",
+        "eval_result": "Correct",
+        "correct_answer": "Document retrieval, span identification.",
+        "is_correct": true,
+        "duration_seconds": 1.0866751670837402,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 6,
+        "query_text": "What is the location for the Wednesday and Friday lectures?\nOption A: TXC704. Option B: TB102. Option C: SDS office. Option D: Blackboard system. ",
+        "response": "B: TB102.",
+        "eval_result": "Correct",
+        "correct_answer": "TB102",
+        "is_correct": true,
+        "duration_seconds": 0.7732958793640137,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 7,
+        "query_text": "What is the maximum percentage weight of the Final Exam in the grading scheme?\nOption A: 30 percent. Option B: 20 percent. Option C: 45 percent. Option D: 5 percent. ",
+        "response": "C: 45 percent.",
+        "eval_result": "Correct",
+        "correct_answer": "45 percent",
+        "is_correct": true,
+        "duration_seconds": 1.1288161277770996,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 8,
+        "query_text": "Which course prevents a student from taking CSC3160?\nOption A: CSC3100. Option B: CSC1001. Option C: AIR6063. Option D: CSC1005. ",
+        "response": "C: AIR6063.",
+        "eval_result": "Correct",
+        "correct_answer": "AIR6063",
+        "is_correct": true,
+        "duration_seconds": 0.9418909549713135,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 9,
+        "query_text": "Which Assignment focuses on DNN models and word embedding?\nOption A: Assignment 1. Option B: Assignment 2. Option C: Assignment 3. Option D: Assignment 4. ",
+        "response": "The provided context does not contain information about assignments, their numbers, or their specific focus on DNN models and word embedding. Therefore, based on the given context, it is not possible to determine which assignment focuses on DNN models and word embedding. The answer cannot be determined from the provided context.",
+        "eval_result": "Incorrect",
+        "correct_answer": "Assignment 3",
+        "is_correct": false,
+        "duration_seconds": 1.5660998821258545,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 10,
+        "query_text": "What is Prof. Nakamura's other Fellowship designation?\nOption A: ACL President. Option B: ISCA Fellow. Option C: Antonio Zampolli. Option D: SIG Translation Chair. ",
+        "response": "B: ISCA Fellow.",
+        "eval_result": "Correct",
+        "correct_answer": "ISCA Fellow",
+        "is_correct": true,
+        "duration_seconds": 0.8125967979431152,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 11,
+        "query_text": "In the analysis of consonants, the location where the airflow obstruction occurs is known as the:\nOption A: Manner of articulation. Option B: Place of articulation. Option C: Vowel roundedness. Option D: Tongue height. ",
+        "response": "B: Place of articulation.",
+        "eval_result": "Correct",
+        "correct_answer": "Place of articulation",
+        "is_correct": true,
+        "duration_seconds": 0.7354230880737305,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 12,
+        "query_text": "Consonants where the airflow is completely blocked for a short time are categorized as which type?\nOption A: Stops. Option B: Fricatives. Option C: Labials. Option D: Vowels. ",
+        "response": "A: Stops.",
+        "eval_result": "Correct",
+        "correct_answer": "Stops",
+        "is_correct": true,
+        "duration_seconds": 0.89546799659729,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 13,
+        "query_text": "Which specific constraint prevents the Dynamic Time Warping (DTW) path from moving backward in time index?\nOption A: Continuity. Option B: Monotonicity. Option C: Boundary Conditions. Option D: Warping Window. ",
+        "response": "B: Monotonicity.",
+        "eval_result": "Correct",
+        "correct_answer": "Monotonicity",
+        "is_correct": true,
+        "duration_seconds": 0.8060698509216309,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 14,
+        "query_text": "In the cepstrum representation, which speech component is typically associated with the low quefrency area?\nOption A: Fundamental frequency. Option B: Vocal Tract Spectrum. Option C: Signal amplitude. Option D: Jitter variation. ",
+        "response": "B: Vocal Tract Spectrum.",
+        "eval_result": "Correct",
+        "correct_answer": "Vocal Tract Spectrum",
+        "is_correct": true,
+        "duration_seconds": 0.8246138095855713,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 15,
+        "query_text": "The variation in a speaker's signal frequency (F0 period length) is quantitatively measured using which prosodic feature?\nOption A: Shimmer. Option B: Loudness. Option C: Duration. Option D: Jitter. ",
+        "response": "D: Jitter.",
+        "eval_result": "Correct",
+        "correct_answer": "Jitter",
+        "is_correct": true,
+        "duration_seconds": 0.7588341236114502,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 16,
+        "query_text": "Which specific technology is introduced by CTC to handle the length mismatch between feature frames and label sequence?\nOption A: Attention mechanism. Option B: Blank label 'B'. Option C: Viterbi decoding. Option D: Hidden Markov Model. ",
+        "response": "B: Blank label 'B'.",
+        "eval_result": "Correct",
+        "correct_answer": "Blank label 'B'",
+        "is_correct": true,
+        "duration_seconds": 1.1144609451293945,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 17,
+        "query_text": "Which model architecture is characterized by parallel generation and not depending on location attention?\nOption A: Tacotron2 model. Option B: FastSpeech2 model. Option C: Sequence-to-sequence. Option D: Hidden Markov Model. ",
+        "response": "B: FastSpeech2 model.",
+        "eval_result": "Correct",
+        "correct_answer": "FastSpeech2 model",
+        "is_correct": true,
+        "duration_seconds": 0.7544388771057129,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 18,
+        "query_text": "What is the designated time slot for the CSC3160 lecture on Fridays?\nOption A: 8:30 to 9:50 AM. Option B: 10:30 to 11:50 AM. Option C: 1:00 to 2:20 PM. Option D: 11:00 to 12:20 PM. ",
+        "response": "Option B: 10:30 to 11:50 AM.",
+        "eval_result": "Correct",
+        "correct_answer": "10:30 to 11:50 AM",
+        "is_correct": true,
+        "duration_seconds": 0.999981164932251,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 19,
+        "query_text": "What is the primary method listed for students to check-in for participation credit?\nOption A: Emailing the TA. Option B: Blackboard system. Option C: Mobile phone APP. Option D: Written report submission. ",
+        "response": "C: Mobile phone APP.",
+        "eval_result": "Correct",
+        "correct_answer": "Mobile phone APP",
+        "is_correct": true,
+        "duration_seconds": 0.8310999870300293,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 20,
+        "query_text": "According to the Assignment Plan, which classes are covered by Assignment 3?\nOption A: Class 1 through 7. Option B: Class 8 through 12. Option C: Class 13 through 21. Option D: Class 22 through 29. ",
+        "response": "C: Class 13 through 21.",
+        "eval_result": "Correct",
+        "correct_answer": "Class 13 through 21",
+        "is_correct": true,
+        "duration_seconds": 0.789038896560669,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 21,
+        "query_text": "How long before the class begins does the attendance registration app become active?\nOption A: 10 minutes before. Option B: 15 minutes before. Option C: 20 minutes after. Option D: 30 minutes before. ",
+        "response": "B: 15 minutes before.",
+        "eval_result": "Correct",
+        "correct_answer": "15 minutes before",
+        "is_correct": true,
+        "duration_seconds": 0.739861011505127,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 22,
+        "query_text": "What kind of attention mechanism is applied within the self-attention block of the Transformer decoder?\nOption A: Cross-attention. Option B: Causal attention. Option C: Standard attention. Option D: Softmax normalization. ",
+        "response": "C: Standard attention.",
+        "eval_result": "Incorrect",
+        "correct_answer": "Causal attention",
+        "is_correct": false,
+        "duration_seconds": 0.7488529682159424,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 23,
+        "query_text": "What technique is specifically mentioned for smoothing zero counts when evaluating BLEU-4?\nOption A: Add-one smoothing. Option B: Weight normalization. Option C: Minimum count bias. Option D: Backpropagation errors. ",
+        "response": "Option A: Add-one smoothing.",
+        "eval_result": "Correct",
+        "correct_answer": "Add-one smoothing",
+        "is_correct": true,
+        "duration_seconds": 0.8085031509399414,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 24,
+        "query_text": "What were the two main types of attention mechanisms discussed regarding the structure of the Transformer model?\nOption A: Query and Key. Option B: Self-attention, cross-attention. Option C: Encoder and Decoder. Option D: Statistical and Neural. ",
+        "response": "B: Self-attention, cross-attention.",
+        "eval_result": "Correct",
+        "correct_answer": "Self-attention, cross-attention",
+        "is_correct": true,
+        "duration_seconds": 0.8187861442565918,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 25,
+        "query_text": "According to the schedule, when was Assignment 3 due?\nOption A: October 10th. Option B: November 26th. Option C: October 21st. Option D: December 3rd. ",
+        "response": "Option B: November 26th.",
+        "eval_result": "Correct",
+        "correct_answer": "November 26th",
+        "is_correct": true,
+        "duration_seconds": 0.7067110538482666,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 26,
+        "query_text": "According to the course materials, what rule is used to compute the probability of a sentence $P(W)$ by factoring it into a product of conditional probabilities?\nOption A: Markov assumption. Option B: Bigram approximation. Option C: Chain rule. Option D: Laplace smoothing. ",
+        "response": "C: Chain rule.",
+        "eval_result": "Correct",
+        "correct_answer": "Chain rule",
+        "is_correct": true,
+        "duration_seconds": 0.8038909435272217,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 27,
+        "query_text": "In the Chomsky Hierarchy, what type of grammar generates context-free languages?\nOption A: Type-0 grammars. Option B: Type-1 grammars. Option C: Type-2 grammars. Option D: Type-3 grammars. ",
+        "response": "Option C: Type-2 grammars.",
+        "eval_result": "Correct",
+        "correct_answer": "Type-2 grammars",
+        "is_correct": true,
+        "duration_seconds": 0.8238520622253418,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 28,
+        "query_text": "What technique is primarily used in language models to handle data sparsity, unseen events, or zero probability bigrams?\nOption A: Markov assumption. Option B: Backoff and interpolation. Option C: Laplace smoothing. Option D: Bigram probability. ",
+        "response": "C: Laplace smoothing.",
+        "eval_result": "Correct",
+        "correct_answer": "Laplace smoothing",
+        "is_correct": true,
+        "duration_seconds": 0.8129329681396484,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 29,
+        "query_text": "What specific form must a Context-Free Grammar be in for the Cocke-Kasami-Younger (CKY) algorithm to be presumed?\nOption A: Context-Sensitive Form. Option B: Probabilistic Normal Form. Option C: Chomsky Normal Form. Option D: Left-Linear Form. ",
+        "response": "Option C: Chomsky Normal Form.",
+        "eval_result": "Correct",
+        "correct_answer": "Chomsky Normal Form",
+        "is_correct": true,
+        "duration_seconds": 0.9077339172363281,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 30,
+        "query_text": "Which Word2vec model uses the surrounding words to predict a center word (Continuous Bag of Words)?\nOption A: CBOW model. Option B: Skip-gram model. Option C: N-gram model. Option D: Trigram model. ",
+        "response": "Option A: CBOW model.",
+        "eval_result": "Correct",
+        "correct_answer": "CBOW model",
+        "is_correct": true,
+        "duration_seconds": 0.7435903549194336,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 31,
+        "query_text": "What term describes the opening or empty space located between the vocal folds?\nOption A: Subglottal area. Option B: Glottis. Option C: Spectral envelope. Option D: Vocal tract filter. ",
+        "response": "Option B: Glottis.",
+        "eval_result": "Correct",
+        "correct_answer": "Glottis",
+        "is_correct": true,
+        "duration_seconds": 0.974632978439331,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 32,
+        "query_text": "In the context of morphology, which type of affix has two parts placed both at the start and end of a word?\nOption A: Prefix. Option B: Suffix. Option C: Infix. Option D: Circumfix. ",
+        "response": "Option D: Circumfix.",
+        "eval_result": "Correct",
+        "correct_answer": "Circumfix",
+        "is_correct": true,
+        "duration_seconds": 0.953361988067627,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 33,
+        "query_text": "The Black Box Model of the Auditory System primarily functions as what type of model of hearing and perception?\nOption A: Anatomical. Option B: Physiological. Option C: Behavioral. Option D: Acoustic. ",
+        "response": "C: Behavioral.",
+        "eval_result": "Correct",
+        "correct_answer": "Behavioral",
+        "is_correct": true,
+        "duration_seconds": 0.6687002182006836,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 34,
+        "query_text": "Which category of word is classified as part of the closed class (grammatical/function) words?\nOption A: Adjectives. Option B: Nouns. Option C: Pronouns. Option D: Interjections. ",
+        "response": "C: Pronouns.",
+        "eval_result": "Correct",
+        "correct_answer": "Pronouns",
+        "is_correct": true,
+        "duration_seconds": 0.7555818557739258,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 35,
+        "query_text": "What is the phenomenon called whereby one loud sound renders another softer sound inaudible?\nOption A: Ablaut. Option B: Masking. Option C: Spectral shaping. Option D: Auditory cortex. ",
+        "response": "B: Masking.",
+        "eval_result": "Correct",
+        "correct_answer": "Masking",
+        "is_correct": true,
+        "duration_seconds": 0.7764132022857666,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 36,
+        "query_text": "What physical property of sound corresponds to the perceptual characteristic known as Pitch?\nOption A: Frequency. Option B: Intensity. Option C: Timbre. Option D: Decibel. ",
+        "response": "A: Frequency.",
+        "eval_result": "Correct",
+        "correct_answer": "Frequency",
+        "is_correct": true,
+        "duration_seconds": 0.7846500873565674,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 37,
+        "query_text": "In the source-filter model of speech production, what is the term for the resonances of the vocal tract?\nOption A: Harmonics. Option B: Formants. Option C: F0. Option D: Cepstrum. ",
+        "response": "B: Formants.",
+        "eval_result": "Correct",
+        "correct_answer": "Formants",
+        "is_correct": true,
+        "duration_seconds": 0.7070450782775879,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 38,
+        "query_text": "Which component of the articulatory system is defined as the opening between the vocal folds?\nOption A: Larynx. Option B: Glottis. Option C: Pharynx. Option D: Subglottal area. ",
+        "response": "B: Glottis.",
+        "eval_result": "Correct",
+        "correct_answer": "Glottis",
+        "is_correct": true,
+        "duration_seconds": 0.8097579479217529,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 39,
+        "query_text": "According to articulatory phonetics, which class of sounds is characterized by having less airflow obstruction and being usually voiced?\nOption A: Phones. Option B: Consonants. Option C: Vowels. Option D: Graphemes. ",
+        "response": "C: Vowels.",
+        "eval_result": "Correct",
+        "correct_answer": "Vowels",
+        "is_correct": true,
+        "duration_seconds": 0.7045221328735352,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 40,
+        "query_text": "What notation is used to represent a phone, which is an actually produced speech sound?\nOption A: Curly braces. Option B: Angle brackets. Option C: Square brackets. Option D: Forward slashes. ",
+        "response": "C: Square brackets.",
+        "eval_result": "Correct",
+        "correct_answer": "Square brackets",
+        "is_correct": true,
+        "duration_seconds": 0.7135512828826904,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 41,
+        "query_text": "What form of grammar is presumed when applying the Cocke-Kasami-Younger (CKY) algorithm?\nOption A: Context-sensitive. Option B: Chomsky Normal Form. Option C: Regular language form. Option D: Full context-free. ",
+        "response": "B: Chomsky Normal Form.",
+        "eval_result": "Correct",
+        "correct_answer": "Chomsky Normal Form",
+        "is_correct": true,
+        "duration_seconds": 0.785304069519043,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 42,
+        "query_text": "According to the course material, what does Morphology primarily deal with?\nOption A: Word combinations. Option B: Usually regular rules. Option C: Internal word structure. Option D: Applies across-the-board. ",
+        "response": "C: Internal word structure.",
+        "eval_result": "Correct",
+        "correct_answer": "Internal word structure",
+        "is_correct": true,
+        "duration_seconds": 0.7023260593414307,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 43,
+        "query_text": "For the words chosen to be predicted in BERT's masked language model, what percentage are replaced by [MASK]?\nOption A: Ten percent. Option B: Eighty percent. Option C: Fifteen percent. Option D: Twenty percent. ",
+        "response": "B: Eighty percent. Option B: Eighty percent.",
+        "eval_result": "Correct",
+        "correct_answer": "Eighty percent",
+        "is_correct": true,
+        "duration_seconds": 0.9116177558898926,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 44,
+        "query_text": "Which Word2vec model uses surrounding words to predict the center word?\nOption A: Skip-gram model. Option B: Hidden-unit BERT. Option C: CBOW model. Option D: Wave2vec 2.0. ",
+        "response": "C: CBOW model.",
+        "eval_result": "Correct",
+        "correct_answer": "CBOW model",
+        "is_correct": true,
+        "duration_seconds": 0.8328409194946289,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 45,
+        "query_text": "How long before class start time does the attendance registration app become active?\nOption A: 20 minutes after class. Option B: 15 minutes before class. Option C: Exactly at class start. Option D: Only during class. ",
+        "response": "B: 15 minutes before class.",
+        "eval_result": "Correct",
+        "correct_answer": "15 minutes before class",
+        "is_correct": true,
+        "duration_seconds": 0.7451632022857666,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 46,
+        "query_text": "According to the course materials, how long after the class start time is the attendance registration app active?\nOption A: 10 minutes later. Option B: 15 minutes later. Option C: 20 minutes later. Option D: 30 minutes later. ",
+        "response": "C: 20 minutes later.",
+        "eval_result": "Correct",
+        "correct_answer": "20 minutes later",
+        "is_correct": true,
+        "duration_seconds": 0.7313880920410156,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 47,
+        "query_text": "What is the primary topic of Lecture 18 in the CSC3160 schedule?\nOption A: Automatic Speech Recognition. Option B: Text to Speech Synthesis. Option C: Neural Machine Translation. Option D: Self Supervised Modeling. ",
+        "response": "Option A: Automatic Speech Recognition.",
+        "eval_result": "Incorrect",
+        "correct_answer": "Text to Speech Synthesis",
+        "is_correct": false,
+        "duration_seconds": 0.7686278820037842,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 48,
+        "query_text": "Which component is listed as a part of the core Text-to-Speech system agenda?\nOption A: Waveform generator. Option B: Language model. Option C: Viterbi decoder. Option D: Hidden Markov Model. ",
+        "response": "Option D: Hidden Markov Model.\n\nThe given context refers to a summary of a talk or presentation about statistical Text-to-speech synthesis, which includes \"HMM acoustic models\" as a part of the core Text-to-Speech system agenda. Hidden Markov Models (HMM) are used to model the statistical properties of the acoustic signal in speech synthesis systems.\n\nOption A: Waveform generator, Option B: Language model, and Option C: Viterbi decoder are mentioned in the context, but they are not explicitly listed as part of the core agenda in the provided excerpts. The core agenda mentioned is related to HMM acoustic models.",
+        "eval_result": "Incorrect",
+        "correct_answer": "Waveform generator",
+        "is_correct": false,
+        "duration_seconds": 2.545264959335327,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 49,
+        "query_text": "Which QA approach maps a natural language question to a structured query over a database?\nOption A: Factoid QA. Option B: IR-based QA. Option C: Knowledge-Based QA. Option D: Visual QA. ",
+        "response": "C: Knowledge-Based QA.",
+        "eval_result": "Correct",
+        "correct_answer": "Knowledge-Based QA",
+        "is_correct": true,
+        "duration_seconds": 1.3443710803985596,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 50,
+        "query_text": "In the Retriever-Reader framework, which component identifies the subset of relevant documents?\nOption A: The Retriever. Option B: The Reader. Option C: Feature Extractor. Option D: Entity Linker. ",
+        "response": "A: The Retriever.",
+        "eval_result": "Correct",
+        "correct_answer": "The Retriever",
+        "is_correct": true,
+        "duration_seconds": 0.9488639831542969,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 51,
+        "query_text": "Which of the following is a key step required for text normalization in Natural Language Processing (NLP)?\nOption A: Segmenting sentences. Option B: Analyzing Cepstrum. Option C: Calculating F0. Option D: Applying DTW. ",
+        "response": "A: Segmenting sentences.",
+        "eval_result": "Correct",
+        "correct_answer": "Segmenting sentences",
+        "is_correct": true,
+        "duration_seconds": 0.761958122253418,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 52,
+        "query_text": "In the context of quantifying string similarity, which operation is NOT listed as a minimum edit distance operation?\nOption A: Insertion. Option B: Deletion. Option C: Substitution. Option D: Transposition. ",
+        "response": "Option D: Transposition.\n\nThe minimum edit distance operations listed in the provided context are Insertion, Deletion, and Substitution. Transposition is not mentioned as an operation in the context of minimum edit distance.",
+        "eval_result": "Correct",
+        "correct_answer": "Transposition",
+        "is_correct": true,
+        "duration_seconds": 1.1120412349700928,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 53,
+        "query_text": "In the definition used in the course material, what is the smallest unit of sound that can distinguish one word from another in a particular language?\nOption A: Syllable. Option B: Grapheme. Option C: Phoneme. Option D: Allophone. ",
+        "response": "C: Phoneme.",
+        "eval_result": "Correct",
+        "correct_answer": "Phoneme",
+        "is_correct": true,
+        "duration_seconds": 0.7293863296508789,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 54,
+        "query_text": "The total number of instances of words found in a running text is referred to by which term?\nOption A: Type. Option B: Vocabulary. Option C: Token. Option D: Lexicon. ",
+        "response": "C: Token.",
+        "eval_result": "Correct",
+        "correct_answer": "Token",
+        "is_correct": true,
+        "duration_seconds": 0.8220369815826416,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 55,
+        "query_text": "Which characteristic is used to differentiate and classify vowel sounds based on articulator position?\nOption A: Manner of articulation. Option B: Place of articulation. Option C: Heights. Option D: Airflow stoppage. ",
+        "response": "C: Heights.",
+        "eval_result": "Correct",
+        "correct_answer": "Heights",
+        "is_correct": true,
+        "duration_seconds": 0.8096909523010254,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 56,
+        "query_text": "How long after the class starts is the attendance registration app active?\nOption A: 15 minutes. Option B: 20 minutes. Option C: 35 minutes. Option D: 50 minutes. ",
+        "response": "Option B: 20 minutes.",
+        "eval_result": "Correct",
+        "correct_answer": "20 minutes",
+        "is_correct": true,
+        "duration_seconds": 0.7135229110717773,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 57,
+        "query_text": "Which evaluation measure is normalized by the number of words and decreases as language model performance improves?\nOption A: Likelihood score. Option B: Perplexity. Option C: Bigram count. Option D: Chain rule. ",
+        "response": "B: Perplexity.",
+        "eval_result": "Correct",
+        "correct_answer": "Perplexity",
+        "is_correct": true,
+        "duration_seconds": 0.7155551910400391,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 58,
+        "query_text": "In the Word2vec architecture, which model uses the surrounding words to predict the center word?\nOption A: CBOW. Option B: Skip-gram. Option C: Unigram. Option D: Trigram. ",
+        "response": "Option A: CBOW.",
+        "eval_result": "Correct",
+        "correct_answer": "CBOW",
+        "is_correct": true,
+        "duration_seconds": 0.7188689708709717,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 59,
+        "query_text": "When addressing data sparsity in language models, what general technique is used to steal probability mass to generalize better?\nOption A: One-hot encoding. Option B: Interpolation. Option C: Backoff. Option D: Smoothing. ",
+        "response": "D: Smoothing.",
+        "eval_result": "Correct",
+        "correct_answer": "Smoothing",
+        "is_correct": true,
+        "duration_seconds": 0.7604329586029053,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 60,
+        "query_text": "What percentage of the randomly chosen 15% of words are replaced specifically by the [MASK] token during BERT pre-training?\nOption A: 10 percent. Option B: 50 percent. Option C: 80 percent. Option D: 100 percent. ",
+        "response": "Option C: 80 percent.",
+        "eval_result": "Correct",
+        "correct_answer": "80 percent",
+        "is_correct": true,
+        "duration_seconds": 0.7402653694152832,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 61,
+        "query_text": "Which course must students take before enrolling in CSC3160, in addition to one of the CSC100x series?\nOption A: AIR6063. Option B: CSC3100. Option C: CSC5010. Option D: CSC1001. ",
+        "response": "B: CSC3100.",
+        "eval_result": "Correct",
+        "correct_answer": "CSC3100",
+        "is_correct": true,
+        "duration_seconds": 1.1651179790496826,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 62,
+        "query_text": "What is the weight allocated to the Final Exam in the CSC3160 grading scheme?\nOption A: 30 percent. Option B: 20 percent. Option C: 5 percent. Option D: 45 percent. ",
+        "response": "The provided context does not contain sufficient information to determine the weight allocated to the Final Exam in the CSC3160 grading scheme. The options given (A: 30 percent, B: 20 percent, C: 5 percent, D: 45 percent) are not referenced in the given document content. Additional information or context would be required to accurately answer this question.",
+        "eval_result": "Incorrect",
+        "correct_answer": "45 percent",
+        "is_correct": false,
+        "duration_seconds": 2.1001720428466797,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 63,
+        "query_text": "The midterm exam covers the material from which lectures?\nOption A: Lectures 1 to 7. Option B: Lectures 1 to 12. Option C: Lectures 12 to 22. Option D: Lectures 1 to 14. ",
+        "response": "Option D: Lectures 1 to 14.",
+        "eval_result": "Incorrect",
+        "correct_answer": "Lectures 1 to 12",
+        "is_correct": false,
+        "duration_seconds": 0.8179340362548828,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 64,
+        "query_text": "The primary measure used for evaluating the uncertainty of a language model is called what?\nOption A: Word embedding. Option B: N-gram count. Option C: Perplexity. Option D: Additive smoothing. ",
+        "response": "C: Perplexity.",
+        "eval_result": "Correct",
+        "correct_answer": "Perplexity",
+        "is_correct": true,
+        "duration_seconds": 0.8588728904724121,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 65,
+        "query_text": "Which specific N-gram model approximates the probability of a word based only on the single preceding word?\nOption A: Unigram model. Option B: Trigram model. Option C: 5-gram model. Option D: Bigram model. ",
+        "response": "Option A: Unigram model.",
+        "eval_result": "Incorrect",
+        "correct_answer": "Bigram model",
+        "is_correct": false,
+        "duration_seconds": 0.7431838512420654,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 66,
+        "query_text": "According to the course material, how long is the attendance registration application active after the class start time?\nOption A: 15 minutes before. Option B: 20 minutes after. Option C: 5 minutes total. Option D: 35 minutes total. ",
+        "response": "B: 20 minutes after.",
+        "eval_result": "Correct",
+        "correct_answer": "20 minutes after",
+        "is_correct": true,
+        "duration_seconds": 0.7389800548553467,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 67,
+        "query_text": "What are defined as the minimal units of linguistic form and meaning?\nOption A: Words. Option B: Morphemes. Option C: Affixes. Option D: Phonemes. ",
+        "response": "B: Morphemes.",
+        "eval_result": "Correct",
+        "correct_answer": "Morphemes",
+        "is_correct": true,
+        "duration_seconds": 0.7726147174835205,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 68,
+        "query_text": "Which category of words is classified as belonging to the closed class?\nOption A: Verbs. Option B: Adjectives. Option C: Interjections. Option D: Prepositions. ",
+        "response": "D: Prepositions.",
+        "eval_result": "Correct",
+        "correct_answer": "Prepositions",
+        "is_correct": true,
+        "duration_seconds": 0.7384779453277588,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 69,
+        "query_text": "Which type of morphology is used to create new words often resulting in a change in the part of speech?\nOption A: Inflectional morphology. Option B: Templatic morphology. Option C: Nonconcatenative morphology. Option D: Derivational morphology. ",
+        "response": "D: Derivational morphology.",
+        "eval_result": "Correct",
+        "correct_answer": "Derivational morphology",
+        "is_correct": true,
+        "duration_seconds": 0.7157859802246094,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 70,
+        "query_text": "Which acoustic model for Text-to-Speech synthesis utilizes parallel generation and avoids reliance on location attention?\nOption A: Tacotron2. Option B: FastSpeech2. Option C: Wavenet. Option D: HMM based model. ",
+        "response": "Option B: FastSpeech2.",
+        "eval_result": "Correct",
+        "correct_answer": "FastSpeech2",
+        "is_correct": true,
+        "duration_seconds": 0.8211390972137451,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 71,
+        "query_text": "What are the three main statistical models required for traditional ASR decoding, according to the provided material?\nOption A: DNN, HMM, Encoder. Option B: Acoustic, Pronunciation, Language. Option C: Viterbi, Beam, Search. Option D: CTC, RNN-T, S2S. ",
+        "response": "B: Acoustic, Pronunciation, Language.",
+        "eval_result": "Correct",
+        "correct_answer": "Acoustic, Pronunciation, Language",
+        "is_correct": true,
+        "duration_seconds": 0.9316868782043457,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 72,
+        "query_text": "Which specific phenomenon helps the listener focus attention on a selected sound source in a noisy environment?\nOption A: Minimum Audible Limit. Option B: Frequency Masking Effect. Option C: Cocktail Party Effect. Option D: Temporal Masking Curve. ",
+        "response": "Option C: Cocktail Party Effect.",
+        "eval_result": "Correct",
+        "correct_answer": "Cocktail Party Effect",
+        "is_correct": true,
+        "duration_seconds": 0.7448749542236328,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 73,
+        "query_text": "Which acoustic feature is described as the most popular for HMM-GMM acoustic models?\nOption A: Spectrogram. Option B: Waveform signal. Option C: MFCC. Option D: Contrastive loss. ",
+        "response": "C: MFCC.",
+        "eval_result": "Correct",
+        "correct_answer": "MFCC",
+        "is_correct": true,
+        "duration_seconds": 0.6995120048522949,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 74,
+        "query_text": "What is the total duration of the active time window for the attendance registration application?\nOption A: Fifteen minutes only. Option B: Twenty minutes only. Option C: Thirty-five minutes. Option D: Forty minutes. ",
+        "response": "C: Thirty-five minutes. \n\nThe active time window for the attendance registration application is 15 minutes before class starts until 20 minutes after class starts. This totals to 35 minutes (15 minutes + 20 minutes).",
+        "eval_result": "Correct",
+        "correct_answer": "Thirty-five minutes",
+        "is_correct": true,
+        "duration_seconds": 1.1930968761444092,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 75,
+        "query_text": "Which of the following end-to-end ASR models is specifically identified as a native streaming model?\nOption A: Attention Encoder Decoder. Option B: Hybrid DNN-HMM. Option C: RNN Transducers. Option D: Connectionist Temporal Classification. ",
+        "response": "Option C: RNN Transducers.",
+        "eval_result": "Correct",
+        "correct_answer": "RNN Transducers",
+        "is_correct": true,
+        "duration_seconds": 0.7339370250701904,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 76,
+        "query_text": "In digital speech processing, which process replaces the signal voltage's real number with an approximation from a finite set of discrete values?\nOption A: Framing. Option B: Sampling. Option C: Quantization. Option D: Windowing. ",
+        "response": "C: Quantization.",
+        "eval_result": "Correct",
+        "correct_answer": "Quantization",
+        "is_correct": true,
+        "duration_seconds": 0.715641975402832,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 77,
+        "query_text": "Which speech feature describes variations specifically in the signal frequency, often perceived as roughness or breathiness?\nOption A: Duration. Option B: Shimmer. Option C: Jitter. Option D: Loudness. ",
+        "response": "C: Jitter.",
+        "eval_result": "Correct",
+        "correct_answer": "Jitter",
+        "is_correct": true,
+        "duration_seconds": 0.8142862319946289,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 78,
+        "query_text": "In the cepstrum analysis, which area of quefrency corresponds to the excitation signal or Fundamental Frequency (F0)?\nOption A: Low frequency. Option B: High quefrency. Option C: Low quefrency. Option D: Spectral domain. ",
+        "response": "B: High quefrency.",
+        "eval_result": "Correct",
+        "correct_answer": "High quefrency",
+        "is_correct": true,
+        "duration_seconds": 0.7451171875,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 79,
+        "query_text": "A consonant articulated by completely blocking the airflow for a short time is categorized by which manner of articulation?\nOption A: Fricative. Option B: Dental. Option C: Stop. Option D: Labial. ",
+        "response": "C: Stop.",
+        "eval_result": "Correct",
+        "correct_answer": "Stop",
+        "is_correct": true,
+        "duration_seconds": 0.8918218612670898,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 80,
+        "query_text": "In standard phonetic notation, what type of bracketing is used to denote a phoneme, which is an abstract, contrastive sound category?\nOption A: Angle brackets. Option B: Parentheses. Option C: Square brackets. Option D: Slashes. ",
+        "response": "D: Slashes.",
+        "eval_result": "Correct",
+        "correct_answer": "Slashes",
+        "is_correct": true,
+        "duration_seconds": 0.7776761054992676,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 81,
+        "query_text": "In the context of word embedding, what generally characterizes a dense vector representation?\nOption A: Short and sparse. Option B: Long and sparse. Option C: Long and dense. Option D: Short and dense. ",
+        "response": "D: Short and dense.",
+        "eval_result": "Correct",
+        "correct_answer": "Short and dense",
+        "is_correct": true,
+        "duration_seconds": 0.7609939575195312,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 82,
+        "query_text": "Which type of morphology is primarily responsible for creating new words, often resulting in a change of the word's part of speech?\nOption A: Inflectional morphology. Option B: Derivational morphology. Option C: Nonconcatenative type. Option D: Ablaut morphology. ",
+        "response": "B: Derivational morphology.",
+        "eval_result": "Correct",
+        "correct_answer": "Derivational morphology",
+        "is_correct": true,
+        "duration_seconds": 0.7759628295898438,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 83,
+        "query_text": "According to the lecture, why is using the inner or dot product problematic for measuring semantic similarity between vectors?\nOption A: Favors short vectors. Option B: Ignores word context. Option C: Favors long vectors. Option D: Requires PMI scaling. ",
+        "response": "C: Favors long vectors.",
+        "eval_result": "Correct",
+        "correct_answer": "Favors long vectors",
+        "is_correct": true,
+        "duration_seconds": 0.7546958923339844,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 84,
+        "query_text": "In the construction of a Term-Document matrix for word representation, what concept do the rows typically correspond to?\nOption A: Documents in the collection. Option B: Context window size. Option C: Words in the vocabulary. Option D: Inverse document frequency. ",
+        "response": "C: Words in the vocabulary.",
+        "eval_result": "Correct",
+        "correct_answer": "Words in the vocabulary",
+        "is_correct": true,
+        "duration_seconds": 0.8848021030426025,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 85,
+        "query_text": "Which group of words is classified under the linguistic closed class, meaning its membership is relatively fixed?\nOption A: Nouns and adjectives. Option B: Interjections and verbs. Option C: Pronouns and prepositions. Option D: Adverbs and new nouns. ",
+        "response": "Option C: Pronouns and prepositions.",
+        "eval_result": "Correct",
+        "correct_answer": "Pronouns and prepositions",
+        "is_correct": true,
+        "duration_seconds": 0.7612740993499756,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 86,
+        "query_text": "According to its physical definition, sound propagates as what type of waves through a medium like gas or liquid?\nOption A: Transverse secondary. Option B: Electromagnetic pulses. Option C: Primary compression. Option D: Static acoustic. ",
+        "response": "C: Primary compression.",
+        "eval_result": "Correct",
+        "correct_answer": "Primary compression",
+        "is_correct": true,
+        "duration_seconds": 0.7240109443664551,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 87,
+        "query_text": "What percentage of the overall grade for CSC3160 is assigned to the Final Exam?\nOption A: Thirty percent. Option B: Twenty percent. Option C: Forty-five percent. Option D: Five percent. ",
+        "response": "The provided context does not contain the necessary information to determine the percentage of the overall grade assigned to the Final Exam for CSC3160. Therefore, it is not possible to select the correct option (A, B, C, or D) based on the given context.",
+        "eval_result": "Incorrect",
+        "correct_answer": "Forty-five percent",
+        "is_correct": false,
+        "duration_seconds": 1.3834798336029053,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 88,
+        "query_text": "Which perceptual characteristic of sound is defined as the psychological high/low sound corresponding to Frequency?\nOption A: Intensity. Option B: Timbre. Option C: Loudness. Option D: Pitch. ",
+        "response": "D: Pitch.",
+        "eval_result": "Correct",
+        "correct_answer": "Pitch",
+        "is_correct": true,
+        "duration_seconds": 0.8469018936157227,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 89,
+        "query_text": "In the analysis of the Cepstrum, which component is associated with the High Quefrency area?\nOption A: Vocal Tract. Option B: Filter function. Option C: Fundamental Frequency. Option D: Logarithm power. ",
+        "response": "Answer: A: Vocal Tract.",
+        "eval_result": "Incorrect",
+        "correct_answer": "Fundamental Frequency",
+        "is_correct": false,
+        "duration_seconds": 0.7525651454925537,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 90,
+        "query_text": "Which voice irregularity feature is specifically defined as variations in the signal amplitude of consecutive periods?\nOption A: Shimmer. Option B: Jitter. Option C: Prosody. Option D: Duration. ",
+        "response": "A: Shimmer. Option B: Jitter. Option C: Prosody. Option D: Duration.",
+        "eval_result": "Correct",
+        "correct_answer": "Shimmer",
+        "is_correct": true,
+        "duration_seconds": 0.867732048034668,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 91,
+        "query_text": "How long before class starts does the attendance registration application become active?\nOption A: 10 minutes. Option B: 15 minutes. Option C: 20 minutes. Option D: 30 minutes. ",
+        "response": "B: 15 minutes.",
+        "eval_result": "Correct",
+        "correct_answer": "15 minutes",
+        "is_correct": true,
+        "duration_seconds": 0.7014462947845459,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 92,
+        "query_text": "According to the Assignment Plan, what is the scope of Assignment No. 3?\nOption A: Class 1-7. Option B: Class 8-12. Option C: Class 13-21. Option D: Class 22-29. ",
+        "response": "C: Class 13-21.",
+        "eval_result": "Correct",
+        "correct_answer": "Class 13-21",
+        "is_correct": true,
+        "duration_seconds": 0.8064770698547363,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 93,
+        "query_text": "Which component of the Transformer uses the Encoder outputs (K and V) and the Decoder output (Q)?\nOption A: Self-attention block. Option B: Cross-attention block. Option C: Feed-forward layer. Option D: Positional encoding. ",
+        "response": "B: Cross-attention block.",
+        "eval_result": "Correct",
+        "correct_answer": "Cross-attention block",
+        "is_correct": true,
+        "duration_seconds": 0.7232208251953125,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 94,
+        "query_text": "In the Word2vec architecture, which model uses the surrounding words to predict the center word?\nOption A: Skip-gram model. Option B: CBOW model. Option C: BERT model. Option D: GPT model. ",
+        "response": "B: CBOW model.",
+        "eval_result": "Correct",
+        "correct_answer": "CBOW model",
+        "is_correct": true,
+        "duration_seconds": 1.2055950164794922,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 95,
+        "query_text": "In BERT's masked language modeling, what percentage of the randomly chosen prediction words are replaced with the [MASK] token?\nOption A: 10 percent. Option B: 15 percent. Option C: 80 percent. Option D: 100 percent. ",
+        "response": "C: 80 percent.",
+        "eval_result": "Correct",
+        "correct_answer": "80 percent",
+        "is_correct": true,
+        "duration_seconds": 0.7996511459350586,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 96,
+        "query_text": "Sound waves transmitted through gases, plasma, and liquids are primarily classified as what type of wave?\nOption A: Transverse waves. Option B: Standing waves. Option C: Compression waves. Option D: Electromagnetic waves. ",
+        "response": "C: Compression waves.",
+        "eval_result": "Correct",
+        "correct_answer": "Compression waves",
+        "is_correct": true,
+        "duration_seconds": 0.8826701641082764,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 97,
+        "query_text": "In the context of sound perception, what physical characteristic corresponds to the perceptual property of pitch?\nOption A: Wave frequency. Option B: Wave intensity. Option C: Time variation. Option D: Spectral content. ",
+        "response": "A: Wave frequency.",
+        "eval_result": "Correct",
+        "correct_answer": "Wave frequency",
+        "is_correct": true,
+        "duration_seconds": 0.9481120109558105,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 98,
+        "query_text": "What primary structure forms the foundation of Neural Machine Translation models?\nOption A: Encoder-decoder. Option B: Support vector machines. Option C: Deep belief networks. Option D: Convolutional filters. ",
+        "response": "A: Encoder-decoder.",
+        "eval_result": "Correct",
+        "correct_answer": "Encoder-decoder",
+        "is_correct": true,
+        "duration_seconds": 2.6345221996307373,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 99,
+        "query_text": "Which term describes the objective comparison of sound power per unit area?\nOption A: Loudness. Option B: Timbre. Option C: Intensity. Option D: Pitch. ",
+        "response": "C: Intensity.",
+        "eval_result": "Correct",
+        "correct_answer": "Intensity",
+        "is_correct": true,
+        "duration_seconds": 1.3495447635650635,
+        "mode": "RAG"
+    },
+    {
+        "question_id": 100,
+        "query_text": "What data augmentation technique involves translating target language back to the source language?\nOption A: Gradient clipping. Option B: Back translation. Option C: Beam search decoding. Option D: Teacher forcing. ",
+        "response": "Back translation.",
+        "eval_result": "Correct",
+        "correct_answer": "Back translation",
+        "is_correct": true,
+        "duration_seconds": 0.6857750415802002,
+        "mode": "RAG"
+    }
+]

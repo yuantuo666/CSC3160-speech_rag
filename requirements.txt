@@ -1,0 +1,15 @@
+langchain>=0.2.0
+langchain-community>=0.2.0
+langchain-huggingface
+langchain-text-splitters
+chromadb>=0.4.22
+pypdf
+openai>=1.0.0
+transformers
+torch
+accelerate
+sentence-transformers
+requests
+gradio
+gTTS
+google-genai

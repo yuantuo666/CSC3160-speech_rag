@@ -1,0 +1,511 @@
+     ‣ Attendance registration App:
+
+
+
+       Satoshi  CSC3160 Wed. 8:30-9:50                   TB102
+       Nakamura         Fri. 10:30-11:50
+
+
+
+
+  • It's active 15 minutes before class starts until 20 minutes
+    after class start time.
+
+  • It’s active on two time slots on Wednesdays
+    and Fridays; any mismatched check-ins will be
+    filtered out.
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ            10/15/25
+                                                                             1
+CSC3160 - Fundamentals of Speech and Language
+Processing
+
+
+         Lecture 9: Words,
+           morphology,
+        and parts of speech
+                        Satoshi Nakamura (SDS)
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ   10/15/25
+                                                                    2
+                                                         Schedule
+                     2025        Date           Class No. Topics
+                        9         3                 1     Lecture 1 Introduction
+                                  5                 2     Lecture 2 Sound and acoustics
+                                                          Lecture 3 Lecture 3 Understanding human speech
+                                   10               3
+                                                          production
+                                  12                4     Lecture 4 Speech Perception
+                                  17                5     Lecture 5 Digital Speech Processing
+                                  19                6     Lecture 6 Speech representation
+                                  24                7     Lecture 7 Phonetics
+                                  26                8     Lecture 8 Text processing (No speech coding )
+           (make-up)              28                9     Lecture 9 Words
+                   10             (1)           Holiday
+                                  (3)           Holiday                                           Attention:
+                                  (8)           Holiday                                       Schedule changed
+                                                                                                   Again
+                                  10               10     Lecture 10 Syntax
+         (make-up?)               11               11     No class
+                                  15               12     Lecture 11 Word embeddings
+                                  17               13     Lecture 12 Language models
+                                  22               14     Midterm Summary
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ                                                  10/15/25
+                                                                                                                   3
+                                                         Schedule
+                                                                                           Attention:
+                                                                                       Schedule changed
+                   2024         Date          Class No. Topics
+                                  24                15    Midterm Exam
+                                  29                16    Lecture 13 Statistical MT
+                                  31                17    Lecture 14 Neural MT (Encoder-Decoder)
+                11                 5                18    Lecture 15 Transformer
+                                   7                19    Lecture 16 Self Supervised Modeling
+                                  12                20    No class (Absent for International Conference)
+                                  14                21    Lecture 17 Automatic Speech Recognition
+                                  19                22    Lecture 18 Text to Speech Synthesis
+                                  21                23    Lecture 19 Chatbot
+                                  26                24    Lecture 20 QA
+                                  28                25    Lecture 21 LLM
+                12                 3                26    Lecture 22 Affects
+                                   5                27    Summary for the Final Exam
+                                                          Report Review (SN: Absent for International
+                                  10                28
+                                                          Conference)
+                                  12                29    Final Exam
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ                                               10/15/25
+                                                                                                                4
+                                            Assignment Plan
+
+
+              Assignment   Scope    Release Deadlin Answer session+
+                   No                          e       Tutorial
+                    1     Class 1-7   9/26   10/10      10/17
+                    2    Class 8-12   9/28   10/17     (10/22)
+                    3    Class 16-22 11/1    11/26      11/28
+                    4      Report    10/24    12/3      12/10
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                      2025/10/15
+                                                                            5
+                                                         Agenda
+     • Recap
+     • Words
+     • Morphology: Internal structure of words
+     • Parts of speech
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ            10/15/25   10/15/25   6
+                                                                                            6
+                                            Byte-pair encoding
+     • Originally proposed for lossless data compression
+
+
+                                      aaabdaaabac
+                                      aaabdaaabac Replace aa with Z
+                                        ZabdZabac        Replace ab with Y
+                                        ZabdZabac        Replace ab with Y
+                                          ZYdZYac
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ                10/15/25   10/15/25   7
+                                                                                                7
+                                             Edit distance table
+
+
+                                                   M     O   N   K   E   Y
+
+
+                                         M         0     1   2   3   4   5
+
+
+                                         O         1     0   1   2   3   4
+
+
+                                         N         2     1   0   1   2   3
+
+
+                                         E         3     2   1   2   1   2
+
+
+                                         Y         4     3   2   3   2   1
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ                       10/15/25   10/15/25   8
+                                                                                                       8
+                                                         Agenda
+     • Recap
+     • Words
+     • Morphology: Internal structure of words
+     • Parts of speech
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ            10/15/25   10/15/25   9
+                                                                                            9
+              Today’slides are originally made by Prof.
+              Zhizheng Wu.
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ    10/15/25
+                                                                     10
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ   10/15/25   10/15/25   11
+                                                                                    11
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ   10/15/25   10/15/25   12
+                                                                                    12
+                                                         Word
+     • Words are at the interface between phonology, syntax,
+       and semantics
+     • Words are not atoms
+           • They have an internal structure
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ          10/15/25   10/15/25   13
+                                                                                           13
+                                                            https://www.youtube.com/watch?v=rihNRTTcztQ&list
+                                                            =RDrihNRTTcztQ&start_radio=1
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ   10/15/25                  10/15/25       14
+                                                                                                       14
+                                        Linguistic morphology
+     • The study of how morphemes join together to form words
+     • Morphemes are the minimal units of linguistic form and
+       meaning
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ          10/15/25   10/15/25
+                                                                                      15
+              Why do we need to learn morphology?
+     • The creation of new words
+     • The modification of existing words. We create new words
+       out of old ones all the time
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ   10/15/25   10/15/25   16
+                                                                                    16
+           Differences between Words and Morphemes
+     • Another difference between words and morphemes is that
+       between two words, we can usually insert some other
+       words, while between two morphemes we can’t
+
+
+           • She has arrive-d.
+           • She has already arrive-d.
+           • She has arrive-d already.
+           • *She has arrive-already-d.
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ   10/15/25   10/15/25   17
+                                                                                    17
+           Differences between Words and Morphemes
+     • Whitespace is not always a good test for the word/morpheme
+       distinction in English. Compound nouns are often spelled with
+       whitespace between their components, yet they are a single
+       word
+
+
+           • Picture frame
+           • Swim team
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ   10/15/25   10/15/25   18
+                                                                                    18
+                                               Chinese example
+     • In classic Chinese, usually each character is a word and also a
+       morpheme
+     • Most words in modern Standard Chinese (i.e. Mandarin) are
+       compounds
+                                                           难易相成
+
+
+                                                         难和易是相互转化的
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ               10/15/25   10/15/25   19
+                                                                                                19
+     • Category
+
+
+
+
+                  1 morpheme
+                  Neither cate nor gory has nothing to do with the meaning of category in English
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ                     10/15/25       10/15/25   20
+                                                                                                          20
+                                                         Categorize
+                                                           2 morphemes
+                                                           Category + ize
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ                      10/15/25   10/15/25   21
+                                                                                                       21
+                                                         Categorized
+                                                          3 morphemes
+                                                          Category + ize + ed
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ                          10/15/25   10/15/25   22
+                                                                                                           22
+                                                  Overestimating
+                                                         3 morphemes
+                                                         over + estimate + ing
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ                           10/15/25   10/15/25   23
+                                                                                                            23
+                                            Word has structures
+
+
+                           supercalifragilisticexpialidocious
+
+                           supercalifragilisticexpialidocious
+
+ super- "above", cali- "beauty", fragilistic- "delicate", expiali- "to atone", and -docious "educable",
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ                     10/15/25        10/15/25   24
+                                                                                                           24
+                             Morpheme: Root
+     • Root
+           • The central morphemes in words,
+             which carry the main meaning
+
+
+
+
+                           Independently
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ   10/15/25   10/15/25   25
+                                                                                    25
+                          Morpheme: Affixes
+     • Affixes
+           • Prefixes                                    Independently
+                • de-pend, in-correct
+           • Suffixes
+                • depend-ent, love-ly
+           • Infixes (not common)
+                • edu-ma-cation
+           • Circumfixes
+                • an affix which has two parts, one placed
+                  at the start of a word, and the other at the end.
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ                   10/15/25   10/15/25   26
+                                                                                                    26
+                                                  Edu-ma-cation
+ Used in a sarcastic sense, or in dialogue, suggesting lack of education on the part of the speaker
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ                 10/15/25       10/15/25   27
+                                                                                                      27
+                         Nonconcatenative morphology
+     • Umlaut
+           • Foot : feet
+           • Tooth : teeth
+     • Ablaut
+           • Sing, sang, sung
+     • Root-and-pattern or templatic morphology
+           • Common in Arabic, Hebrew, and other Afroasiatic languages
+           • Roots made of consonants, into which vowels are inserted
+     • Infixation
+           • Gr-um-adwet (Tagalog)
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ             10/15/25   10/15/25   28
+                                                                                              28
+                 Functional differences in morphology
+     • Inflectional morphology
+           • Adds information to a word consistent with its context within a sentence
+             ( ←Syntax requirement)
+                • Student -> students
+                • Sleep -> sleeping
+                • Listen -> listening
+
+     • Derivational morphology (← New word. Different Part of Speech)
+           • Creates new words with new meanings (and often with new parts of speech)
+                • Sing -> singer
+                • Beauty -> beautiful
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ               10/15/25     10/15/25   29
+                                                                                                  29
+                                   Weirdness of morphology
+     • Anything that a language does with morphology, it usually can
+       also do more straightforwardly with syntax.
+
+
+     • Example: Plural marking
+           • Dog -> dog-s (morphology)
+           →      more than one dog (syntax)
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ   10/15/25   10/15/25   30
+                                                                                    30
+     • Parts of speech
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ   10/15/25   10/15/25   31
+                                                                                    31
+                                                  Parts of speech
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ              10/15/25
+                                                                               32
+                                          Two classes of words
+
+                                                         Words
+
+
+
+                 Open class (lexical/form)                   Closed class (grammatical/function)
+                       adjectives                                Articles
+                       adverbs                                   Conjunctions
+                       nouns                                     Pronouns
+                       verbs (except auxiliary verbs)            Prepositions
+                       interjections                             …
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ                          10/15/25   10/15/25   33
+                                                                                                           33
+                       Two classes of words: Open class
+     • Open class
+           • Usually content words: Nouns, Verbs, Adjectives, Adverbs
+                • Plus interjections: oh, ouch, uh-huh, …
+           • New nouns and verbs like iPhone
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ         10/15/25   10/15/25   34
+                                                                                          34
+                     Two classes of words: Closed class
+     • Closed class
+           • Relatively fixed membership
+           • Usually function words: short, frequent words with grammatical
+             function
+                • Determiners: a, an, the
+                • Pronouns: she, he, I
+                • Prepositions: on, under, over, …
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ         10/15/25       10/15/25   35
+                                                                                              35
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ   10/15/25   10/15/25   36
+                                                                                    36
+                                        Words are ambiguous
+     • A word can have more than one possible part-of-speech
+
+
+
+
+           • She is reading a book about airplane
+           • She will book a flight for you
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ        10/15/25   10/15/25   37
+                                                                                         37
+          Part-of-speech tagging is a disambiguation process
+
+
+
+
+                   Verb or Noun?                         Verb or Noun?
+
+
+
+        She is reading a book about Reading
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ                   10/15/25   10/15/25   38
+                                                                                                    38
+           POS tagging as a sequence labeling task
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ   10/15/25   10/15/25   39
+                                                                                    39
+                                                         Summary
+     • Words are at the interface between phonology, syntax and
+       semantics
+
+
+     • Words have internal structures, and morphemes are the
+       minimal units of linguistic form and meaning
+
+
+     • A word can have more than one possible part-of-speech
+           • Words can grouped into open and closed classes
+           • Part-of-speech tagging is a disambiguation process
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ             10/15/25   10/15/25   40
+                                                                                              40
+                                                         Readings
+     • Chapter 2: Words and Tokens
+     • Chapter 17: Sequence Labeling for Parts of Speech and
+       Named Entities (including automatic POS tagging and NER)
+           • https://web.stanford.edu/~jurafsky/slp3/
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ              10/15/25   10/15/25   41
+                                                                                               41
+

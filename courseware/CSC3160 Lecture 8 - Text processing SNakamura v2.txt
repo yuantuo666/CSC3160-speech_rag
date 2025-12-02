@@ -1,0 +1,450 @@
+   ‣ Attendance registration App:
+
+
+
+     Satoshi  CSC3160 Wed. 8:30-9:50                  TB102
+     Nakamura         Fri. 10:30-11:50
+
+
+
+
+ • It's active 15 minutes before class starts until 20 minutes
+   after class start time.
+
+ • It’s active on two time slots on Wednesdays
+   and Fridays; any mismatched check-ins will be
+   filtered out.
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                        2025/10/15
+                                                                              1
+CSC3160 - Fundamentals of Speech and Language
+Processing
+
+
+
+      Lecture 8: Text processing
+
+
+           Satoshi Nakamura (SDS)
+
+
+                                    2
+                                                   Schedule
+                     2025        Date       Class No. Topics
+                        9         3             1     Lecture 1 Introduction
+                                  5             2     Lecture 2 Sound and acoustics
+                                                      Lecture 3 Lecture 3 Understanding human speech
+                                   10           3
+                                                      production
+                                   12           4     Lecture 4 Speech Perception
+                                   17           5     Lecture 5 Digital Speech Processing
+                                   19           6     Lecture 6 Speech representation
+                                   24           7     Lecture 7 Phonetics
+                                   26           8     Lecture 8 Text processing (No speech coding )
+            (make-up)              28           9     Lecture 9 Words
+                    10             (1)      Holiday
+                                   (3)      Holiday                                           Attention:
+                                   (8)      Holiday                                       Schedule changed
+                                                                                               Again
+                                   10          10     Lecture 10 Syntax
+          (make-up?)               11          11     No class
+                                   15          12     Lecture 11 Word embeddings
+                                   17          13     Lecture 12 Language models
+                                   22          14     Midterm Summary
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                         2025/10/15
+                                                                                                               3
+                                                    Schedule
+                                                                                      Attention:
+                                                                                  Schedule changed
+                    2024        Date        Class No. Topics
+                                   24          15    Midterm Exam
+                                   29          16    Lecture 13 Statistical MT
+                                   31          17    Lecture 14 Neural MT (Encoder-Decoder)
+                 11                 5          18    Lecture 15 Transformer
+                                    7          19    Lecture 16 Self Supervised Modeling
+                                   12          20    No class (Absent for International Conference)
+                                   14          21    Lecture 17 Automatic Speech Recognition
+                                   19          22    Lecture 18 Text to Speech Synthesis
+                                   21          23    Lecture 19 Chatbot
+                                   26          24    Lecture 20 QA
+                                   28          25    Lecture 21 LLM
+                 12                 3          26    Lecture 22 Affects
+                                    5          27    Summary for the Final Exam
+                                                     Report Review (SN: Absent for International
+                                   10          28
+                                                     Conference)
+                                   12          29    Final Exam
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                      2025/10/15
+                                                                                                            4
+                                            Assignment Plan
+
+
+               Assignment   Scope    Release Deadlin Answer session+
+                    No                          e       Tutorial
+                     1     Class 1-7   9/26   10/10      10/17
+                     2    Class 8-12   9/28   10/17     (10/22)
+                     3    Class 16-22 11/1    11/26      11/28
+                     4      Report    10/24    12/3      12/10
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                       2025/10/15
+                                                                             5
+                       Agenda
+
+• Recap
+• Text normalization
+• Edit distance
+• Regular expression
+                          International Phonetic Alphabet
+      • Consonants
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura   https://en.wikipedia.org/wiki/International_Phonetic_Alphabet   2025/10/15
+                                                                                                                         7
+                          International Phonetic Alphabet
+      • Vowels
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura   https://en.wikipedia.org/wiki/International_Phonetic_Alphabet   2025/10/15
+                                                                                                                         8
+                                            Consonants
+      • A speech sound that is articulated with a complete or partial
+        closure of the vocal tract
+
+
+      • Place of articulations
+            • where in the vocal tract the obstruction of the consonant occurs, and
+              which speech organs are involved
+
+      • Manner of articulations
+            • how air escapes from the vocal tract when the consonant sound is
+              made
+
+                                              https://jbdowse.com/ipa/
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                  2025/10/15
+                                                                                        9
+                                      Grapheme to phoneme
+      • Grapheme: a letter or a group of letters that represent a single phoneme
+      • Phoneme: the smallest unit of sound that can distinguish one word from
+        another in a particular language
+
+
+      • When a child says the sound /t/, this is a phoneme. But when they write
+        the letter 't' this is a grapheme.
+
+                           Grapheme           tomato
+
+
+                           Phoneme          /t əˈ m eɪ. t oʊ/
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                               2025/10/15
+                                                                                     10
+                                            Syllable
+      • a unit of organization for a sequence of speech sounds
+            • typically made up of a syllable nucleus (most often a vowel) with
+              optional initial and final margins (typically, consonants).
+
+      • Syllables are often considered the phonological "building
+        blocks" of words.
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                   2025/10/15
+                                                                                         11
+                       Agenda
+
+• Recap
+• Text normalization
+• Edit distance
+• Regular expression
+From spoken language
+  to written language
+                  Today’slides are originally made by Prof.
+                  Zhizheng Wu.
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura, SDS, CUHKSZ        10/15/25
+                                                                         14
+                          Corpora
+• Words don’t appear out of nowhere
+• Any particular piece of text is produced
+  • by one or more specific speakers or writers
+  • in a specific dialect of a specific language
+  • at a specific time
+  • in a specific place
+  • for a specific function
+       Corpora along multiple dimensions
+• Language: English, Chinese, etc
+• Genre: Fiction, Scientific articles, Twitter, etc
+• Author Demographics: writer's age, gender, etc
+• Code switching: e.g. English/Chinese
+• Variety: organization vs organisation
+           Corpus: tokens vs vocabulary
+• Type: number of different instances in running text
+• Token: number of instances of that type or total number of
+  instances in running text
+    How many words in a sentence?
+
+
+they lay back on the San Francisco grass and looked at the stars and their
+
+
+
+         How many?
+         Tokens: 15
+         Types: 13
+                  Text normalization
+• Normalizing text into standard format
+
+
+• Every NLP task requires text normalization
+  • Tokenizing (segmenting) words
+  • Normalizing word formats
+  • Segmenting sentences
+                         Word tokenization
+• Splitting a text into separate words, or tokens, while
+  preserving the meaning of the text
+
+
+• Examples
+  • I can't believe it's 2023 already!
+     • Tokens: ["I", "can't", "believe", "it's", "2023", “already!"]
+  • Let's meet at 7 PM at the café.
+     • Tokens: ["Let's", "meet", "at", "7", "PM", "at", "the", “café."]
+                            Word tokenization
+
+    the Rock 'n' Roll Brooklyn Half Marathon course in Brooklyn, New York
+
+
+
+["the", "Rock", "'n'", "Roll", "Brooklyn", "Half", "Marathon", "course", "in", "Brooklyn,", "New",
+"York"]
+["the", “Rock ’n' Roll", "Brooklyn", "Half", "Marathon", "course", "in", "Brooklyn,", “New
+York"]
+  Tokenization in languages without spaces
+• Many languages (e.g. Chinese) don’t use spaces to separate
+  words
+• How do we decide where the token boundaries should be?
+
+
+• Chinese as an example
+  • 乒乓球拍卖完了
+Chinese word segmentation
+
+
+
+      乒乓球拍卖完了
+
+      乒乓球拍/卖完了
+
+      乒乓球/拍卖/完了
+Chinese word segmentation
+
+
+         姚明进入总决赛
+
+
+        姚明 进入 总决赛
+                 dictionary
+
+
+       姚 明 进入 总 决赛
+              dictionary dictionary
+                                               ??
+       姚 明 进 入 总 决 赛
+              dictionary          dictionary
+                       dictionary
+Word tokenization: Out-Of-Vocabulary
+
+
+
+
+      low           low
+                    lower
+      new
+                    new
+      newer
+                    newer
+      high          high
+      higher        higher
+                 Subword tokenization
+• Definition: tokens are smaller than words. Subwords can be
+  arbitrary substrings
+
+• Tokenization schemes:
+  • Token learning
+  • Token segmenter
+
+
+• Three algorithms
+  • Byte-pair encoding
+  • Unigram language modeling
+  • Wordpiece
+                  Byte-pair encoding
+• Originally proposed for lossless data compression
+
+
+               aaabdaaabac
+               aaabdaaabac Replace aa with Z
+                ZabdZabac
+                ZabdZabac       Replace ab with Y
+                 ZYdZYac
+                     …
+BPE algorithm
+                 BPE for subword tokenization
+
+
+5   low_                                               5   low_
+2   lowest_                                            2   lowest_
+6   n ewer_      _, d, e, i, l, n, o, r, s, t, w       6   n e w er_   _, d, e, i, l, n, o, r, s, t, w, er, er_
+3   wider_                                             3   w i d er_
+2   new_                                               2   new_
+
+
+5   low_                                               5   low_
+2   lowest_                                            2   lowest_
+6   n e w er _   _, d, e, i, l, n, o, r, s, t, w, er   6   ne w er_    _, d, e, i, l, n, o, r, s, t, w, er, er_, ne
+3   w i d er _                                         3   w i d er_
+2   new_                                               2   ne w _
+             BPE for subword tokenization
+
+
+Merge          Current vocabulary
+(ne, w)        _, d, e, i, l, n, o, r, s, t, w, er, er_, ne, new
+(l, o)        _, d, e, i, l, n, o, r, s, t, w, er, er_, ne, new, lo
+(lo, w)       _, d, e, i, l, n, o, r, s, t, w, er, er_, ne, new, lo, low
+(new, er_)     _, d, e, i, l, n, o, r, s, t, w, er, er_, ne, new, lo, low, newer_
+(low, _)      _, d, e, i, l, n, o, r, s, t, w, er, er_, ne, new, lo, low, newer_, low_
+                      Applying BPE
+• The word: ‘lower’
+
+
+
+    lower_
+    l o w er _
+    l o w er_
+    lo w er_
+    low er_
+                  Word normalization
+• A task to put word into a standard format, choosing a single
+  normal form for words with multiple forms like USA and US.
+
+
+      CUHK-SZ, CUHK(SZ), CUHKSZ, CUHK-Shenzhen
+
+
+                       CUHK-Shenzhen
+                Sentence segmentation
+• Cut long text into individual sentences
+• The most useful cues:
+  • Punctuation (e.g. periods, question marks, and exclamation points)
+
+
+  • The period character “.” is ambiguous between a sentence boundary
+    marker and a marker of abbreviations like Mr. or Inc.
+              How similar are two strings?
+• Given a word ‘coleague’, which is the closest?
+
+  • Colleague
+  • College
+  • Colegio
+  •…
+                   Minimum Edit distance
+• Edit distance gives us a way to quantify string similarity
+• Edit operations
+  • Insertion
+  • Deletion
+  • Substitution
+
+
+• Minimum edit distance
+  • the minimum number of editing operations (operations like insertion,
+    deletion, substitution) needed to transform one string into another
+               Alignment (Recall Lecture 6)
+• An alignment is a correspondence between substring of two sequences
+• The minimum edit distance can be represented as an alignment
+
+
+
+
+           d: deletion
+           s: substitution
+           i: insertion
+                        Minimum edit distance
+• Initialization
+  D(i, 0) = i
+  D(0, j) = j
+• Recurrence relation
+   For i = 1…M
+       For j = 1…N
+
+
+
+
+• Termination
+  D(N, M) is distance
+    Edit distance table
+
+
+     M   O   N   K   E   Y
+
+
+M    0   1   2   3   4   5
+
+
+O    1   0   1   2   3   4
+
+
+N    2   1   0   1   2   3
+
+
+E    3   2   1   2   1   2
+
+
+Y    4   3   2   3   2   1
+                  Regular expression
+• A sequence of characters that specifies a pattern in text
+
+
+                        Someone@cuhk.edu.cn
+
+                        Someone@stanford.edu
+
+                        Someone@mit.edu
+
+                        Someone@ntu.edu.tw
+
+                        Someone@ntu.edu.sg
+         Regular expression
+
+
+Someone@cuhk.edu.cn
+
+Someone@stanford.edu
+
+Someone@mit.edu
+
+Someone@ntu.edu.tw
+
+Someone@ntu.edu.sg
+• To practice: https://regex101.com/
+                           Summary
+• Every NLP task requires text normalization
+  • Tokenizing (segmenting) words
+  • Normalizing word formats
+  • Segmenting
+
+
+• Minimum edit distance
+• Regular expression
+

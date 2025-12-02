@@ -1,0 +1,583 @@
+                   CSC3160
+Fundamentals of Speech and Language Processing
+
+
+    Lecture 6: Basics of Phonetics
+               Satoshi Nakamura (SDS)
+                                                   Schedule
+                   2025        Date         Class No. Topics
+                      9         3               1     Lecture 1 Introduction
+                                5               2     Lecture 2 Sound and acoustics
+                                                      Lecture 3 Lecture 3 Understanding human speech
+                                10              3
+                                                      production
+                                12              4     Lecture 4 Speech Perception
+                                17              5     Lecture 5 Digital Speech Processing
+                                19              6     Lecture 6 Speech representation
+                                24              7     Lecture 7 Phonetics
+                                26              8     Lecture 8 Text processing (No speech coding )
+         (make-up)              28              9     Lecture 9 Words
+                 10             (1)         Holiday
+                                (3)         Holiday                                           Attention:
+                                (8)         Holiday                                       Schedule changed
+                                                                                               Again
+                                10             10     Lecture 10 Syntax
+       (make-up?)               11             11     No class
+                                15             12     Lecture 11 Word embeddings
+                                17             13     Lecture 12 Language models
+                                22             14     Midterm Summary
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                         2025/10/15
+                                                                                                               3
+                                                    Schedule
+                                                                                      Attention:
+                                                                                  Schedule changed
+                 2024         Date          Class No. Topics
+                                24             15    Midterm Exam
+                                29             16    Lecture 13 Statistical MT
+                                31             17    Lecture 14 Neural MT (Encoder-Decoder)
+              11                 5             18    Lecture 15 Transformer
+                                 7             19    Lecture 16 Self Supervised Modeling
+                                12             20    No class (Absent for International Conference)
+                                14             21    Lecture 17 Automatic Speech Recognition
+                                19             22    Lecture 18 Text to Speech Synthesis
+                                21             23    Lecture 19 Chatbot
+                                26             24    Lecture 20 QA
+                                28             25    Lecture 21 LLM
+              12                 3             26    Lecture 22 Affects
+                                 5             27    Summary for the Final Exam
+                                                     Report Review (SN: Absent for International
+                                10             28
+                                                     Conference)
+                                12             29    Final Exam
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                      2025/10/15
+                                                                                                            4
+                                            Assignment Plan
+
+
+             Assignment   Scope    Release Deadlin Answer session+
+                  No                          e       Tutorial
+                   1     Class 1-7   9/26   10/10      10/17
+                   2    Class 8-12   9/28   10/17     (10/22)
+                   3    Class 16-22 11/1    11/26      11/28
+                   4      Report    10/24    12/3      12/10
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                     2025/10/15
+                                                                           5
+                                            Outline
+   • Recap of speech production
+   • Phone, International Phonetic Alphabet, and Grapheme-
+     to-phoneme conversion
+   • Articulatory phonetics
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura             2025/10/15
+                                                                   6
+                                            Recap
+   • Speech representation in time and frequency domain
+   • Speech production and the source-filter model
+   • Cepstrum
+   • Dynamic Time Warping
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura            2025/10/15
+                                                                  7
+                                              Source-filter model
+
+
+
+
+                                                                    Image credit: MIT OCW
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                                 8
+                                   Fundamental frequency
+   • F0 and harmonics kF0
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                  2025/10/15
+                                                                        9
+                                            Cepstrum
+
+                                                       : Fundamental Frequency Signal
+                                                             (Excitation Signal)
+
+
+
+           Voc
+            al
+           Trac
+            t                                            : Spectrum of Vocal Tract
+                      /a//a//a/
+
+
+             F0                                                       : Convolution
+        (Excitation)
+
+                                                                 : Speech Spectrum
+                                                                     : Speech
+                                                                  Power Spectrum
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                  10/15/25
+                                                                                        10
+                                                            Cepstrum
+
+    !"
+𝐹        𝑃 (𝑓) : Inverse Fourier Transform
+
+                               "#
+  𝐶!"" (𝑡) = 𝐹                      log 𝑃$$ (𝑓)
+                               "#
+  𝐶!## (𝑡) = 𝐹                      log 𝑃%% (𝑓)
+
+𝐶!!! (𝑡) = 𝐶!"" 𝑡 + 𝐶!## (𝑡)
+                                                                Low          High
+         Low quefrency area           High quefrency area     Quefrency    Quefrency
+                                         time                Vocal Tract     F0
+                   Vocal
+                   Tract
+
+
+                                     frequency
+
+                     F0
+                (Excitation)
+                                                                                                  second
+
+                                     frequency
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                              10/15/25
+                                                                                                  11
+                   Matching of Different Duration Patterns
+                          Dynamic Time Warping
+            • Well-known technique for
+              measuring similarity between two
+              sequences which may vary in
+              speed.
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                    10/15/25
+                                                                        12
+                                       How It works [DTW]
+                j
+                                                                     t: input sequence
+                                                                     r: reference sequence
+
+             r(j)                                    # #"" ! !       Local paths: 0-45-90 degrees
+          r(j-1)
+                                                                     DTW of two sequences:
+                                                                      # $"" ! ! = % $" ! ( $ $ ! ! +
+                                                                          ' # $"" ! ( #! $
+                                                                          !                 !
+                                                                      %&' & # $" ( #" ! ( #!#
+                                                                          ! # $" ( #" ! ! !
+                                                                          %                 "
+
+                                            t(i-1) t(i)          i
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                              10/15/25
+                                                                                                                  13
+                                            Speech Features
+   • Spectrogram
+   • Cepstrum
+   • Prosody
+         • Pitch - Fundamental frequency
+         • Loudness - Energy
+         • Duration
+         • Jitter and Shimmer
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                     10/15/25
+                                                                         14
+                                            Outline
+   • Recap of speech production
+   • Phone, International Phonetic Alphabet, and Grapheme-
+     to-phoneme conversion
+   • Articulatory phonetics
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura             2025/10/15
+                                                                   15
+                                      Articulatory Phonetics
+
+
+
+   • Articulatory phonetics studies how
+     phones are produced as the various
+     organs in the mouth, throat, and nose
+     modify the airflow from the lungs.
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                      2025/10/15
+                                                                            16
+                                            Vocal tract
+   • Vocal tract consists of oral tract and nasal tract
+         • After the air leave the trachea, it can exit the body through the mouth
+           or the nose
+
+
+         • Nasal sounds: sounds made by air passing through the nose, they use
+           both the oral and nasal tracts as resonating cavities
+               • e.g. English [m], [n]
+
+
+
+   • Phones can be divided into two classes: vowels and
+     consonants
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                2025/10/15
+                                                                                      17
+                                      Vowel and consonant
+   • Consonants
+         • Made by restriction or blocking of the airflow in some way, and can be
+           voiced or unvoiced
+
+
+   • Vowels
+         • have less obstruction, are usually voiced, and are generally louder
+           and longer-lasting than consonants
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                2025/10/15
+                                                                                      18
+                                            Consonants
+   • A speech sound that is articulated with a complete or partial
+     closure of the vocal tract
+
+
+   • Place of articulations
+         • where in the vocal tract the obstruction of the consonant occurs, and
+           which speech organs are involved
+
+   • Manner of articulations
+         • how air escapes from the vocal tract when the consonant sound is
+           made
+
+                                              https://jbdowse.com/ipa/
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                2025/10/15
+                                                                                      19
+                     Consonants: Place of articulation
+   • Made by restricting airflow, and can be grouped by their place
+     of articulation
+
+
+
+
+                                            https://jbdowse.com/ipa/
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                              2025/10/15
+                                                                                    20
+                     Consonants: Place of articulation
+   • Labial
+         • Main restriction is formed by the two lips coming together have a
+           bilabial place of articulation
+         • e.g. [p] as in pizza, [b] as in boy, [m] as in mom
+   • Dental
+         • Made by placing the tongue against the teeth are dentals
+         • e.g. [th] as in thing, [dh] as in though
+
+
+   • More classes
+         • https://web.stanford.edu/~jurafsky/slp3/28.pdf
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                2025/10/15
+                                                                                      21
+                  Consonants: Mannar of articulation
+   • Consonants are also distinguished by how the restriction in
+     airflow is made, for example, by a complete stoppage of air or
+     by a partial blockage
+
+
+   • Stop
+         • airflow is completely blocked for a short time
+               • Voiced: [b] [d] [g]
+               • Unvoiced: [p] [t] [k]
+
+   • Fricatives
+         • airflow is constricted but not cut off completely. e.g. [f] [v]
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                    2025/10/15
+                                                                                          22
+                                               Vowel
+   • Vowels can be characterized by the position of the articulators
+     as they are made
+         • Heights
+               • the vertical position of the tongue relative to either the roof of the mouth
+         • Backness
+               • the position of the tongue during the articulation of a vowel relative to the back
+                 of the mouth
+         • Roundedness
+               • the amount of rounding in the lips during the articulation of a vowel
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                  2025/10/15
+                                                                                                        23
+                                            Vowel
+   • Vowels can be characterized by the position of the articulators
+     as they are made
+         • Tongue positions for English high front [iy], low front [ae] and high back
+           [uw].
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                   2025/10/15
+                                                                                         24
+                                            Vowels sounds
+   • Heights
+         • the vertical position of the tongue relative to either the roof of the
+           mouth
+
+   • Backness
+         • the position of the tongue during the articulation of a vowel relative to
+           the back of the mouth
+
+   • Roundedness
+         • the amount of rounding in the lips during the articulation of a vowel
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                    2025/10/15
+                                                                                          25
+                                            Vowel space
+
+
+
+
+                                            https://en.wikipedia.org/wiki/IPA_vowel_chart_with_audio
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                              2025/10/15
+                                                                                                                    26
+                                                Vowels sounds
+   • Two types of vowel sounds
+
+
+                               monophthongs                 diphthongs
+                                            One vowel          Two vowels
+
+
+       Examples                     Me, that, this, work   Play, town, slow, toy
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                          2025/10/15
+                                                                                                27
+                             International Phonetic Alphabet                                                          (IPA)
+                         • Consonants
+                                                                                                                 Place of articulation
+Manner of articulation
+
+
+
+
+                                                 https://en.wikipedia.org/wiki/International_Phonetic_Alphabet
+
+
+     CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                                              2025/10/15
+                                                                                                                                         28
+                       International Phonetic Alphabet
+   • Vowels
+                                                                                      Tang position front-back
+
+
+
+
+            • close ( = high):
+              • small jaw opening,
+              • tongue high (e.g., /i, u/).
+
+            • open ( = low):
+              • large jaw opening,
+              • tongue low (e.g., /a, ɑ/).
+
+
+
+
+                                              https://en.wikipedia.org/wiki/International_Phonetic_Alphabet
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                                     2025/10/15
+                                                                                                                           29
+                                            ARPAbet for English
+
+
+                                                             • The English letter “c” corresponds to
+                                                               phone [k] in cougar [k uw g axr],
+                                                               but “c” correspondes to phone [s]
+                                                               in cell [s eh l].
+
+                                                             The mapping in English is not unique.
+
+
+
+
+                                                             Jurafsky, et al, Speech and Language
+                                                             Processing
+                                                             https://web.stanford.edu/~jurafsky/slp3/28.pdf
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                              2025/10/15
+                                                                                                       30
+                                            Phone
+    • The pronunciation of a word can be represented as a
+      sequence of phones
+    • The standard phonetic representation for transcribing the
+      world’s languages is the International Phonetic Alphabet (IPA)
+
+
+                                               tomato          西红柿
+
+                                             [tʰə̥ˈmeɪɾoʊ]   [xī hóng shì]
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                           2025/10/15
+                                                                                 31
+                                       Phone and Phoneme
+  Definitions
+  • Phoneme: an abstract, contrastive sound category in a language
+          —the unit native speakers treat as “the same sound.”
+       • Notation: /…/ (slashes), e.g., /t/, /i/.
+       • Determined by minimal pairs (e.g., pin vs bin → /p/ vs /b/ are different phonemes in English).
+
+  • Phone: an actually produced speech sound, regardless of whether itʼs contrastive.
+       • Notation: […] (square brackets), e.g., [tʰ], [t̪], [ɾ].
+
+  Relationship (allophones)
+  • A phoneme can have multiple phones as its allophones
+    —context-dependent variants that donʼt change meaning in that language.
+  • English /t/ → [tʰ] (aspirated in top), [t] (unaspirated after /s/ in stop),
+    [ɾ] (flap in water AmE), [t̚] (unreleased in cat).
+    These are phones (surface realizations) of the phoneme /t/.
+
+  How they differ
+  • Contrast vs. realization: phonemes contrast in meaning; phones realize phonemes.
+  • Language-specific: the same phone can belong to different phonemes in different languages.
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                            2025/10/15
+                                                                                                                  32
+                                Phoneme and Grapheme
+   • Same writing may have different pronunciation
+
+
+
+
+                                                      tomato
+
+                                            /təˈmeɪ.toʊ/   /təˈmɑː.toʊ/
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                            2025/10/15
+                                                                                  33
+                 Grapheme to phoneme Conversion
+   • Grapheme: a letter or a group of letters that represent a single phoneme
+   • Phoneme: the smallest unit of sound that can distinguish one word from
+     another in a particular language
+
+
+   • When a child says the sound /t/, this is a phoneme. But when they write
+     the letter 't', this is a grapheme.
+
+                        Grapheme              tomato
+
+
+                        Phoneme             /t əˈ m eɪ. t oʊ/
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                            2025/10/15
+                                                                                  34
+                  Grapheme to phoneme conversion
+   • Build a set of rules or a statistical model to convert a sequence
+     of graphemes to phonemes
+                                            Grapheme    Phoneme
+
+                                            ACCENT       AH0 K S EH1 N T
+                                            ACCENTS     AE1 K S EH0 N T S
+                                            ADDICT       AH0 D IH1 K T
+                                            ADDICTS     AH0 D IH1 K T S
+                                            ADVOCATE     AE1 D V AH0 K EY2 T
+                                            ADVOCATES    AE1 D V AH0 K EY2 T S
+                                            AFFECT      AH0 F EH1 K T
+                                            AFFECTS     AH0 F EH1 K T S
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                        2025/10/15
+                                                                                              35
+        Interpretation of Phones from a Waveform
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura    2025/10/15
+                                                          36
+                                                Syllable
+   • Definition
+         • A syllable is a phonological unit built around a single nucleus—typically a
+           vowel—and optionally flanked by onset (preceding consonants) and coda
+           (following consonants). It corresponds to one peak of sonority and is a basic
+           unit for stress, rhythm, and prosody.
+                                                                                       Syllable
+   • Examples
+         • Congratulation                   5 syllables: con-grat-u-la-tion
+         • International                    5 syllables: in-ter-na-tio-nal
+                                                                               Onset   Nucleus         Coda
+         • Water                            2 syllables: wa-ter                        (Vowel)
+         • Group                            1 syllable
+         • Categorization                   6 syllables: cat-e-go-ri-za-tion
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                                                 2025/10/15
+                                                                                                         37
+                              Syllable: Mandarin Chinese
+   • There are about 1300 syllables
+         • Each syllable consists of an initial, a final and a tone
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                             2025/10/15
+                                                                                   38
+                                            Summary
+   • International Phonetic Alphabet, and Grapheme-to-phoneme
+     conversion
+   • Articulatory phonetics: vowels and consonants
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura              2025/10/15
+                                                                    39
+                                            Reading
+   • Chapter 28: Phonetics
+         • https://web.stanford.edu/~jurafsky/slp3/28.pdf
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura                   2025/10/15
+                                                                         40
+

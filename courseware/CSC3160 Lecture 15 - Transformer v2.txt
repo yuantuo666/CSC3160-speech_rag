@@ -1,0 +1,373 @@
+      ‣ Attendance registration App:
+
+
+
+       Satoshi  CSC3160 Wed. 8:30-9:50                         TB102
+       Nakamura         Fri. 10:30-11:50
+
+
+
+
+   It's active 15 minutes before class starts until 20 minutes after class
+   start time.
+
+   It’s active on two time slots on Wednesdays and
+   Fridays; any mismatched check-ins will be filtered
+   out.
+
+CSC3160 CUHKSZ Satoshi Nakamura                                              2025/12/1
+                                                                                         1
+Transformer
+Satoshi Nakamura (SDS)
+
+
+
+
+                         2025/12/1   2
+                                               Schedule
+                  2024        Date     Class No. Topics
+                                  24      15    Midterm Exam
+                                  29      16    Lecture 13 Statistical MT
+                                  31      17    Lecture 14 Neural MT (Encoder-Decoder)
+                11                5       18    Lecture 15 Transformer
+                                  7       19    Lecture 16 Self Supervised Modeling
+                                  12      20    No class (Absent for International Conference)
+                                                                                               Online
+                                  14      21    Lecture 17 Automatic Speech Recognition
+                                  19      22    Lecture 18 Text to Speech Synthesis
+                                  21      23    Lecture 19 Chatbot
+                                  26      24    Lecture 20 QA
+                                  28      25    Lecture 21 LLM
+                12                3       26    Lecture 22 Affects
+                                  5       27    Summary for the Final Exam
+                                                Report Review (SN: Absent for International
+                                  10      28
+                                                Conference)
+                                  12      29    Final Exam
+CSC3160 CUHKSZ Satoshi Nakamura                                                          2025/12/1
+                                                                                                     3
+                                     Assignment Plan
+
+
+           Assignment               Scope     Release Deadline Answer session+
+                No                                                Tutorial
+                 1                 Class 1-7   9/26    10/10       10/17
+                 2                Class 8-12   9/28    10/21      (10/22)
+                 3                Class 13-21  11/1    11/26       11/28
+                 4                  Report     10/24    12/3       12/10
+
+
+
+
+CSC3160 CUHKSZ Satoshi Nakamura                                          2025/12/1
+                                                                                     4
+                                  Agenda
+    • Recap
+       • Lecture 14:
+              • Neural Machine Translation
+    • What is a Transformer
+    • How
+         •    Self-attention works
+         •    Cross-attention works
+    • Evaluation of Transformer
+    • Summary
+
+Satoshi Nakamura@SDS CSC3160                 2025/12/1   5
+                                  Add-one smoothing
+                                  for zero counts only
+
+                                  (BLEU-4, +1 smoothed)
+
+
+
+
+                                               0.186
+                                               0.51
+                                               0.615
+
+
+
+
+CSC3160 Satoshi Nakamura CUHKSZ                           2025/12/1
+                                                                      6
+Neural MT
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              8
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              9
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              10
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              11
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              12
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              13
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              14
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              15
+Seq2Seq with attention
+
+
+
+
+                         16
+Attention visualization
+
+
+
+
+                          17
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              18
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              19
+Data augmentation: back translation
+
+
+
+
+                                      20
+                               Agenda
+    • Recap
+    • What is Transformer
+    • How
+         • Self-attention works
+         • Cross-attention works
+    • Evaluation of Transformer
+    • Summary
+
+Satoshi Nakamura@SDS CSC3160            2025/12/1   21
+                                               Transformer
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University   2025/12/1
+                                                                                               22
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           23
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           24
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           25
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           26
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           27
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           28
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           29
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           30
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           31
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           32
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           33
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           34
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           35
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           36
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           37
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           38
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           39
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           40
+                                                                               0.007                 0.002
+                   exp(16)/(exp(16)+exp(11)+exp(10))             exp(11)/(exp(16)+exp(11)+exp(10))   exp(10)/(exp(16)+exp(11)+exp(10))
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University                                                   2025/12/1
+                                                                                                                                           41
+                                                                               0.007   0.002
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University                   2025/12/1
+                                                                                                           42
+                                                                               0.007   0.002
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University                   2025/12/1
+                                                                                                           43
+                                                                               0.007   0.002
+
+
+
+                                                                               ＋
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University                   2025/12/1
+                                                                                                           44
+                                                                               Different
+                                                                               Wk, Wq,Wv
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University      2025/12/1
+                                                                                              45
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           46
+                                                                               Map multi-head
+                                                                               output vectors into
+                                                                               the same length vector
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University                 2025/12/1
+                                                                                                         47
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           48
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           49
+                                                            Transformer
+
+
+
+                                                                                   K, V
+
+
+
+                                                                                          Q
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University              2025/12/1
+                                                                                                          50
+                                                        Cross Attention
+
+
+
+
+                            K, V
+
+
+
+                                              Q
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University   2025/12/1
+                                                                                               51
+                                      Cross Attention
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown   2025/12/1
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           53
+                                                                               In decoder
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University                2025/12/1
+                                                                                                        54
+                                                                               In decoder
+
+
+                     Causal
+
+
+
+                                                                                       h12
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University                 2025/12/1
+                                                                                                         55
+                                                                               In decoder
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University                2025/12/1
+                                                                                                        56
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           57
+                                                                               0.007   0.002
+
+
+
+                                                                               ＋
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University                   2025/12/1
+                                                                                                           58
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           59
+Satoshi Nakamura (SDS) Slide Credit to Ellie Pavlick CS1460 Brown University   2025/12/1
+                                                                                           60
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University   2025/12/1
+                                                                                               61
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University   2025/12/1
+                                                                                               62
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University   2025/12/1
+                                                                                               63
+                                           Evaluation by MT Task
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University   2025/12/1
+                                                                                               64
+                                        Transformer Parameters
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University   2025/12/1
+                                                                                               65
+                      Evaluation by Constituency Parsing
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University   2025/12/1
+                                                                                               66
+                                                               Summary
+      • What is Transformer
+      • How
+            •     Self-attention works
+            •     Cross-attention works
+
+      • Evaluation of Transformer
+
+
+
+
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University   2025/12/1
+                                                                                               67
+                                      Readings
+
+• https://jalammar.github.io/illustrated-transformer/
+
+
+
+
+                                                        68
+

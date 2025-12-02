@@ -1,0 +1,790 @@
+        ‣ Attendance registration App:
+
+
+
+             Satoshi                CSC3160             Wed. 8:30-9:50             TB102
+            Nakamura                                    Fri. 10:30-11:50
+
+
+
+
+   ‣ It's active 15 minutes before class starts until 20 minutes
+        after class start time.
+   ‣ It’s active on two time slots on Wednesdays
+        and Fridays; any mismatched check-ins will
+        be filtered out.
+
+                                                                                     1
+Satoshi Nakamura (SDS) Slide Credit to Serena Yeung BIODS220 Stanford University
+          Satoshi Nakamura@ SDS, CSC5052/AIR6063                                           2025/12/1   1
+        CSC3160: Fundamentals of
+     Speech and Language Processing
+Lecture 17
+Automatic Speech
+Recognition
+ Satoshi Nakamura
+                                          Schedule
+                  2024     Date   Class No. Topics
+                            24       15    Midterm Exam
+                            29       16    Lecture 13 Statistical MT
+                            31       17    Lecture 14 Neural MT (Encoder-Decoder)
+                11          5        18    Lecture 15 Transformer
+                            7        19    Lecture 16 Self Supervised Modeling
+                            12       20    No class (Absent for International Conference)
+                                                                                          Online
+                            14       21    Lecture 17 Automatic Speech Recognition
+                            19       22    Lecture 18 Text to Speech Synthesis
+                            21       23    Lecture 19 Chatbot
+                            26       24    Lecture 20 QA
+                            28       25    Lecture 21 LLM
+                12          3        26    Lecture 22 Affects
+                            5        27    Summary for the Final Exam
+                                           Report Review (SN: Absent for International
+                            10       28
+                                           Conference)
+                            12       29    Final Exam
+CSC3160 Satoshi Nakamura                                                            2025/12/1
+                                                                                                3
+                              Assignment Plan
+
+
+           Assignment        Scope     Release Deadline Answer session+
+                No                                         Tutorial
+                 1          Class 1-7   9/26    10/10       10/17
+                 2         Class 8-12   9/28    10/21      (10/22)
+                 3         Class 13-21  11/7    11/26       11/28
+                 4           Report     10/24    12/3       12/10
+
+
+
+
+CSC3160 Satoshi Nakamura                                          2025/12/1
+                                                                              4
+                                      Outline
+      • Recap
+      • Introduction of ASR
+           • Traditional ASR
+                • HMM
+           • DNN-based ASR
+                • Hybrid DNN-HMM
+                • CTC
+                • Attention Enc-Dec
+                • RNN-Transducer
+
+
+
+
+CSC3160 Satoshi Nakamura                        2025/12/1
+                                                            5
+                  Examples of self-supervision in Speech
+
+          • wav2vec 2.0
+                • The task: Predict masked speech frames
+                • Contrastive loss
+                     • Predicted frame representations should
+                       be similar to quantized input features at
+                       the same frame
+                     • … and different from inputs at different
+                       frames
+
+
+
+
+CSC3160 Satoshi Nakamura                                           2025/12/1
+                                                                               6
+                  Examples of self-supervision in Speech
+
+          • HuBERT (Hidden-unit BERT)
+                • Uses quantization like wav2vec 2.0, but
+                  BERT-like masked prediction loss
+                • Iterates quantization and re-training
+
+
+                • The task: Predict masked speech frames
+                • Log loss (cross-entropy)
+
+
+
+
+CSC3160 Satoshi Nakamura                                    2025/12/1
+                                                                        7
+                                      Outline
+      • Recap
+      • Introduction of ASR
+           • Traditional ASR
+                • HMM
+           • DNN-based ASR
+                • Hybrid DNN-HMM
+                • CTC
+                • Attention Enc-Dec
+                • RNN-Transducer
+
+
+
+
+CSC3160 Satoshi Nakamura                        2025/12/1
+                                                            8
+                           Speech Recognition Task
+
+          • Convert human speech waveform to human text.
+          • Also called automatic speech recognition (ASR) or speech-to-text (STT).
+          • ASR allows human to talk to machine in the most natural way.
+
+
+
+                                             Speech
+                                                              “Good morning…”
+                                           Recognition
+
+
+
+
+CSC3160 Satoshi Nakamura                                                        2025/12/1
+                                                                                            9
+                             Speech waveforms
+              Waveform:
+
+
+
+
+                                            ASR is a sequential pattern recognition task.
+                                            Subtasks:
+                             Speech         • Where speech is? (VAD)
+                           Recognition
+                                            • Where is word beginning?
+                                              (Segmentation)
+                                            • What are each word? (Classification)
+
+                           “Good morning”
+
+
+CSC3160 Satoshi Nakamura                                                          2025/12/1
+                                                                                              10
+                                     Spectrogram and phonemes
+      Waveform:                                                                • Words can be divided
+                                                                                 into phonemes, only
+                                                                                 about 40 phonemes
+                    Frequency (Hz)
+
+                                                                                 in English.
+      Spectrogram:                                                             • Different phonemes
+                                                                                 have different
+                                                                                 “patterns”
+                                                                                 • Duration
+                                                                                 • Spectrum
+      phonemes:
+                                     /g/ /uh/ /d/ /m/ /ao/ /r/ /n/ /ih/ /ng/
+
+
+      IPA:                                     /ɡʊd ˈmɔːnɪŋ/
+
+      Sentence:                                Good morning
+CSC3160 Satoshi Nakamura                                                                      2025/12/1
+                                                                                                          11
+                     Automatic Speech Recognition
+      • Problem
+           • Estimate optimal word sequence given speech input
+
+      • Obstacles
+           • Spectral variation
+                • Same word uttered differently by the same speaker and different speakers.
+                • Different timbers
+           • Temporal variation
+                • Same word uttered differently by the same speaker and different speakers.
+                • Longer, shorter, different rhythms,
+
+
+
+CSC3160 Satoshi Nakamura                                                               2025/12/1
+                                                                                                   12
+                      Building templates for phonemes
+
+                                             • Each phoneme has some
+                                               templates.
+                                             • A templates should capture
+                                               the characteristics of a
+                                               phoneme, including its
+                                               duration and spectral
+                                               distributions.
+                                             • Templates should be elastic to
+                                               handle variations of
+                                               phonemes.
+                                             • We will cover the actual
+                                               techniques later.
+
+                            templates
+CSC3160 Satoshi Nakamura                                       2025/12/1
+                                                                           13
+                                                      Decoding
+                                                            • Decoding is a search
+                                                              problem: find the most likely
+                                                              word sequence given the
+                                                              audio signal.
+                                                            • Decoder needs to
+                             Decoder
+                                             templates           • detect start/end times of
+                                                                   potential monophones
+                /g/ /uh/ /d/ /m/ /ao/ /r/ /n/ /ih/ /ng/          • match them with the templates
+                                                                   to find out the best template for
+                      Find the most                                each region
+                      possible words
+
+
+                           Good
+                           morning
+CSC3160 Satoshi Nakamura                                                                  2025/12/1
+                                                                                                       14
+                           Statistical modeling for ASR
+      • Templates: acoustic model
+      • How to form words from phonemes: pronunciation model
+      • How to model word relationships: language model
+      • Decoding: Viterbi decoding and beam search
+
+
+
+
+CSC3160 Satoshi Nakamura                                  2025/12/1
+                                                                      15
+                                Statistical ASR
+
+
+
+
+          • Acoustic Model: Probability of generative model to produce X given W
+          • Language Mode: Language model probability of W
+          • Find the most probable W sequence with highest probability
+
+
+
+CSC3160 Satoshi Nakamura                                                 2025/12/1
+                                                                                     16
+                                Assign Labels
+                           spectrogram
+
+
+
+
+CSC3160 Satoshi Nakamura                        2025/12/1
+                                                            17
+                           Hidden Markov Model (HMM)
+                             Three States (Left to Right)
+
+
+
+
+                             Generate variable length spectrum
+CSC3160 Satoshi Nakamura                                         2025/12/1
+                                                                             18
+            Acoustic model: Hidden Markov Model (HMM)
+                           for phonemes                                                                                        Self repetition
+
+
+      • Each state usually has a transition                                                                                                  To next
+
+        probability to the next state, e.g. from 𝑎𝑜!                                                                  𝑎𝑜!         𝑎𝑜"
+                                                                                                                                             state
+                                                                                                                                                       𝑎𝑜#
+        to 𝑎𝑜"
+      • There is also a self-repetition probability:                                                                            𝑝 𝑂$ 𝑎𝑜"
+                                                                                                                    𝑝 𝑂$ 𝑎𝑜!                           𝑝 𝑂$ 𝑎𝑜#
+        allow each state to “consume” variable
+        number of frames à handling duration
+        variations of phonemes.
+      • The distribution of the acoustic features at
+        each state is assumed to be stationary,
+        usually represented by a Gaussian mixture
+        model (GMM):
+                 𝑝 𝑂# 𝑆# = 𝑎𝑜! = 𝐺𝑀𝑀 𝑎𝑜!
+        where 𝑂# and 𝑆# is the observed feature
+      vector and hidden state at time index t,
+      respectively.
+     Rabiner, L. and Juang, B., 1986. An introduction to hidden Markov models. IEEE ASSP magazine, 3(1), pp.4-16.
+
+CSC3160 Satoshi Nakamura                                                                                                                                     2025/12/1   19
+         Likelihood (Probability Density Distribution)
+
+
+
+
+                           Generate variable spectrum given the distribution
+CSC3160 Satoshi Nakamura                                                  2025/12/1
+                                                                                      20
+             Observation distribution for HMM states:
+                Gaussian Mixture Model (GMM)
+                                                   Example of 1-dimensional GMM
+          • GMM is a weighted sum of multiple      with 3 components
+            Gaussian distributions.
+                                )
+                     𝑝 𝑂% Λ = % 𝑤& 𝑁(𝜇& , Σ& )
+                               &'(
+                where 𝜇! and Σ! are mean and
+                covariance of the mth Gaussian
+                component.
+          • GMM can model any distribution given
+            enough components.
+          • Number of components for each state
+            varies depending on the amount of
+            training data.
+CSC3160 Satoshi Nakamura                                              2025/12/1
+                                                                                  21
+       Acoustic features: Mel-frequency cepstral
+                  coefficients (MFCC)                                                               Illustration of Mel frequency filterbanks
+
+
+
+
+    • Features for acoustic modelling should
+           • be compact for HMM-GMM modelling;
+           • carry useful information to discriminate phoneme classes.
+    • MFCC is the most popular features for HMM-GMM
+      acoustic model
+    • Motivated by human auditory system.
+           • Mel-scale filterbanks: higher frequency resolution for low
+             frequencies
+           • Take logarithm of speech power: mimic equal loudness
+             curve and convert sound intensity to perceived loudness
+
+
+
+   Davis, S. and Mermelstein, P. (1980) Comparison of parametric representations for monosyllabic
+   word recognition in continuously spoken sentences. IEEE Transactions on Acoustics, Speech and
+   Signal Processing, 28, 357-366.
+
+CSC3160 Satoshi Nakamura                                                                                                                        2025/12/1
+                                                                                                                                                            22
+                                           Layers of models
+                                     Hello word                Search space is usually all possible
+        Language                     Good afternoon            sentences in a language
+          model                      Good morning
+                                     …
+
+                                                                             Pronunciati      good: g uh d
+                                                                              on model        morning: m ao r n ih ng
+
+
+
+                           /g/ /uh/ /d/ /m/ /ao/ /r/ /n/ /ih/ /ng/
+                                                                                                         Acoustic
+                                                                                                          model
+
+                                                                                                      Each phoneme is
+                                                                                                      represented by a three-
+                                                                                                      state hidden Markov model
+
+                                                                                                        Feature vector
+                                                                                                        sequence
+CSC3160 Satoshi Nakamura                                                                                       2025/12/1
+                                                                                                                           23
+                           A more formal view of ASR
+                                                        Probability of
+                                                        sentences
+
+                                                            Language
+                                                              model
+
+
+
+                Speech          Feature                      Viterbi                       Recognized
+                waveform       Extraction                   Decoder                        words
+                              Extracting
+                              useful
+                              information
+
+
+                                             Acoustic                     Pronunciati
+                                              model                        on model
+                                            Probabilistic                Word to phoneme
+                                            templates of                 mapping
+                                            phonemes
+
+CSC3160 Satoshi Nakamura                                                                                2025/12/1
+                                                                                                                    24
+                           Statistical ASR
+
+
+
+
+CSC3160 Satoshi Nakamura                     2025/12/1
+                                                         25
+                           Other choices for subword units
+      • Besides phonemes and context dependent phonemes, we
+        can also use other subword units for acoustic modeling.
+      • Graphemes: letters or combination of letters.
+      • Morphemes: smallest meaning component of words
+      • BPE: variable-length units that are learned from the data.
+        More popular with End-to-end ASR. Handle OOV words better.
+
+
+
+
+CSC3160 Satoshi Nakamura                                     2025/12/1
+                                                                         26
+                           Training of the models
+      • HMM/GMM acoustic model: EM (expectation-maximization)
+        algorithm. Forward/backward algorithm for efficiency
+      • Pronunciation model: usually defined by linguistics manually,
+        expensive.
+      • Language model: mainly counting the ngrams and smoothing
+
+
+
+
+CSC3160 Satoshi Nakamura                                        2025/12/1
+                                                                            27
+                                  Evaluation Metrics
+      • Reference: The quick brown fox jumped over the lazy dog
+      • Hypothesis: The quick brown fox jumps over ---- lazy dog too
+
+
+      • Word error rate:
+                   !"#"$
+           • 𝑊𝐸𝑅 =
+                     %
+           • D: number of deleted words
+           • S: number of subsituted words
+           • I: number of inserted words
+           • N: number of reference words
+
+
+      • Readability: whether the recognized text is easy to read by human.
+
+
+CSC3160 Satoshi Nakamura                                                     2025/12/1
+                                                                                         28
+                Deep learning
+
+
+
+
+CSC3160 Satoshi Nakamura        2025/12/1
+                                            29
+                           Deep learning for ASR
+      • Hybrid system: only replace HMM/GMM acoustic model with
+        neural networks
+      • End-to-end ASR: replace the whole ASR system with neural
+        works
+
+
+
+
+CSC3160 Satoshi Nakamura                                     2025/12/1
+                                                                         30
+                              Hybrid acoustic model
+          • Replace the generative
+            HMM/GMM with a discriminative                   Frame level
+            neural networks                                class (senone)
+                                                                label
+          • HMM/GMM models 𝑝 𝑜% 𝑠%
+          • Hybrid models 𝑝 𝑠% 𝑜%
+          • Common practices                                 Encoder
+                • Train an HMM/GMM first
+                • Use it to align the label (senone
+                                                             Acoustic
+                  sequences) to the feature sequence.
+                                                             features
+                • Train neural networks to predict frame
+                  level senone labels
+
+
+CSC3160 Satoshi Nakamura                                                    2025/12/1
+                                                                                        31
+                           Encoder Structures
+      • DNN
+      • CNN
+      • LSTM
+      • Transformer
+      • Or any combination of them
+
+
+
+
+CSC3160 Satoshi Nakamura                        2025/12/1
+                                                            32
+                     End-to-end ASR
+
+
+          • End-to-end ASR systems try to
+            do ASR with a single model
+          • Three main approaches
+                • Connectionist Temporal
+                  Classification
+                • RNN Transducers
+                • Sequence-to-Sequence
+                               Figure adapted from [2111.01690] Recent
+                               Advances in End-to-End Automatic Speech
+                               Recognition (arxiv.org)
+
+CSC3160 Satoshi Nakamura                                                 2025/12/1
+                                                                                     33
+             Connectionist Temporal Classification (CTC)
+
+   • Produce a label each frame. As
+     feature frames is usually much
+     longer than label sequence, CTC
+     introduces a blank label ”B”
+     between two labels.
+   • Collapse: Merge the same labels
+     and remove blank labels “B”.
+   • Strength: No frame level
+     alignment required, sum over all                                               Figure adapted from “Tara Sainath - End-to-End Speech
+                                                                                    Recognition: The Journey from Research to Production – YouTube”
+     possible alignments
+            Graves, A. and Jaitly, N., 2014, June. Towards end-to-end speech recognition with recurrent
+            neural networks. In International conference on machine learning (pp. 1764-1772). PMLR.
+
+
+CSC3160 Satoshi Nakamura                                                                                                             2025/12/1
+                                                                                                                                                      34
+               Connectionist Temporal Classification
+• Method for labeling unsegmented data sequences
+• Sum up all possible label sequences to calculate p(y|x)           Remove
+                                                            Merge
+
+
+
+
+                            [Graves et. al 2006]
+
+ CSC3160 Satoshi Nakamura
+
+                                                                       2025/12/1   35
+                      Connectionist Temporal Classification
+          • CTC output sequence：
+                    Ŷ = ( _, y1, _, y2, ..., yL, _ ), X=(x1, … xt…xT)
+          • Sum up all possible label sequence probabilities or
+          • Forward Probability :
+             α_t(s) = y_t(l_s) × [α_{t−1}(s) + α_{t−1}(s−1)
+                                  + 𝟙(l_s ≠ l_{s−2}) · α_{t−1}(s−2)].
+               • don’t count up if the labels are the same.
+
+          • Probability : P(Y|X) = α(T, |Ŷ|−1) + α(T, |Ŷ|)
+          • Read appendix !
+
+                                                                        2025/12/1   36
+CSC3160 Satoshi Nakamura
+                               Sequence-to-sequence (S2S)
+
+          • S2S is also called attention
+            encoder decoder (AED)
+          • Encoder: similar to acoustic
+            model
+          • Attention: alignment model
+          • Decoder: similar to pronunciation
+            and language model
+          • Offline model
+          Chan, W., Jaitly, N., Le, Q.V. and Vinyals, O., 2015. Listen, attend and spell. arXiv
+          preprint arXiv:1508.01211.                                                              Figure adapted from [2111.01690] Recent
+          Chorowski, J.K., Bahdanau, D., Serdyuk, D., Cho, K. and Bengio, Y., 2015. Attention-    Advances in End-to-End Automatic Speech
+          based models for speech recognition. Advances in neural information processing          Recognition (arxiv.org)
+          systems, 28.
+CSC3160 Satoshi Nakamura                                                                                                          2025/12/1
+                                                                                                                                              37
+                                   RNN Transducers (RNN-T)
+
+
+          • Called RNN-T because originally
+            RNN is used as the encoder
+            model structure.
+          • Newer models uses transformers
+            or conformers as encoder
+          • A native streaming model
+          Graves, A., 2012. Sequence transduction with recurrent neural
+          networks. arXiv preprint arXiv:1211.3711.
+                                                                          Figure adapted from [2111.01690] Recent
+                                                                          Advances in End-to-End Automatic Speech
+                                                                          Recognition (arxiv.org)
+
+CSC3160 Satoshi Nakamura                                                                                2025/12/1
+                                                                                                                    38
+ Open AI
+ Whisper
+
+
+
+
+ https://github.com/
+ openai/whisper
+
+CSC3160 Satoshi Nakamura   2025/12/1
+                                       39
+                                 Challenges of ASR
+      • Robustness against various factors:
+           • Acoustic environment: noise, reverb, transmission channel
+           • Speaker variation
+           • Accent
+           • Domain
+      • Pronunciation variation, spontaneous speech, accent
+      • Overlapped speech
+      • Out of vocabulary (OOV) words, long tail effect
+      • Multilingual/Code-switching
+      • Low-resource languages
+      • Fast adaptation
+
+CSC3160 Satoshi Nakamura                                                 2025/12/1
+                                                                                     40
+                           More resources on E2E ASR
+      • Review papers
+           • [2111.01690] Recent Advances in End-to-End Automatic Speech
+             Recognition (arxiv.org)
+
+      • Videos
+           • Dr. Jinyu Li, Microsoft, "Recent Advances in End-to-End Automatic
+             Speech Recognition" - CSIP Seminar – YouTube
+           • SANE2022 | Tara Sainath - End-to-End Speech Recognition: The
+             Journey from Research to Production – YouTube
+
+
+
+
+CSC3160 Satoshi Nakamura                                                  2025/12/1
+                                                                                      41
+                                                           Readings
+      • Ortmanns and Ney (2000). \The time-conditioned approach in dynamic programming search for LVCSR".
+        In IEEE Transactions on Speech and Audio Processing
+      • Peter Bell, “ASR Lecture”, University of Edinburgh
+        https://www.inf.ed.ac.uk/teaching/courses/asr/index-2025.html
+        https://www.inf.ed.ac.uk/teaching/courses/asr/index-2023.html
+      • G&Y: MJF Gales and SJ Young (2007). The Application of Hidden Markov Models in Speech Recognition, Foundations and Trends in
+        Signal Processing, 1 (3), 195-304.
+      • S Young (1996). A review of large-vocabulary continuous-speech recognition, IEEE Signal Processing Magazine 13 (5), 45-57.
+      • R&H:S Renals and T Hain (2010). Speech Recognition, in Computational Linguistics and Natural Language Processing Handbook, A
+        Clark, C Fox and S Lappin (eds.), Blackwells, chapter 12, 299-332.
+      • G Hinton et al (2012). Deep neural networks for acoustic modeling in speech recognition: The shared views of four research groups, IEEE
+        Signal Processing Magazine, 29(6):82-97.
+      • S Young (2008). HMMs and Related Speech Recognition Technologies, in Springer Handbook of Speech Processing, J Benesty, MM
+        Sondhi and Y Huang (eds), chapter 27, 539-557.
+      • Bell et al (2021). Adaptation Algorithms for Neural Network-Based Speech Recognition: An Overview , IEEE Open Journal of Signal
+        Processing, Vol 2:33-36.
+
+
+
+CSC3160 Satoshi Nakamura                                                                                                        2025/12/1
+                                                                                                                                                  42
+                                                    Readings
+      • A Maas et al (2017). \Building DNN acoustic models for large vocabulary speech recognition", Computer Speech and
+        Language, 41:195{213. https://arxiv.org/abs/1406.7806
+
+      • V Peddinti et al (2015). \A time delay neural network architecture for e cient modeling of long temporal contexts",
+        Interspeech. https://www.isca-speech.org/archive/interspeech_2015/i15_3214.html
+
+      • Background Reading:
+
+      • G Hinton et al (Nov 2012). \Deep neural networks for acoustic modeling in speech recognition", IEEE Signal
+
+      • Processing Magazine, 29(6), 82{97. http://ieeexplore.ieee.org/document/6296526
+
+      • Herv e Bourlard (1992). \CDNN: A context-dependent neural network for speech recognition", Proc. ICASSP
+
+      • ASR Lecture 12 NNs for Acoustic Modelling 3: CD DNNs, TDNNs and LSTMs20
+
+      • Open AI Whisper: https://github.com/openai/whisper
+
+
+
+
+CSC3160 Satoshi Nakamura                                                                                        2025/12/1
+                                                                                                                              43
+                            Appendix:
+                    CTC Forward Probability (T=3)
+                             Example
+
+
+
+
+CSC3160 Satoshi Nakamura                            2025/12/1
+                                                                44
+                                 Setup and Notation
+      Given target label Y = (A), compute P(Y|X) using the forward algorithm
+      (T=3).
+
+
+      • Steps
+           • Extended label sequence L' = [_, A, _] (S = 3).
+           • Frame-wise posteriors:
+           • t=1: y1(A)=0.2, y1(_)=0.8
+           • t=2: y2(A)=0.3, y2(_)=0.7
+           • t=3: y3(A)=0.7, y3(_)=0.3
+
+
+
+
+CSC3160 Satoshi Nakamura                                               2025/12/1
+                                                                                   45
+                           Definition of Forward Probability
+      • Definition and recurrence of α_t(s)?
+      • Steps:
+           • α_t(s): probability of reaching output position s at time t.
+           • Initialization: α1(1)=y1(_), α1(2)=y1(A), α1(3)=0.
+           • Recurrence: α_t(s) = y_t(l_s) × [α_{t−1}(s) + α_{t−1}(s−1) + 𝟙(l_s ≠ l_{s−2})·α_{t−1}(s−2)].
+           • For L'=[_,A,_], l3=_ and l1=_, so 𝟙(l3≠l1)=0 (no s−2 term when s=3).
+           • Final probability: P(Y|X) = α_T(S) + α_T(S−1).
+
+
+
+
+CSC3160 Satoshi Nakamura                                                                       2025/12/1
+                                                                                                            46
+                            Step 1: Initialization (t=1)
+      • Compute α1(s) for all positions in L’.
+      • Steps:
+           • α1(1) = y1(_) = 0.8
+           • α1(2) = y1(A) = 0.2
+           • α1(3) = 0
+
+
+
+
+CSC3160 Satoshi Nakamura                                   2025/12/1
+                                                                       47
+                           Step 2: Recurrence at t=2
+      • Compute α2(s) using α1(s).
+      • Steps:
+           • α2(1) = y2(_)*α1(1) = 0.7×0.8 = 0.56
+           • α2(2) = y2(A)*(α1(2)+α1(1)) = 0.3×(0.2+0.8) = 0.3
+           • α2(3) = y2(_)*(α1(3)+α1(2)) = 0.7×(0+0.2) = 0.14
+
+
+
+
+CSC3160 Satoshi Nakamura                                         2025/12/1
+                                                                             48
+                           Step 3: Recurrence at t=3
+      • Question: Compute α3(s) using α2(s).
+      • Steps:
+           • α3(1) = y3(_)*α2(1) = 0.3×0.56 = 0.168
+           • α3(2) = y3(A)*(α2(2)+α2(1)) = 0.7×(0.3+0.56) = 0.602
+           • α3(3) = y3(_)*(α2(3)+α2(2)) = 0.3×(0.14+0.3) = 0.132
+
+
+
+
+CSC3160 Satoshi Nakamura                                            2025/12/1
+                                                                                49
+                             Step 4: Final Probability
+      • Question: Compute P(Y|X).
+      • Steps:
+           • P(Y|X) = α3(3) + α3(2) = 0.132 + 0.602 = 0.734
+           • This is the total probability of generating Y=(A) given X.
+
+
+
+
+CSC3160 Satoshi Nakamura                                                  2025/12/1
+                                                                                      50
+          Step 5: Cross-check via Path Enumeration
+      • Question: Verify result by summing probabilities of all valid alignment
+        paths.
+      • Steps:
+           • Valid paths: AAA, AA_, A__, _AA, _A_, __A.
+           • Each path probability:
+           • AAA: 0.2×0.3×0.7 = 0.042
+           • AA_: 0.2×0.3×0.3 = 0.018
+           • A__: 0.2×0.7×0.3 = 0.042
+           • _AA: 0.8×0.3×0.7 = 0.168
+           • _A_: 0.8×0.3×0.3 = 0.072
+           • __A: 0.8×0.7×0.7 = 0.392
+           • Sum = 0.734 (matches forward probability).
+
+CSC3160 Satoshi Nakamura                                                   2025/12/1
+                                                                                       51
+

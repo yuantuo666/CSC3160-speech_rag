@@ -1,0 +1,501 @@
+    ‣ Attendance registration App:
+
+
+
+      Satoshi  CSC3160 Wed. 8:30-9:50            TB102
+      Nakamura         Fri. 10:30-11:50
+
+
+
+
+• It's active 15 minutes before class starts until 20
+  minutes after class start time.
+• It’s active on two time slots on Wednesdays and
+  Fridays; any mismatched check-ins will be filtered out.
+
+
+ CSC 3160, Satoshi Nakamura, CUHKSZ                         2025/12/1
+                                                                        1
+Lecture 20: Question Answering
+
+
+           Satoshi Nakamura
+
+
+
+
+                  2
+                                             Schedule
+                 2024        Date    Class No. Topics
+                                24      15    Midterm Exam
+                                29      16    Lecture 13 Statistical MT
+                                31      17    Lecture 14 Neural MT (Encoder-Decoder)
+              11                 5      18    Lecture 15 Transformer
+                                 7      19    Lecture 16 Self Supervised Modeling
+                                12      20    No class (Absent for International Conference)
+                                14      21    Lecture 17 Automatic Speech Recognition
+                                19      22    Lecture 18 Text to Speech Synthesis
+                                21      23    Lecture 19 Chatbot and Dialogue System
+                                26      24    Lecture 20 QA
+                                28      25    Lecture 21 LLM
+              12                 3      26    Lecture 22 Affects
+                                 5      27    Summary for the Final Exam
+                                              Report Review (SN: Absent for International
+                                10      28
+                                              Conference)
+                                12      29    Final Exam
+CSC 3160, Satoshi Nakamura, CUHKSZ                                                      2025/12/1
+                                                                                                    3
+                                        Assignment Plan
+
+
+         Assignment                    Scope     Release Deadline Answer session+
+              No                                                     Tutorial
+               1                      Class 1-7    9/26   10/10       10/17
+               2                     Class 8-12    9/28   10/21      (10/22)
+               3                     Class 13-21   11/7    12/3       11/28
+               4                       Report     10/24    12/3       12/10
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                          2025/12/1
+                                                                                        4
+                                     Midterm Exam
+   • Mid-term exam:
+        • Time: 10:30-12:30, December 12, 2025
+        • Venue: Liwen Hall
+
+
+   • Condition
+              • No mobile phone, Pad, or PC.
+              • 1-page both-side cheat sheet
+              • no magnifying glass
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                  2025/12/1
+                                                                5
+                            Agenda
+
+• Recap
+• Question answering and its applications
+• Information Retrieval based Factoid QA
+• Entity linking
+• Knowledge-Based QA
+• Other types of QA
+• Benchmarks
+
+
+
+                                            6
+                      Speech Acts (aka Dialogue Acts)
+                                                          Bach and Harnish (1979)
+
+        Constatives: committing the speaker to something’s being the case
+        (answering, claiming, confirming, denying, disagreeing, stating)
+
+        Directives: attempts by the speaker to get the addressee to do something
+        (advising, asking, forbidding, inviting, ordering, requesting)
+
+        Commissives: committing the speaker to some future course of action
+        (promising, planning, vowing, betting, opposing)
+        Acknowledgments: express the speaker’s attitude regarding the hearer
+        with respect to some social action (apologizing, greeting, thanking,
+        accepting an acknowledgment)
+Satoshi Nakamura, CSC3160       01/12/2025                                          7
+                              Chatbot Architectures
+   • Rule based
+        • ELIZA: designed to simulate a Rogerian psychologist
+              • is the most important chatbot dialogue system in the history of the field
+        • PARRY: A clinical psychology focus
+              • The first system to pass the Turing Test!
+
+
+   • Corpus based
+        • Xiaoice: Information retrieval
+        • BlenderBot: Neural encoder decoder
+
+
+Satoshi Nakamura, CSC3160              01/12/2025                                           8
+                            Retrieval vs Generation
+
+
+
+
+Satoshi Nakamura, CSC3160        01/12/2025           9
+            Response by neural encoder-decoder
+
+
+
+
+Satoshi Nakamura, CSC3160   01/12/2025           10
+                            Dialogue-State Architecture
+                                                          Slot, Intent
+
+
+
+
+Satoshi Nakamura, CSC3160          01/12/2025                            11
+                                     Agenda
+   • Recap
+   • Question answering and its applications
+   • Information Retrieval based Factoid QA
+   • Entity linking
+   • Knowledge-Based QA
+   • Other types of QA
+   • Benchmarks
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ             2025/12/1
+                                                           12
+                            What is question answering?
+   • The goal of question answering is to build systems that
+     automatically answer questions posed by humans in a natural
+     language
+
+
+
+                             Question   QA system   Answer
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                           2025/12/1
+                                                                         13
+             QA: from classification to open-ended
+
+
+
+
+                                                                                                                                                                        How, Why
+
+
+
+
+            Rogers, Anna, Matt Gardner, and Isabelle Augenstein. "Qa dataset explosion: A taxonomy of nlp resources for question answering and reading comprehension." ACM Computing Surveys 55, no. 10 (2023): 1-45.
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                                                                                                                                              2025/12/1
+                                                                                                                                                                                                                        14
+                                                                           QA: sources
+
+
+
+
+             Rogers, Anna, Matt Gardner, and Isabelle Augenstein. "Qa dataset explosion: A taxonomy of nlp resources for question answering and reading comprehension." ACM Computing Surveys 55, no. 10 (2023): 1-45.
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                                                                                                                                             2025/12/1
+                                                                                                                                                                                                                         15
+               Why do we care about this problem?
+   • Useful for many practical applications
+
+
+   • Viewed as an important testbed for evaluating how well
+     computer systems understand human language
+
+
+   • Many other NLP tasks can be reduced to a reading
+     comprehension problem
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                            2025/12/1
+                                                                          16
+                                     Applications
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                  2025/12/1
+                                                                17
+                                     Applications
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                  2025/12/1
+                                                                18
+                                                                Applications
+
+
+
+
+                  Smart speakers research with the public Research report December 2022
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                                        2025/12/1
+                                                                                                      19
+         IBM Watson beat Jeopardy champions (2011)
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ             2025/12/1
+                                                           20
+                                Four stages of Watson QA
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                         2025/12/1
+                                                                       21
+           Information Retrieval-based Factoid QA
+   • Also called open domain QA
+   • answer a user’s question by finding short text segments from the web or
+     some other large collection of documents
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                    2025/12/1
+                                                                                  22
+                             Retriever-reader framework
+   • Assumption
+        • We have access to a large collection of documents that we have processed
+          in advance (“indexed documents”)
+        • The question can be answered by returning a snippet of text (“span”) from
+          one (or more) of these documents
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                           2025/12/1
+                                                                                         23
+                             Retriever-reader framework
+   • Procedure
+        • Identify a (small) subset of documents that are relevant to the question
+        • Identify (and return) the most likely answer span
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                             2025/12/1
+                                                                                           24
+                             Retriever-reader framework
+
+
+
+
+                                                        https://github.com/facebookresearch/DrQA
+                                     Chen et al., 2017. Reading Wikipedia to Answer Open-domain Questions
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                                                          2025/12/1
+                                                                                                                        25
+                                     IR architecture
+                                            "bird": [3,1]
+                                            "cat": [1,2]
+                                            "dog": [2]
+                         [1]
+
+                          [2]
+
+                           [3]
+
+
+
+
+                                                      bird
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                           2025/12/1
+                                                                         26
+                         Reading comprehension: BERT
+
+
+
+
+                                                               (A)                                                       (B)
+
+
+
+
+                                 Credit: https://mccormickml.com/2020/03/10/question-answering-with-a-fine-tuned-BERT/
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                                                                             2025/12/1
+                                                                                                                                           27
+    Reading comprehension: LSTM-based models with attention
+
+                                                                                                                  Calculate P(start), P(end)
+                                                                                                                  for each input word
+
+
+
+
+                                     (Seo et al., 2017): Bidirectional Attention Flow for Machine Comprehension
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                                                                                             2025/12/1
+                                                                                                                                                           28
+                         Reading comprehension: BERT
+
+
+
+
+                                 Credit: https://mccormickml.com/2020/03/10/question-answering-with-a-fine-tuned-BERT/
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                                                                       2025/12/1
+                                                                                                                                     29
+                         Reading comprehension: BERT
+
+
+
+
+                                 Credit: https://mccormickml.com/2020/03/10/question-answering-with-a-fine-tuned-BERT/
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                                                                       2025/12/1
+                                                                                                                                     30
+                                     Entity linking
+   • A task of associating a mention in text with the representation of some
+     real-world entity in an ontology
+   • The most common ontology for factoid question-answering is Wikipedia
+
+
+                                                        Ontology:
+                                                        A formal, explicit specification
+                                                        of a shared conceptualization.”
+                                             Mention    (Gruber, 1993)
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                         2025/12/1
+                                                                                       31
+                                     Entity linking
+   • Done in (roughly) two stages: mention detection and mention
+     disambiguation
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                 2025/12/1
+                                                                               32
+                                     Knowledge-Based QA
+   • Answering a natural language question by mapping it to a query
+     over a structured database
+
+
+   • Two Paradigms
+        • Graph-based QA
+        • QA by semantic parsing
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                          2025/12/1
+                                                                        33
+                                      Graph-based QA
+   • Assumes we have knowledge based on “facts” (facts = RDF
+     triplets: predicate with two arguments, can also be expressed as
+     a knowledge graph):
+
+
+
+
+                                     When was Ada Lovelace born?
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                 2025/12/1
+                                                                               34
+                                     QA by semantic parsing
+   • map the question to a structured program to produce an answer
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                            2025/12/1
+                                                                          35
+                                     Semantic Parsing for QA
+   • Sequence-to-sequence model
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                             2025/12/1
+                                                                           36
+                       Large Language Models for QA
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                    2025/12/1
+                                                                  37
+                                                                                                   Visual QA
+   • Answer questions about an image
+
+
+
+
+                                                                                                                                                                                                                                                                          38
+                   Antol, Stanislaw, Aishwarya Agrawal, Jiasen Lu, Margaret Mitchell, Dhruv Batra, C. Lawrence Zitnick, and Devi Parikh. “VQA: Visual question answering." In Proceedings of the IEEE international conference on computer vision, pp. 2425-2433. 2015.
+CSC 3160, Satoshi Nakamura, CUHKSZ                                                                                                                                                                                                                         2025/12/1
+                                     Datasets: SQuAD
+   • Stanford question answering dataset (SQuAD)
+        • 100k annotated (passage, question, answer) triples
+        • Passages are selected from English Wikipedia, usually 100~150 words
+        • Questions are crowd-sourced
+        • Each answer is a short segment of text (or span) in the passage
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                              2025/12/1
+                                                                                            39
+                                     Benchmarks
+
+
+                                                        EM: Exact Match
+                                                        F1: F-score
+
+
+
+
+                                                  https://rajpurkar.github.io/SQuAD-explorer/
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                              2025/12/1
+                                                                                        40
+                                     Benchmark: ScienceQA
+
+
+
+
+                                            https://scienceqa.github.io/
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                         2025/12/1
+                                                                                       41
+                                     Benchmark: ScienceQA
+
+
+
+
+                                            https://scienceqa.github.io/
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                                         2025/12/1
+                                                                                       42
+                                     Summary
+   • Question answering and its applications
+   • Information Retrieval based Factoid QA
+   • Entity linking
+   • Knowledge-Based QA
+   • Other types of QA
+   • Benchmarks
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ             2025/12/1
+                                                           43
+                                     Readings
+   • Chapter 14: Question Answering and Information Retrieval
+        • https://web.stanford.edu/~jurafsky/slp3/14.pdf
+
+
+
+
+CSC 3160, Satoshi Nakamura, CUHKSZ                         2025/12/1
+                                                                       44
+

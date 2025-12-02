@@ -1,0 +1,577 @@
+  ‣ Attendance registration App:
+
+
+
+   Satoshi  CSC3160 Wed. 8:30-9:50                 TB102
+   Nakamura         Fri. 10:30-11:50
+
+
+
+
+• It's active 15 minutes before class starts until 20
+  minutes after class start time.
+• It’s active from 8:30–9:50 and 10:30–11:50 on
+  Wednesdays and Fridays; any mismatched check-ins
+  will be filtered out.
+
+
+ CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS           2025/9/19
+                                                                       1
+CSC3160 - Fundamentals of Speech and Language Processing
+                                                      Image: catalyst-magazine.or
+
+
+
+
+            Lecture 3:
+   Digital speech processing
+
+             Satoshi Nakamura
+                  (SDS)                Satoshi Nakamura (SDS)
+                                                  Schedule
+                2025       Date           Class No. Topics
+                   9        3                 1     Lecture 1 Introduction
+                            5                 2     Lecture 2 Sound and acoustics
+                                                    Lecture 3 Lecture 3 Understanding human speech
+                             10               3
+                                                    production
+                             12               4     Lecture 4 Speech Perception
+                             17               5     Lecture 5 Digital Speech Processing
+                             19               6     Lecture 6 Speech representation
+                             24               7     Lecture 7 Phonetics
+                             26               8     Lecture 8 Speech Coding
+                             28               9     Lecture 9 Text processing
+                   10        (1)          Holiday
+                             (3)          Holiday                                           Attention:
+                             (8)          Holiday                                       Schedule changed
+                             10              10     Lecture 10 Words
+                             11              11     Lecture 11 Syntax
+                             15              12     Lecture 12 Word embeddings
+                             17              13     Lecture 13 Language models
+                             22              14     Midterm Summary
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                                                  2025/9/19
+                                                                                                             3
+                                                       Schedule
+                                                                                         Attention:
+                                                                                     Schedule changed
+              2024         Date          Class No. Topics
+                             24                   15    Midterm Exam
+                             29                   16    Lecture 14 Statistical MT
+                             31                   17    Lecture 15 Neural MT (Encoder-Decoder)
+            11                5                   18    Lecture 16 Transformer
+                              7                   19    Lecture 17 Self Supervised Modeling
+                             12                   20    No class (Absent for International Conference)
+                             14                   21    Lecture 18 Automatic Speech Recognition
+                             19                   22    Lecture 19 Text to Speech Synthesis
+                             21                   23    Lecture 20 Chatbot
+                             26                   24    Lecture 21 QA
+                             28                   25    Lecture 22 LLM
+            12                3                   26    Lecture 23 Affects
+                              5                   27    Summary for the Final Exam
+                                                        Report Review (SN: Absent for International
+                             10                   28
+                                                        Conference)
+                             12                   29    Final Exam
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                                                    2025/9/19
+                                                                                                               4
+                                      Agenda
+
+  • Recap
+  • Digital Processing for Acoustic Wave
+      • Sampling,
+      • Quantization,
+      • Sampling Rate, Nyquist Frequency
+  • Windowing
+      • Rectangular window, Hanning/Hamming Window
+  • Discrete Short-time Fourier Transform
+      • Windowing in the frequency domain
+  • Convolution
+      • Windowing in the frequency domain
+
+
+Satoshi Nakamura@SDS,                                2025/9/19   55
+                                                  Speech chain
+
+
+
+
+           Cognitive level                                       Cognitive level
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                         2025/9/19
+                                                                                    6
+ The Black Box Model of the Auditory System
+• A “black box” behavioral model of hearing and perception
+      • Assumption: an acoustic signal enters the auditory system causing
+        behavior that we record as psychophysical observations
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                  2025/9/19
+                                                                             7
+                       Why do human have two ears?
+  • The brain needs input from both ears in order to separate
+    sounds efficiently
+  • Sound localization
+        • Spatially locate sound sources in 3-dimensional sound fields,
+          based on two-ear processing, loudness differences at the two
+          ears, delay to each ear
+  • Sound cancellation
+        • Focus attention on a ‘selected’ sound source in an array
+           of sound sources – ‘cocktail party effect’, Binaural Masking
+          Level Differences (BMLDs)
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                    2025/9/19
+                                                                               8
+                                                   Frequency Masking
+
+
+
+                                                                      Audible
+                                                    Audible
+                                                                                Masking effect
+                              pressure level
+                                 Sound
+
+
+
+
+                                                  No-audible
+
+
+
+                                                          Frequency
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                                                  2025/9/19   9
+                                                   Temporal Masking
+
+
+
+                                                                     Temporal Masking Curve
+
+
+
+                                                   Backward
+                                  pressure level
+
+
+
+                                                                          Forward Masking
+                                                   Masking
+                                     Sound
+
+
+
+
+                                                              Time
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                                               2025/9/19   10
+                                                  Agenda
+• Recap
+• Digital Processing for Acoustic Wave
+      • Sampling,
+      • Quantization,
+      • Sampling Rate, Nyquist Frequency
+• Windowing
+      • Rectangular window, Hanning/Hamming Window
+• Discrete Short-time Fourier Transform
+      • Windowing in the frequency domain
+• Convolution
+      • Windowing in the frequency domain
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS            2025/9/19
+                                                                       11
+                                         Digital sound waves
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                2025/9/19 2025/9/19   12
+                                         Digital sound waves
+• Microphones convert sound pressure variations into changes in continuous
+  electrical voltage
+      • They capture changes in air pressure to record sound (continuous electrical signal)
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                                    2025/9/19
+                                                                                               13
+                                          Digital sound waves
+
+  • Computers deal with discrete data (zeros and ones)
+
+       • We need to convert (sample) the continuous signal into digital presentation
+             • Sampling converts continuous time axis to discrete time axis to sample time-varying
+               voltage signal.
+             • Quantization replaces each real number of the signal voltage with an approximation
+               from a finite set of discrete values.
+
+
+       • Before: Time Axis: Continuous, Amplitude(voltage) Axis: Continuous
+       • After:         Time Axis: Discrete, Amplitude Axis: Discrete
+
+
+ CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS
+Satoshi Nakamura@SDS,                                                             2025/9/19 2025/9/19   14
+                                                                                                        14
+                                                  Signal
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS            2025/9/19 2025/9/19   15
+                                                  Sampling
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS              2025/9/19
+                                                                         16
+                                                  Sampling
+• Sampling takes measurements of a continuous waveform at regular
+  intervals and generates a sequence of measured values
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS              2025/9/19
+                                                                         17
+                                             Sampling Rate
+• Sampling rate = 1 / Sampling period
+      • Hz
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS              2025/9/19 2025/9/19   18
+                         Sampling: Nyquist frequency
+
+
+
+                                                        ???
+           1 cycle
+
+
+
+
+           Sampling Period                        Sampling frequency >2f
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                            2025/9/19
+                                                                                       19
+          Analog signal to digital signal: Quantization
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS      2025/9/19
+                                                                 20
+        Comparison of different sampling rates
+
+                                                       4k Hz
+
+                                                       8k Hz
+
+                                                       16k Hz
+
+                                                       22.05k Hz
+
+                                                       48k Hz
+                                https://colab.research.google.com/drive/1zPBwUfvEwUteiSLZSHXzMeleyC5rcN46?usp=sharing
+
+ CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS
+Satoshi Nakamura@SDS,                                                                                                   2025/9/19 2025/9/19   21
+                                                                                                                                              21
+                      Time domain vs frequency domain
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS         2025/9/19
+                                                                    22
+                                    A signal in time domain
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS               2025/9/19
+                                                                          23
+                                     Frequency-domain representation
+
+
+
+
+https://colab.research.google.com/drive/1yk5HOi2bpzQ3MDzBTwGdLZoJvwILIelZ?usp=sharing
+
+
+      CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                                   2025/9/19
+                                                                                                    24
+                       Frequency-domain representation
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS          2025/9/19
+                                                                     25
+                                          Frequency analysis
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                2025/9/19
+                                                                           26
+                               Windowing for analysis
+• A signal of a sound/speech/music is a sequence of acoustic events/words/lyrics
+  etc.
+• The signal of a sound/speech/music is time-variant in character.
+• To extract information from a signal, we must therefore split the signal into
+  sufficiently short segments
+• Extract segments which are short enough that the properties of the
+  sound/speech/music signal does not have time change within that segment.
+• Windowing is a method in signal processing and it refers to splitting the input
+  signal into temporal segments
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                              2025/9/19
+                                                                                         27
+                                                  Windowing
+• The straightforward windowing is to apply a rectangular window
+• The borders of segments are then visible as discontinuities, which are incongruent with
+  the real-world signal
+
+
+
+
+                                                                                            30
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                                 2025/9/19
+                                                                                                 28
+                               Windowing for analysis
+• Windowing functions are smooth functions which go to zero at the borders
+• Hanning and Hamming window as an example
+
+
+
+
+                                                  https://www.skyradar.com/blog/windowing-functions-in-radar-technology
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                                                      2025/9/19
+                                                                                                                     29
+                                           Windowing
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS        2025/9/19
+                                                                   30
+                                                     Spectrum
+
+
+
+
+                                          https://www.skyradar.com/blog/windowing-functions-in-radar-technology
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                                                                   2025/9/19
+                                                                                                                              31
+                               Windowing for analysis
+• By multiplying the input signal with a window function, the windowing function
+  also goes to zero at the border (Hanning window) such that the discontinuity at
+  the border becomes invisible.
+• Windowing does change the signal
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                   2025/9/19 2025/9/19   32
+                                                                                        32
+                                    Windowing: Framing
+• Hop size/Frame shift
+• Window size
+
+
+
+                        Window size
+
+
+               Hop size/frame shift
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS          2025/9/19
+                                                                     33
+                     Fundamental Assumptions
+• Properties of speech signal change relatively slowly with time (5-
+  10 sounds per second)
+  • Short 5-20 msec intervals
+       • due to the small amount of data, varying pitch, varying amplitude
+  • Medium 20-100 msec intervals
+       • due to changes in sound quality, transitions between sounds, rapid transients in Speech
+
+  • Long 100-500 msec intervals
+       • Due to large amount of sound changes
+
+• There is always uncertainty in short-time measurements and
+ estimates from speech signals
+   CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                                    2025/9/19
+                                                                                                   34
+                          Compromise Solution
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS   2025/9/19
+                                                              35
+ Frame-by-frame processing in successive
+                windows
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS   2025/9/19
+                                                              36
+              Discrete Fourier Transform(DFT)
+
+• DFT
+                                                      $%&
+                                                            %'()*!/$
+                                       𝑋 𝑘 = $𝑥 𝑛 𝑒
+                                                      !"#
+
+
+• 𝑋 𝑘 is the k-th frequency component. It shows how many of the frequency k waves is
+  inside the signal.
+
+
+
+
+    CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                          2025/9/19
+                                                                                         37
+                                 Convolution
+• Convolution is a mathematical way of combining two signals to form a third signal.
+• It is one important technique in Digital Signal Processing.
+• Using the strategy of impulse decomposition, systems are described by a signal called
+  the impulse response.
+
+
+                                           $%&
+
+                           𝐹[𝑘] ∗ 𝐺[𝑘] = ( 𝑓 𝑚 𝑔 𝑘 − 𝑚
+                                           !"#
+
+
+
+
+                                                                                          38
+                                         Window and DFT
+
+• Windowed DFT
+                                                       $%&
+                                                               '()*!
+                                           ,                 %
+                                          𝑋 [𝑘] = $ 𝑥 𝑛 𝑤 𝑛 𝑒 $
+                                                       !"#
+
+
+
+• In spectrum domain
+                                                   ,
+                                                  𝑋 [𝑘] = 𝑋[𝑘] ∗ 𝑊[𝑘]
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                         2025/9/19
+                                                                                    39
+                                                           Windowing
+• Convolution is a mathematical way of combining two signals to form a third signal.
+• It is one of the most important techniques in Digital Signal Processing.
+
+
+        X(k)                                                               $%&
+               1      2         2         1        1
+                                                               𝑋[𝑘] ∗ 𝑊[𝑘] = ( 𝑊 𝑚 𝑋 𝑘 − 𝑚
+        K-m    K-4        k-3       K-2       K-1      k
+                                                                           !"#
+
+
+
+        W(m) 1              1        1         0       0
+
+
+                     m=0
+
+
+
+
+                                                                                             2025/9/19
+                                                                                                         40
+    Rectangular and Hamming Windows
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS   2025/9/19
+                                                              41
+                                              Windows
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS         2025/9/19
+                                                                    42
+                      Effect of Window Length
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS   2025/9/19
+                                                              43
+                                                  Spectrum
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS              2025/9/19
+                                                                         44
+                                                  Spectrogram
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                 2025/9/19
+                                                                            45
+                                                  Summary
+• Recap
+• Digital Processing for Acoustic Wave
+      • Sampling,
+      • Quantization,
+      • Sampling Rate, Nyquist Frequency
+• Windowing
+      • Rectangular window, Hanning/Hamming Window
+• Discrete Short-time Fourier Transform
+      • Windowing in the frequency domain
+• Convolution
+      • Windowing in the frequency domain
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS             2025/9/19
+                                                                        46
+                                                  Readings
+• Chapter 3: Basic Representations
+      • https://speechprocessingbook.aalto.fi/Representations/Representations.html
+
+
+
+
+CSC3160 2025-2026 Term 1 Satoshi Nakamura @ SDS                                      2025/9/19
+                                                                                                 47
+

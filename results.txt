@@ -1,0 +1,29 @@
+==================================================
+Evaluation Complete
+Total Time: 92.01s
+Accuracy: 91.00% (91/100)
+==================================================
+Detailed results saved to eval/evaluation_results_rag_text.json
+
+==================================================
+Evaluation Complete
+Total Time: 677.58s
+Accuracy: 79.00% (79/100)
+==================================================
+Detailed results saved to eval/evaluation_results_rag_speech.json
+
+
+
+==================================================
+Evaluation Complete
+Total Time: 117.19s
+Accuracy: 66.00% (66/100)
+==================================================
+Detailed results saved to eval/evaluation_results_no_rag_text.json
+
+==================================================
+Evaluation Complete
+Total Time: 288.16s
+Accuracy: 58.00% (58/100)
+==================================================
+Detailed results saved to eval/evaluation_results_no_rag_audio.json

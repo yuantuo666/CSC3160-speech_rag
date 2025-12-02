@@ -1,0 +1,58 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0" version="29.2.1">
+  <diagram name="Page-1" id="medCym4-zxNqnPiYfHjH">
+    <mxGraphModel dx="1235" dy="763" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ntuz9Djkuy0rLOW-OB7h-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14;align=center;verticalAlign=top;spacingTop=7;spacing=0;arcSize=7;" value="&lt;b&gt;&lt;font&gt;Generation&lt;/font&gt;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="110" width="169" x="639.5" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="ntuz9Djkuy0rLOW-OB7h-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14;align=center;verticalAlign=top;spacingTop=0;spacing=0;arcSize=7;" value="&lt;b&gt;Multimodal Understanding&lt;/b&gt;" vertex="1">
+          <mxGeometry height="110" width="169" x="233.5" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ragContainer" parent="1" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14;align=center;verticalAlign=top;spacingTop=7;spacing=0;arcSize=7;" value="&lt;b&gt;&lt;font&gt;RAG Retrieval Module&lt;/font&gt;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="200" width="169" x="436" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="zmu8IkUbj9wwgN8PxF7P-10" edge="1" parent="1" source="userInput" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=14;" target="speechUnderstanding">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="userInput" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;align=center;flipH=1;" value="&lt;b&gt;User Input&lt;/b&gt;&lt;br&gt;(Audio Query)" vertex="1">
+          <mxGeometry height="60" width="150" x="40" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="zmu8IkUbj9wwgN8PxF7P-7" edge="1" parent="1" source="speechUnderstanding" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=14;" target="queryEmbedding">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="speechUnderstanding" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;align=center;flipH=1;" value="&lt;font&gt;&lt;b&gt;ASR Model&lt;/b&gt;&lt;br&gt;Phi-4-MM&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="150" x="243" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="zmu8IkUbj9wwgN8PxF7P-8" edge="1" parent="1" source="queryEmbedding" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=14;" target="vectorDB">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="queryEmbedding" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;align=center;flipH=1;" value="&lt;b&gt;Query Embedding&lt;/b&gt;&lt;br&gt;Qwen3-Embedding" vertex="1">
+          <mxGeometry height="60" width="150" x="446" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="zmu8IkUbj9wwgN8PxF7P-9" edge="1" parent="1" source="vectorDB" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=14;" target="vllmInference">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vectorDB" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;align=center;flipH=1;" value="&lt;b&gt;Vector Database&lt;/b&gt;&lt;br&gt;ChromaDB" vertex="1">
+          <mxGeometry height="60" width="150" x="446" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="zmu8IkUbj9wwgN8PxF7P-5" edge="1" parent="1" source="vllmInference" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=14;" target="response">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vllmInference" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;align=center;flipH=1;" value="&lt;font&gt;&lt;b&gt;LLM&amp;nbsp;&lt;/b&gt;&lt;br&gt;Phi-4-MM&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="150" x="649" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="response" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;align=center;flipH=1;" value="&lt;b&gt;Response&lt;/b&gt;&lt;br&gt;(Text)" vertex="1">
+          <mxGeometry height="60" width="150" x="852" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="zmu8IkUbj9wwgN8PxF7P-6" edge="1" parent="1" source="zmu8IkUbj9wwgN8PxF7P-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=14;dashed=1;dashPattern=8 8;" target="vectorDB">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zmu8IkUbj9wwgN8PxF7P-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;align=center;" value="&lt;b&gt;Courseware&lt;/b&gt;&lt;br&gt;PDFs/PPTs" vertex="1">
+          <mxGeometry height="60" width="150" x="243" y="180" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,444 @@
+CSC3160 - Fundamentals of Speech and Language Processing
+
+                                                 Image: catalyst-magazine.org
+
+
+
+
+              Lecture 2: Sound and Acoustics
+                    Satoshi Nakamura (SDS)
+                            1
+Course logistics
+  ‣ Course website: SIS and blackboard (coming soon)
+    - Lecture Material in the CUHKSZ Blackboard system
+  ‣ Lecture time and location
+    - Wednesday 8:30-9:50 / Friday 10:30-11:50 in TB102 (Be careful the time slots are different)
+  ‣ Tutorials: The tutorials will be designed later.
+  ‣ Teaching Team
+    - Instructor: Satoshi Nakamura@SDS, snakamura@cuhk.edu.cn
+    - TA:
+          • 李珈祺       Lead      LI Jiaqi            120090727@link.cuhk.edu.cn
+          • 宋语宸                 SONG Yuchen         121090486@link.cuhk.edu.cn
+
+    - USTF:
+          • 冯文杰                  FENG Wenjie        122090112@link.cuhk.edu.cn
+
+          • Keven Pratama Hendrata                  122040031@link.cuhk.edu.cn
+                                               2
+Office Hour
+‣ Office hours
+  Please send an email request in advance
+
+  - Instructor
+        • Satoshi Nakamura         snakamura@cuhk.edu.cn       Thursday   10:00-11:00   TXC704
+
+  - TA:
+        • 李珈祺(Lead) LI Jiaqi       120090727@link.cuhk.edu.cn Wednesday 17:00-17:30     TXC606
+
+        • 宋语宸 SONG Yuchen          121090486@link.cuhk.edu.cn Friday      14:00-14:30   TXC703
+
+  - USTF:
+        • 冯文杰 FENG Wenjie 122090112@link.cuhk.edu.cn Friday               18:00-19:00   University Library 1st Floor Discussion Space
+
+        • Keven Pratama Hendrata 122040031@link.cuhk.edu.cn Thursday      18:00-18:30   University Library 1st Floor Discussion Space
+
+
+
+
+                                                           3
+Grading (details are available on course website)
+‣ Assignment      (30%)
+‣ Midterm exam (20%)
+‣ Final exam      (45%)
+‣ Participation (5%)
+    • How to check?: The mobile phone APP, which will be announced later.
+‣ Others
+  - Course evaluation +1 point
+
+‣ For a student who received a grade A and attended all the classes (over 80%), I could
+  write you a recommendation letter.
+
+
+                                           4
+Research Proposal Report
+- Overall quality of report (total 7)
+  - Reference to Prior Work (2)
+  - Originality and creativity (2)
+  - Technical Correctness (2)
+  - Clarity of writing (1)
+
+- Peer review (total 3)
+    • Constructive review of other reports. Each reviews the reports of others.
+    The reviews are NOT used to rate other reports.
+
+
+
+                                        5
+Schedule
+   2025   Date   Class No. Topics
+      9      3       1     Lecture 1 Introduction
+            5        2     Lecture 2 Sound and acoustics
+           10        3     Lecture 3 Digital Speech Processing
+            12       4     Lecture 4 Understanding human speech
+            17       5     Lecture 5 Speech representation
+           19        6     Lecture 6 Phonetics
+           24        7     Lecture 7 Speech Perception
+           26        8     Lecture 8 Speech Coding
+           28        9     Lecture 9 Text processing
+     10    (1)   Holiday
+           (3)   Holiday
+           (8)   Holiday
+           10       10     Lecture 10 Words
+            11       11    Lecture 11 Syntax
+            15      12     Midterm Summary
+            17      13     Midterm Exam
+           22       14     Lecture 612 Word embeddings
+Schedule
+       2024   Date   Class No. Topics
+               24       15    Lecture 13 Language models
+               29       16    Lecture 14 Statistical MT
+               31       17    Lecture 15 Neural MT (Encoder-Decoder)
+  11            5       18    Lecture 16 Transformer
+                7       19    Lecture 17 Self Supervised Modeling
+               12       20    No class (Absent for International Conference)
+               14       21    Lecture 18 Automatic Speech Recognition
+               19       22    Lecture 19 Text to Speech Synthesis
+               21       23    Lecture 20 Chatbot
+               26       24    Lecture 21 QA
+               28       25    Lecture 22 LLM
+  12            3       26    Lecture 23 Affects
+                5       27    Summary for the Final Exam
+                              Report Review (SN: Absent for International
+               10       28
+                              Conference)
+               12       29    Final Exam
+                                        7
+Today’s topic: Speech Fundamentals
+Agenda
+ - What is sound?
+ - What is human speech?
+ - What are speaking and listening?
+ - What are pitch and frequency in human speech?
+ - What are intensity and loudness?
+                          speech intensity 语⾔强度
+                             8
+
+                                                   2025/9/19
+ Sound of nature
+‣ The sound of wading through shallow water, picking your feet out and putting them
+  back in. Maybe on a beach or in wetland.
+
+
+
+
+‣ Gull wheeling overhead on beach with wave sound in background
+
+
+
+
+                                             9
+Sound of human
+
+
+
+
+                 10
+Sound
+‣ Physical definition
+  - A vibration that propagates as an acoustic wave,
+    through a transmission medium such as a gas, liquid or
+    solid.
+
+
+‣ Psychophysical definition
+  - Reception of such acoustic waves and their perception
+    by the brain.
+
+
+
+
+                                          11
+Waves                                       Longitudinal = Primary 纵波
+                                            Transverse = Secondary 横波
+‣ Sound is transmitted through gases, plasma, and liquids as longitudinal waves, also
+  called compression waves.
+
+
+
+
+                        https://www.acs.psu.edu/drussell/Demos/waves/wavemotion.html
+                                                      12
+Human ear
+‣ human hearing range: ~20 – 20,000 Hz
+
+
+
+
+                                                 13
+                         https://www.nidcd.nih.gov/health/how-do-we-hear
+Speaking vs Listening
+
+
+
+
+                    14
+Journey of sound to the brain
+
+
+
+
+                                           15
+           https://www.nidcd.nih.gov/news/multimedia/journey-of-sound-video
+                  Hearing Loss by aging
+        ⽼⼈听不清⾼频
+
+
+
+
+Wang, J.; Puel, J.-L. Presbycusis: An Update on Cochlear Mechanisms and Therapies.
+           J. Clin. Med. 2020, 9, 218. https://doi.org/10.3390/jcm9010218
+Quantifying sound
+‣ Physical characteristics              ‣ Perceptual characteristics
+  - Intensity                             - Loudness (Psychological Strength)
+  - Frequency                             - Pitch (Psychological high/low sound)
+  - Time variation and frequency          - Timbre (Psychological tone color)
+    distribution/spectrum
+
+
+
+
+                                   18
+Frequency and pitch
+
+
+
+
+                      19
+Pitch
+‣ Pitch: Perceptual property
+  - Low pitch <=> low frequency of vibration/oscillation
+  - High pitch <=> high frequency of vibration/oscillation
+
+
+
+
+                                            20
+Frequency
+‣ Frequency: Physical property
+  - An expression of how frequently a periodic wave form or signal repeats itself
+    at a given amplitude
+                           50Hz
+
+
+
+   1
+𝑓=   Hz
+   𝑇
+                        200Hz
+                                        21
+Frequency
+ A0 is equal to 27.5 Hz while A4 is equal to 440 Hz. Notes start from A0 and go to C8 from left to right.
+
+
+
+
+ 27.5 Hz                                                                                        4,186 Hz
+                                                 22
+Spectrum    频谱
+
+
+
+
+ 强度 - 时间点        强度 - 频率点（FFT）
+
+
+
+
+                 23
+                                 2025/9/19   23
+Spectrogram   频谱图
+
+       新增加⼀个时间维度，时间 - 频率 - 强度
+
+
+
+
+                    24
+                                2025/9/19
+                                            24
+Time domain vs frequency domain
+
+
+
+
+                   25
+Frequency and pitch
+‣ Pitch depends primarily (approximately) logarithmically on frequency
+
+
+
+
+                                           26
+Human hearing range
+‣ Human can hear frequencies above about 20 Hz
+
+
+
+
+                                       27
+Frequency and pitch
+
+
+
+
+                      28
+Intensity and loudness
+‣ Intensity is an objective comparison of
+  sound power per unit area. But the ear
+  responds in a non-linear way to that
+  sound intensity.
+
+
+‣ Loudness is the strength of the ear’s
+  perception of the sound. It is a subjective
+  measurement of perception.
+
+
+
+
+                                                29
+Loudness vs intensity
+
+
+
+
+                    30
+Loudness and spectra                       Fundamental frequency
+
+
+‣ Upper spectrum: Spectrum of the
+  first 0.3 seconds
+‣ Lower spectrum: Spectrum of the
+  last 0.3 seconds
+
+
+
+‣ Observations
+  - Fundamental frequency is hardly
+    changed
+  - Higher harmonics make the note
+    sound louder
+
+
+                                      31
+Decibel (dB)
+‣ Decibel: a logarithmic unit used to measure sound level - difference as a ratio
+
+‣ Example: One loudspeaker plays a sound with power P1, and another plays a louder
+  version of the same sound with power P2, but everything else (how far away,
+  frequency) kept the same
+                                10log(𝑃! /𝑃" )dB
+  - P2 is twice as much power than P1
+                                10log(𝑃! /𝑃" ) = 10log(2) ≈ 3dB
+  - P2 has a million times the power of P1
+                                10log(𝑃! /𝑃" ) = 10log1,000,000 ≈ 60dB
+                                             32
+Loudness = volume?
+‣ Loudness is the noise level perceived by an individual, whereas volume is an absolute
+  sound level that can be scientifically measured. For example, if your family is
+  watching a movie together, the TV volume is the same for everyone in the room.
+  However, the TV's loudness may be much less for a person with a hearing
+  impairment than it is for a person with normal hearing.
+
+
+‣ If you increase the volume on a television, it will also incrementally increase the
+  loudness of the sound. However, increasing the volume will not increase the loudness
+  to the same degree for every person.
+
+
+
+
+                                             33
+Timbre (also known as tone color/quality)
+‣ Depends strongly on envelope (time variation) and also depends on spectrum
+
+
+
+
+                                        34
+Timbre: Spectrum and harmonics
+‣ A periodic wave has a harmonic spectrum
+  - Spectrum includes both magnitude of the harmonics and their relative phases
+  - Our ears are not very sensitive to relative phase
+
+‣ Harmonic series: a set of frequencies f, 2f, 3f, 4f, f is the fundamental frequency
+
+
+
+
+                                                             35
+                        https://colab.research.google.com/drive/1yk5HOi2bpzQ3MDzBTwGdLZoJvwILIelZ?usp=sharing
+Timbre: Time variations (envelope)
+
+
+
+
+                     37
+Physical property vs perceptual property
+
+
+          Pitch                Frequency
+
+
+
+
+         Loudness               Intensity
+
+
+
+                              Time variation
+         Timbre                     &
+                             Spectral content
+
+
+
+                     38
+/9/19
+
+
+
+        Summary
+
+        - What is sound?
+        - What is human speech?
+        - What are speaking and listening?
+        - What are pitch and frequency in human speech?
+        - What are intensity and loudness?
+
+
+
+           Satoshi Nakamura@SDS, AIR6063/CSC5052
+                                                   39
+   Thanks!
+
+
+
+Satoshi Nakamura (SDS)
+               Live demo
+                          Link
+https://colab.research.google.com/drive/1gvjc0Nasy6Xlzi-
+             o_a_al7ocp1nScaUt?usp=sharing
+/9/19
+
+
+
+        Readings
+        ‣ Chapter 3: Basic Representations
+         - https://speechprocessingbook.aalto.fi/Representations/Representations.html
+
+
+
+
+              Satoshi Nakamura@SDS, AIR6063/CSC5052
+                                                      42
+

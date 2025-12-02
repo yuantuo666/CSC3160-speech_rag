@@ -1,0 +1,679 @@
+   ‣ Attendance registration App:
+
+
+
+     Satoshi  CSC3160 Wed. 8:30-9:50                  TB102
+     Nakamura         Fri. 10:30-11:50
+
+
+
+
+ • It's active 15 minutes before class starts until 20 minutes
+   after class start time.
+
+ • It’s active on two time slots on Wednesdays
+   and Fridays; any mismatched check-ins will be
+   filtered out.
+
+Satoshi Nakamura, CUHKSZ CSC3160                                 10/22/25   1   1
+CSC3160 - Fundamentals of Speech and Language
+          Processing
+
+
+
+      Lecture 12: Language models
+
+
+                    Satoshi Nakamura
+
+
+
+                                       10/22/25   2
+                                            Schedule
+                  2025       Date    Class No. Topics
+                     9        3          1     Lecture 1 Introduction
+                              5          2     Lecture 2 Sound and acoustics
+                                               Lecture 3 Lecture 3 Understanding human speech
+                               10        3
+                                               production
+                               12        4     Lecture 4 Speech Perception
+                               17        5     Lecture 5 Digital Speech Processing
+                               19        6     Lecture 6 Speech representation
+                               24        7     Lecture 7 Phonetics
+                               26        8     Lecture 8 Text processing (No speech coding )
+         (make-up)             28        9     Lecture 9 Words
+                 10            (1)   Holiday
+                               (3)   Holiday
+                               (8)   Holiday
+                               10       10     Lecture 10 Syntax
+       (make-up?)              11       11     No class
+                               15       12     Lecture 11 Word embeddings
+                               17       13     Lecture 12 Language models
+                               22       14     Midterm Summary
+
+Satoshi Nakamura, CUHKSZ CSC3160                                            10/22/25            3   3
+                                            Schedule
+                                                                              Attention:
+                                                                          Schedule changed
+                 2024        Date   Class No. Topics
+                               24      15    Midterm Exam
+                               29      16    Lecture 13 Statistical MT
+                               31      17    Lecture 14 Neural MT (Encoder-Decoder)
+              11                5      18    Lecture 15 Transformer
+                                7      19    Lecture 16 Self Supervised Modeling
+                               12      20    No class (Absent for International Conference)
+                               14      21    Lecture 17 Automatic Speech Recognition
+                               19      22    Lecture 18 Text to Speech Synthesis
+                               21      23    Lecture 19 Chatbot
+                               26      24    Lecture 20 QA
+                               28      25    Lecture 21 LLM
+              12                3      26    Lecture 22 Affects
+                                5      27    Summary for the Final Exam
+                                             Report Review (SN: Absent for International
+                               10      28
+                                             Conference)
+                               12      29    Final Exam
+Satoshi Nakamura, CUHKSZ CSC3160                                         10/22/25             4   4
+                                   Assignment Plan
+
+
+            Assignment   Scope    Release Deadlin Answer session+
+                 No                          e       Tutorial
+                  1     Class 1-7   9/26   10/10      10/17
+                  2    Class 8-12   9/28   10/17      10/22
+                  3    Class 16-22 11/1    11/26      11/28
+                  4      Report    10/24    12/3      12/10
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                     10/22/25       5   5
+                           Tutrial
+• Oct. 17 18:00-18:50 in the Teaching A TA310 (Friday)
+• Oct. 22 19:00-20:00 in the Teaching B TB102 (Wednesday)
+
+
+
+
+                                                            6
+                                               10/22/25         6
+                                   Midterm Exam
+   • Mid-term exam: October 24 10:30-12:30
+                              th
+
+         • Scope: Lecture 1- 12 (all lectures until the midterm exam)
+
+         • Condition
+              • No mobile phone, Pad, or PC.
+              • 1-page both-side cheat sheet
+              • no magnifying glass
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                               10/22/25   7   7
+                           Agenda
+• Recap
+• Word sense and their relations
+• Word representation and embedding
+• Measuring semantic similarity
+
+
+
+
+                                      10/22/25   8
+                              Outline
+• Recap
+• What is a language model?
+• Applications of language models
+• N-gram and chain rule
+  • Examples for bigram probabilities
+• Evaluating language models
+• Smoothing
+
+
+
+                                        10/22/25   9
+           Distributional Hypothesis (Lenci, 2008)
+
+
+  • At least certain aspects of the meaning of lexical expressions
+   depend on their distributional properties in the linguistic contexts
+
+
+  • The degree of semantic similarity between two linguistic
+   expressions is a function of the similarity of the two linguistic
+   contexts in which they can appear
+
+
+Satoshi Nakamura@SDS AIR6001/MDS6105/CSC5010                              10
+                                   Word representation
+     • Five-word vocabulary: man, walk, woman, swim, ask
+          • 1-of-N encoding/one-hot encoding
+
+               • [1, 0, 0, 0, 0]: man
+               • [0, 1, 0, 0, 0]: walk
+               • [0, 0, 1, 0, 0]: woman
+               • [0, 0, 0, 1, 0]: swim
+               • [0, 0, 0, 0, 1]: ask
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                         10/22/25   11
+                   Words as vectors: Word dimensions
+     • word-word co-occurrence matrix
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160             10/22/25   12
+                                   Spatial visualization
+
+
+
+
+Satoshi Nakamura, CUHKSZ CSC3160                           10/22/25   13
+                      Word2vec (Mikolov et al., 2013)
+                                                      • CBOW: use the surrounding
+                                                        words to predict a center
+                                                        word. Continuous “Bag of
+                                                        “Words
+
+
+                                                      • Ski-gram: use the middle
+                                                        word to predict surrounding
+                                                        words in a window
+
+                                                                                14
+   Satoshi
+Satoshi    Nakamura@SDS
+        Nakamura,           AIR6001/MDS6105/CSC5010
+                  CUHKSZ CSC3160                                 10/22/25       14
+                                           Semantic similarity
+
+
+
+
+                          Example: Vectors in Embedding Representation Space by Word2vec
+Satoshi Nakamura, CUHKSZ CSC3160                                                     10/22/25   15
+                              Outline
+• Recap
+• What is a language model?
+• Applications of language models
+• N-gram and chain rule
+  • Examples for bigram probabilities
+• Evaluating language models
+• Smoothing
+
+
+
+                                        10/22/25   16
+        Give a word
+
+
+
+
+The student is watching
+
+
+
+
+                          10/22/25   17
+           Probabilistic language model
+
+• Goal: Compute the probability of a sentence or sequence of words
+
+                  𝑃(𝑊) = 𝑃(𝑤! , 𝑤" , 𝑤# , . . . , 𝑤$ )
+• Probability of an upcoming word
+
+                   𝑃(𝑤$ |𝑤! , 𝑤" , 𝑤# , . . . , 𝑤$%! )
+
+
+
+                                                         10/22/25   18
+                            LM applications
+• Machine translation
+
+             𝑃(Students from my class are the best|我班上的学生是最棒的)
+             > 𝑃(Students from Stanford are the best|我班上的学生是最棒的)
+
+• Natural language generation
+    𝑃(best|Students from my class are the) > 𝑃(average|Students from my class are the)
+
+• Speech recognition
+
+                      𝑃(Three students) > 𝑃(Tree students)
+
+
+
+                                                                   10/22/25              19
+Language models in daily life
+
+
+
+
+                         10/22/25   20
+                   Probability of next word
+
+
+                                            𝐶(Students from my class are the best)
+   𝑃(best|Students from my class are the) =
+                                              𝐶(Students from my class are the)
+
+
+
+
+• C(Students from my class are the best) is the count of the phrase
+  “Students from my class are the best”
+
+
+
+                                                               10/22/25              21
+                  Probability of next word
+ • Chain rule of probability
+              𝑃(𝑤!:# ) = 𝑃(𝑤! )𝑃(𝑤$ |𝑤! )𝑃(𝑤% |𝑤!:$ ). . . 𝑃(𝑤# |𝑤!:#&! )
+
+• Smarter way to estimate the probability
+    • Use conditional independence
+
+   𝑃(Students from my class are the best)
+   = 𝑃(best|the)𝑃(the|are)𝑃(are|class)𝑃(class|my)𝑃(my|from)𝑃(from|Students)𝑃(Students)
+
+
+
+
+                                                             10/22/25             22
+           N-gram
+
+
+The student is watching
+Unigram: “-”
+Bigram: “watching - ”
+Trigram: “is watching -”
+4-gram: “student is watching -”
+5-gram: “The student is watching -”
+
+                          10/22/25    23
+                       Bigram model
+• approximates the probability of a word given all the previous
+  words by using only the conditional probability of the preceding
+  word
+
+
+        𝑃(best|Students from my class are the) ≈ 𝑃(best|the)
+
+
+
+
+                                                    10/22/25         24
+              Markov assumption
+
+• Assumption: the probability of a word
+  depends only on the previous words
+  without looking too far into the past
+
+ 𝑃(best|Students from my class are the) ≈ 𝑃(best|the)
+
+
+         𝑃(𝑤# |𝑤!:#&! ) ≈ 𝑃(𝑤# |𝑤#&! )            1-st order Markov
+
+
+• Markov model: assume we can predict the probability of
+  some future unit without looking too far into the past
+                                                             10/22/25   25
+          Generalizing bigram to N-gram
+• From bigram to N-gram
+
+
+                   𝑃(𝑤# |𝑤!:#&! ) ≈ 𝑃(𝑤# |𝑤#&'(!:#&! )
+
+• N = 2: bigram
+• N = 3: trigram
+• N = 4: 4-gram
+• N = 5: 5-gram
+
+
+                                                         10/22/25   26
+Simplest case: unigram
+
+𝑃(𝑤!:# ) = 𝑃(𝑤! )𝑃(𝑤$ )𝑃(𝑤% ). . . 𝑃(𝑤# )
+
+
+
+
+                                    10/22/25   27
+                      Bigram model
+• Condition on the previous word
+
+                𝑃(𝑤& |𝑤!:&%! ) ≈ 𝑃(𝑤& |𝑤&%! )
+
+
+
+
+                                                10/22/25   28
+           Example with a mini-corpus
+
+
+
+          <s> : beginning symbol
+          </s>: ending symbol
+
+• Maximum-likelihood estimation (MLE): bigram probability
+
+
+
+
+                                                10/22/25    29
+                  A slightly large example
+ • Unigram counts
+
+
+
+
+• Bigram counts
+  • “I want” occurred 827 times in the document.
+  • “want want” occurred 0 times.
+
+                                                   10/22/25   30
+                   Bigram probabilities
+
+
+
+
+• Other useful probabilities
+
+• Calculate the probability of sentences like “I want English food”
+
+
+
+
+                                                   10/22/25           31
+Evaluating language models
+
+
+
+
+Training set       Test set
+
+
+
+
+                         10/22/25   32
+                          Perplexity
+• the inverse probability of the test set, normalized by the number
+  of words
+
+
+
+
+• Applying chain rule
+
+
+
+
+                                                   10/22/25           33
+                      Intuition of perplexity
+• Intuitively, perplexity can be understood as a measure of uncertainty
+• What’s the level of uncertainty in predicting the next word?
+   • The current president of CUHK Shenzhen is _______ ?
+   • ChatGPT is built on top of OpenAI's GPT-5 family of large language _____ ?
+
+
+• Uncertainty level
+   • Unigram: highest
+   • Bigram: high
+   • 5-gram: low
+
+
+
+
+                                                           10/22/25               34
+Lower perplexity = better model
+
+
+
+
+https://web.stanford.edu/~jurafsky/slp3/3.pdf
+
+https://www.isca-speech.org/archive_v0/Interspeech_2017/pdfs/0729.PDF
+                                                                        10/22/25   35
+Long tail
+
+
+
+
+            10/22/25   36
+                The perils of overfitting
+• N-gram models only work well for word prediction if the test
+  corpus looks like the training corpus
+  • In the real world, the inference corpus often doesn’t look like the
+    training
+  • Robust models that generalize are all we need
+  • One kind of generalization: Zeros
+     • Things that don’t ever occur in the training set but not in the
+       test set
+
+
+                                                    10/22/25             37
+                               Zeros
+• Training set
+                                   ‣ Test set
+  • … denied the allegations
+                                     - … denied the offer
+  • … denied the reports
+                                     - … denied the loan
+  • … denied the claims
+  • … denied the request
+
+                      𝑃(offer|denied the) = 0
+
+                      𝑃(loan|denied the) = 0
+
+
+                                                  10/22/25   38
+                  Zero probability bigrams
+• Bigram with zero probability
+  • On test set
+                   𝑃(𝑤& |𝑤!:&%! ) ≈ 𝑃(𝑤& |𝑤&%! )
+
+• Perplexity: can’t compute because of 1 over 0…
+
+
+
+
+                                                   10/22/25   39
+            Unseen events
+Training data: The wolf is an endangered species
+Test data:      The wallaby is endangered
+
+
+
+
+                                            https://courses.engr.illinois.edu/cs447
+                                            /fa2018/Slides/Lecture04.pdf
+
+                                            10/22/25                           40
+What can we do?
+
+
+
+
+                  10/22/25   41
+Dealing with unknown words: Simple solution
+• Create an unknown word token <UNK>
+  • Training of <UNK> probabilities
+  • Create a fixed lexicon L of size V
+  • At text normalization phase, any training word not in L
+    changed to <UNK>
+
+
+• During inference
+  • Use UNK probabilities for any word not in training
+
+
+                                                   10/22/25   42
+                                Smoothing
+• To improve the accuracy of our model
+• To handle data sparsity, out of vocabulary words, words that are absent in the
+  training set.
+• Smoothing techniques
+   • Laplace smoothing: Also known as add-1 smoothing
+   • Additive smoothing
+   • Good-turing smoothing
+   • Kneser-Ney smoothing
+   • Katz smoothing
+   • Church and Gale Smoothing
+
+• Interpolation of the models
+
+                                                             10/22/25              43
+                 Laplace Smoothing
+• Assuming every (seen or unseen) event occurred once more
+  than it did in the training data.
+
+
+
+                                      𝐶(𝑤678 , 𝑤6 ) + 1
+               𝑃Laplace (𝑤6 |𝑤678 ) =
+                                       𝐶(𝑤678 ) + 𝑉
+
+
+
+
+                                              10/22/25       44
+           Bigram counts
+
+
+
+Original
+
+
+
+
+Smoothed
+
+
+                           10/22/25   45
+                          Intuition of smoothing
+• When we have sparse statistics:
+  • P(w | denied the)
+    • 3 allegations
+    • 2 reports
+    • 1 claims
+    • 1 request
+• Steal probability mass to generalize better
+  • P(w | denied the)
+    • 2.5 allegations
+    • 1.5 reports
+    • 0.5 claims
+    • 0.5 request
+    • 2 other
+                                                   10/22/25   46
+               Backoff and interpolation
+• Use less context
+
+  • Backoff
+     • use trigram if you have good evidence,
+     • otherwise bigram, otherwise unigram
+
+
+  • Interpolation
+     • Mix unigram, bigram, trigram
+
+
+
+                                                10/22/25   47
+Self-supervised Traning: Masked Language Model
+•BERT(Masked language models)
+ • Consider predicting the next word for the following example:
+
+
+
+
+  • What if you have more (bidirectional) context?
+
+
+
+ • Information from the future can be helpful for language understanding!
+
+                                                                  22/10/2025   48
+  Bidirectional Encoder Representations from Transformers (BERT)
+
+
+
+
+                                    Encoder
+
+BERT = Encoder of Transformer
+
+
+
+
+                                                 10/22/25          49
+Masked language model
+
+
+
+
+                   10/22/25   50
+Next sentence prediction
+
+
+
+
+                      10/22/25   51
+       How to use BERT – Case 1
+
+   class
+                                   Input: single sentence,
+  Linear           Trained from    output: class
+ Classifier        Scratch
+
+
+hCLS                                   Use cases:
+                                       Sentiment analysis
+       BERT            Fine-tune       Document Classification
+
+
+  [CLS]       w1    w2        w3
+                   sentence
+                                                  10/22/25       52
+    How to use BERT – Case 2
+
+        class     class    class
+
+        Linear Linear      Linear   Input: single sentence,
+        Cls    Cls         Cls      output: class of each word
+
+
+
+                                    Use case: Slot filling
+             BERT
+
+
+[CLS]   w1       w2        w3
+                sentence
+                                                      10/22/25   53
+                                Summary
+• Language model
+   • Compute the probability of a sentence or sequence of words
+   • Predicting next word
+• N-gram
+   • Unigram
+   • Bigram
+   • Trigram
+   • Etc
+• Evaluating language model: perplexity
+• Smoothing
+• BERT
+
+
+                                                             10/22/25   54
+                                       Reading
+• Chapter 3: N-gram Language Models
+   • https://web.stanford.edu/~jurafsky/slp3/3.pdf
+
+
+
+
+                                                     10/22/25   55
+

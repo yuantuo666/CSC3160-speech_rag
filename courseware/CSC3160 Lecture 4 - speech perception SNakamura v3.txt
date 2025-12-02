@@ -1,0 +1,563 @@
+  ‣ Attendance registration App:
+
+
+
+    Satoshi  CSC3160 Wed. 8:30-9:50           TB102
+    Nakamura         Fri. 10:30-11:50
+
+
+
+
+• It's active 15 minutes before class starts until
+  20 minutes after class start time.
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                      1
+CSC3160: Fundamentals of Speech
+   and Language Processing
+                                                        Image: catalyst-magazine.org
+
+
+
+
+    Lecture 4: Speech Perception
+        Satoshi Nakamura (SDS)
+                2
+
+                                 Original Slides are made by Prof. Zhizheng W
+                                                     Schedule
+                  2025        Date            Class No. Topics
+                     9         3                  1     Lecture 1 Introduction
+                               5                  2     Lecture 2 Sound and acoustics
+                                                        Lecture 3 Lecture 3 Understanding human speech
+                                10                3
+                                                        production
+                                12                4     Lecture 4 Speech Perception
+                                17                5     Lecture 5 Digital Speech Processing
+                                19                6     Lecture 6 Speech representation
+                                24                7     Lecture 7 Phonetics
+                                26                8     Lecture 8 Speech Coding
+                                28                9     Lecture 9 Text processing
+                     10         (1)           Holiday
+                                (3)           Holiday
+                                (8)           Holiday
+                                10               10     Lecture 10 Words
+                                11               11     Lecture 11 Syntax
+                                15               12     Midterm Summary
+                                17               13     Midterm Exam
+                                22               14     Lecture 12 Word embeddings
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                                                         3
+                                                      Schedule
+                 2024        Date             Class No. Topics
+                                24               15    Lecture 13 Language models
+                                29               16    Lecture 14 Statistical MT
+                                31               17    Lecture 15 Neural MT (Encoder-Decoder)
+              11                 5               18    Lecture 16 Transformer
+                                 7               19    Lecture 17 Self Supervised Modeling
+                                12               20    No class (Absent for International Conference)
+                                14               21    Lecture 18 Automatic Speech Recognition
+                                19               22    Lecture 19 Text to Speech Synthesis
+                                21               23    Lecture 20 Chatbot
+                                26               24    Lecture 21 QA
+                                28               25    Lecture 22 LLM
+              12                 3               26    Lecture 23 Affects
+                                 5               27    Summary for the Final Exam
+                                                       Report Review (SN: Absent for International
+                                10               28
+                                                       Conference)
+                                12               29    Final Exam
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                                                        4
+                                              Agenda
+  • Recap
+  • Speech chain
+  • Auditory system
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                       5
+                                          Speech production
+  • Contracting the lungs, pushing out air
+    from the lungs
+        • Airflow in itself is not audible as a sound
+
+
+  • Obstruct airflow to obtain an oscillation
+    or turbulence
+        • Oscillations are primarily produced when
+          the vocal folds are tensioned
+          appropriately
+        • Sounds without oscillations in the vocal
+          folds are known as unvoiced sounds
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                   2025/9/19   66
+                                     Vocal fold/vocal cord
+
+
+  • Glottis
+        • The opening between the vocal                                  Vocal folds
+          folds (the empty space
+          between the vocal folds)
+  • Subglottal area
+        • the airspace between the vocal
+          folds and the lungs
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                  2025/9/19           77
+                                          Source-filter model
+
+
+
+
+                                                                Image credit: MIT OCW
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                             8
+                                              Timbre
+  • The characteristic quality of a sound, independent of pitch and
+    loudness
+
+
+  • Spectral envelope and its time variation can represent timbre
+
+
+  • The independence of source and filter explains
+        • why vowels of the same timbre can be produced on different pitches
+        • why vowels of the same pitch can have different timbres
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                               9
+                              Prosody: Melody of speech
+                                      Intonation
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                          10
+                                              Agenda
+  • Recap
+  • Speech Perception
+  • Speech chain
+  • Auditory system
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                       11
+                                          Speech perception
+  • Understand how we hear sounds and how we perceive
+    speech
+  • Try to understand speech perception by looking at the
+    physiological models of hearing
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                              12
+                                              Speech chain
+
+
+
+
+             Cognitive level                                 Cognitive level
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                               13
+                                              Speech chain
+  • The Speech Chain comprises the processes of:
+        • speech production
+        • auditory feedback to the speaker
+        • speech transmission (through air or over an electronic
+          wire)
+        • communication system (to the listener)
+        • speech perception and understanding by the listener.
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                   14
+                         Speech chain：Linguistic level
+
+
+
+
+  • The speech sounds for
+    communication are prepared
+    express some intent.
+
+                                              Cognitive level
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                15
+                  Speech chain：Physiological level
+
+
+
+  • Motor control signal through
+    motor nerves manipulate
+    vocal tract components to
+    produce speech sounds
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                     16
+                             Review: Speech production
+  • Source-filter model
+        • Source produces an initial
+          sound
+        • Vocal tract filter modifies it
+  • Source
+        • An input of acoustic energy into
+          the speech production system
+  • Vocal tract filter
+        • Articulators: tongue, teeth, lips,
+          velum etc
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                         17
+                         Speech chain：Acoustic level
+
+
+
+  • Speech sound is released from
+    lips and nostrils, and
+    transmitted to both the
+    speaker (sound feedback)
+    and to the listener
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                       18
+                  Speech chain：Physiological level
+
+
+
+
+  • The sound is heard by the
+    listener’s ear and the auditory
+    nerves
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                     19
+                         Speech chain：Linguistic level
+
+
+
+
+  • The speech is perceived as a
+    sequence of linguistic units and
+    understood speaker’s intention.
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                         20
+                                              Speech chain
+
+
+
+
+             Cognitive level                                 Cognitive level
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                               21
+IEEE TASLP2020
+IEEE ASRU2017
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                              22
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                              23
+                                                         Auditory cortex
+
+
+
+
+           https://www.youtube.com/watch?v=WeQluId1hnQ
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                           24
+                                         The Auditory System
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                               25
+                                         The Auditory System
+
+
+
+
+  • An acoustic signal first converted to a neural representation by
+    processing in the ear
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                       26
+                                         The Auditory System
+
+
+
+
+  • The neural transduction takes place between the output of the
+    inner ear and the neural pathways to the brain
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                    27
+                                         The Auditory System
+
+
+
+
+  • The nerve firing signals along the auditory nerve are processed by
+    the brain to create the perceived sound corresponding to the
+    spoken utterance
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                         28
+    The Black Box Model of the Auditory System
+  • A “black box” behavioral model of hearing and
+    perception
+        • Assumption: an acoustic signal enters the auditory system
+          causing behavior that we record as psychophysical
+          observations
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                      29
+    The Black Box Model of the Auditory System
+  • A “black box” behavioral model of hearing and perception
+        • Psychophysical methods and sound perception experiments
+          determine how the brain processes signals with
+              • different loudness levels
+              • different spectral characteristics
+              • different temporal properties
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                    30
+    The Black Box Model of the Auditory System
+   • A “black box” behavioral model of hearing and perception
+         • Characteristics of the physical sound are varied in a systematic
+           manner and the psychophysical observations of the human listener
+           are recorded and correlated with the physical attributes of the
+           incoming sound
+         • We then determine how various attributes of sound (or speech) are
+           processed by the auditory system
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                               31
+                        The Black Box Model Examples
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                       32
+                        Why do human have two ears?
+  • The brain needs input from both ears in order to separate
+    sounds efficiently
+  • Sound localization
+        • Spatially locate sound sources in 3-dimensional sound fields,
+          based on two-ear processing, loudness differences at the two
+          ears, delay to each ear
+  • Sound cancellation
+        • Focus attention on a ‘selected’ sound source in an array of
+          sound sources – ‘cocktail party effect’, Binaural Masking Level
+          Differences (BMLDs)
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                            33
+                                                    Minimum Audible Limit
+   • Usage of auditory characteristics for coding not of source model.
+
+                                                      Audible
+                                                                                    Minimum
+                                                                                 audible limit in
+                                                                                      quiet
+                                                                                  environments
+                                   pressure level
+
+
+
+                                                                               Audible
+                                      Sound
+
+
+
+
+                                                     Non-audible
+
+                                                                                 Non-audible
+
+
+                                                                   Frequency
+
+
+                                                                                                    34
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                    Some facts about human hearing
+  • Masking is the phenomenon whereby one loud sound
+    makes another softer sound inaudible
+        • Frequency masking and Temporal masking
+        • Masking is most effective for frequencies around the masker
+          frequency
+        • Masking is used to hide quantizer noise by methods of spectral
+          shaping
+          (similar to Dolby noise reduction methods)
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                           35
+                                               Frequency Masking
+
+
+                                                                    Audible
+                                                  Audible
+                                                                              Masking effect
+                              pressure level
+                                 Sound
+
+
+
+
+                                                No-audible
+
+
+
+                                                        Frequency
+                                                                                               36
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                        Temporal Masking
+
+
+
+                                                                          Temporal Masking Curve
+
+
+
+                                                        Backward
+                                       pressure level
+
+
+
+                                                                               Forward Masking
+                                                        Masking
+                                          Sound
+
+
+
+
+                                                                   Time
+                                                                                                   37
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                 Range of Human Hearing
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                          39
+                                          Speech perception
+  • Depending on multiple
+    factors
+        • Perception of individual
+          sounds (based on
+          distinctive features)
+        • Predictability of the
+          message
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                              40
+                                              Word Intelligibility
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                     41
+                                              Summary
+  • Speech chain
+        • Linguistic level, Physiological level, Acoustic level, Physiological level,
+          Linguistic level
+  • Auditory System
+  • Black box model of the auditory system
+  • Sound pressure
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                                                                        42
+             Appendix: Vocal Tract Resonance
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura
+                                               43
+                                               For simplicity, we begin by
+                                               considering a simple,
+                                               cylindrical tube with
+                                               length L, open at the lips
+                                               and with no glottal
+                                               constriction. The maxima
+                                               in the impedance Z occur
+                                               for wavelengths
+                                               approximately λ1=4L,
+                                               λ3=4L∕3, λ5=4L∕5, etc., and
+                                               thus at frequencies f1=c∕4L,
+                                               f3=3c∕4L=3f1, f5=5c∕4L=5f1,
+                                               etc. Minima in Z occur at
+                                               frequencies roughly half
+                                               way between the maxima
+                                               (dashed lines in the figure)
+                                               in this unrealistic situation.
+                                              https://pmc.ncbi.nlm.nih.gov/ar
+                                              ticles/PMC2689615/
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                     4
+

@@ -1,0 +1,321 @@
+   ‣ Attendance registration App:
+
+
+
+    Satoshi  CSC3160 Wed. 8:30-9:50                          TB102
+    Nakamura         Fri. 10:30-11:50
+
+
+
+
+ • It's active 15 minutes before class starts until 20 minutes after class
+   start time.
+
+ • It’s active on two time slots on Wednesdays and
+   Fridays; any mismatched check-ins will be filtered
+   out.
+
+CSC3160 CUHKSZ Satoshi Nakamura                                              2025/12/1
+                                                                                         1
+Neural Machine Translation
+Satoshi Nakamura
+
+
+
+
+                             2025/12/1   2
+                                           Schedule
+                 2025        Date   Class No. Topics
+                    9         3         1     Lecture 1 Introduction
+                              5         2     Lecture 2 Sound and acoustics
+                                              Lecture 3 Lecture 3 Understanding human speech
+                              10        3
+                                              production
+                              12        4     Lecture 4 Speech Perception
+                              17        5     Lecture 5 Digital Speech Processing
+                              19        6     Lecture 6 Speech representation
+                              24        7     Lecture 7 Phonetics
+                              26        8     Lecture 8 Text processing (No speech coding )
+        (make-up)             28        9     Lecture 9 Words
+                10            (1)   Holiday
+                              (3)   Holiday
+                              (8)   Holiday
+                              10       10     Lecture 10 Syntax
+       (make-up?)             11       11     No class
+                              15       12     Lecture 11 Word embeddings
+                              17       13     Lecture 12 Language models
+                              22       14     Midterm Summary
+
+CSC3160 CUHKSZ Satoshi Nakamura                                                          2025/12/1
+                                                                                                     3
+                                           Schedule
+                2024        Date   Class No. Topics
+                              24      15    Midterm Exam
+                              29      16    Lecture 13 Statistical MT
+                              31      17    Lecture 14 Neural MT (Encoder-Decoder)
+             11               5       18    Lecture 15 Transformer
+                              7       19    Lecture 16 Self Supervised Modeling
+                              12      20    No class (Absent for International Conference)
+                              14      21    Lecture 17 Automatic Speech Recognition
+                              19      22    Lecture 18 Text to Speech Synthesis
+                              21      23    Lecture 19 Chatbot
+                              26      24    Lecture 20 QA
+                              28      25    Lecture 21 LLM
+             12               3       26    Lecture 22 Affects
+                              5       27    Summary for the Final Exam
+                                            Report Review (SN: Absent for International
+                              10      28
+                                            Conference)
+                              12      29    Final Exam
+CSC3160 CUHKSZ Satoshi Nakamura                                                       2025/12/1
+                                                                                                  4
+                                     Assignment Plan
+
+
+         Assignment                 Scope     Release Deadline Answer session+
+              No                                                  Tutorial
+               1                   Class 1-7   9/26    10/10       10/17
+               2                  Class 8-12   9/28    10/21      (10/22)
+               3                  Class 13-21  11/1    11/26       11/28
+               4                    Report     10/24    12/3       12/10
+
+
+
+
+CSC3160 CUHKSZ Satoshi Nakamura                                          2025/12/1
+                                                                                     5
+                                   Agenda
+
+    • Lecture 13
+    • Neural Machine Translation
+         • Encoder-decoder
+         • Encoder-decoder with attention
+         • Training
+
+    • Summary
+
+
+
+
+CSC3160 CUHKSZ Satoshi Nakamura             2025/12/1   6 6
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              7
+                                                                                X BP = 1           if h>r
+                                                                                       exp(1− r/h) if h≤r
+
+                                                                               h: Length of the translation
+                                                                               r : Length of the reference
+
+
+
+
+CSC3160 Satoshi Nakamura CUHKSZ   Slide credit: COS 484 Princeton University                                  2025/12/1
+                                                                                                                          8
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              9
+CSC3160 Satoshi Nakamura CUHKSZ   2025/12/1
+                                              10
+                                  amth in target language   mth in source language
+
+
+
+
+CSC3160 CUHKSZ Satoshi Nakamura                                                      2025/12/1
+                                                                                                 11
+CSC3160 Satoshi Nakamura CUHKSZ   2025/12/1
+                                              12
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              13
+CSC3160 Satoshi Nakamura CUHKSZ   2025/12/1
+                                              14
+CSC3160 Satoshi Nakamura CUHKSZ   2025/12/1
+                                              15
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              16
+CSC3160 Satoshi Nakamura CUHKSZ   2025/12/1
+                                              17
+CSC3160 Satoshi Nakamura CUHKSZ   2025/12/1
+                                              18
+CSC3160 Satoshi Nakamura CUHKSZ   2025/12/1
+                                              19
+                                  Training and decoding
+
+
+
+
+                                                                                                                           20
+                                     https://courses.grainger.illinois.edu/cs447/sp2023/Slides/Lecture16.pdf
+CSC3160 Satoshi Nakamura CUHKSZ                                                                                2025/12/1
+                                  Agenda
+
+    • Recap
+    • Neural Machine Translation
+         • Encoder-decoder
+         • Encoder-decoder with attention
+         • Training
+    • Summary
+
+
+
+CSC3160 CUHKSZ Satoshi Nakamura             2025/12/1   2121
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              22
+                                  Neural Network
+     •    In 1986, the neural network and its training algorithm, backpropagation,
+          are proposed (again) (D.E.Rumelhart et al., “Learning representations
+          by back-propagating errors, Nature, 1986)
+
+
+
+
+CSC3160 CUHKSZ Satoshi Nakamura        Slide credit : David Zhang@CUHKSZ CSC3180   2025/12/1
+                                                                                               23
+                                  Recurrent neural networks
+       Recurrent neural networks (RNNs) maintain a hidden state
+       over time, which is a function of the current input and previous
+       hidden state
+
+
+
+
+CSC3160 CUHKSZ Satoshi Nakamura                                  2025/12/1
+                                                                             24
+Neural MT
+
+
+
+
+            25
+              Encoder-decoder model
+
+
+
+
+https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention/
+                                                                                                                26
+              Input to the encoder
+• Embedding
+
+
+
+
+                                     27
+Seq2seq
+
+
+
+
+          28
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              29
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              30
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              31
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              32
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              33
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              34
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              35
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              36
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              37
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              38
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              39
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              40
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              41
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              42
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              43
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              44
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              45
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              46
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              47
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              48
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              49
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              50
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              51
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              52
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              53
+Seq2Seq with attention
+
+
+
+
+                         54
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              55
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              56
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              57
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              58
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              59
+Attention visualization
+
+
+
+
+                          60
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              61
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              62
+Data augmentation: back translation
+
+
+
+
+                                      63
+CSC3160 CUHKSZ Satoshi Nakamura   2025/12/1
+                                              64
+                                  Summary
+     Neural Machine Translation
+          Encoder-decoder
+          Encoder-decoder with attention
+          Training
+
+     Summary
+
+
+
+
+CSC3160 CUHKSZ Satoshi Nakamura             2025/12/1
+                                                        65
+                                        References
+
+[Cho+ 2014] Kyunghyun Cho et al., Learning Phrase
+Representations using RNN Encoder-Decoder for Statistical
+Machine Translation, Proc. of EMNLP 2014.
+[Sutskever+ 2014] Ilya Sutskever et al., Sequence to Sequence
+Learning with Neural Networks, Proc. of NIPS 2014.
+[Vinyals+ 2015] Oriol Vinyals et al., A Neural Conversational
+Model, presented at ICML’15 Deep Learning Workshop 2015
+
+
+
+
+                                                     2023/6/20   66
+             Sequential Data Modeling
+

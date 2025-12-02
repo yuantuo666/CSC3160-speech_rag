@@ -1,0 +1,542 @@
+‣ Attendance registration App:
+
+
+
+  Satoshi CSC3160     Wed. 8:30-9:50     TB102
+ Nakamura             Fri. 10:30-11:50
+
+
+
+
+                                           1
+CSC3160 - Fundamentals of Speech and Language Processing
+
+
+
+
+  Lecture 3: Understanding
+  Human Speech Production
+
+
+        Satoshi Nakamura (SDS)
+
+                             2
+                                              Course logistics
+  • Course website: SIS and blackboard (coming soon)
+      • Lecture Material in the CUHKSZ Blackboard system
+  • Lecture time and location
+     • Wednesday 8:30-9:50 / Friday 10:30-11:50 in TB102 (Be careful the time slots are different)
+  • Tutorials: The tutorials will be designed later.
+  • Teaching Team
+      • Instructor: Satoshi Nakamura@SDS, snakamura@cuhk.edu.cn
+      • TA:
+          • 李珈祺 Lead            LI Jiaqi        120090727@link.cuhk.edu.cn
+          • 宋语宸                 SONG Yuchen     121090486@link.cuhk.edu.cn
+      • USTF:
+          • 冯⽂杰                 FENG Wenjie     122090112@link.cuhk.edu.cn
+          • Keven Pratama Hendrata              122040031@link.cuhk.edu.cn
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                                          3
+                                                   Office Hour
+  • Office hours
+    Please send an email request in advance
+
+     • Instructor
+
+             • Satoshi Nakamura               snakamura@cuhk.edu.cn   Thursday   10:00-11:00   TXC704
+
+      • TA:
+
+              • 李珈祺(Lead) LI Jiaqi 120090727@link.cuhk.edu.cn         Wednesday 17:00-17:30    TXC606
+
+              • 宋语宸 SONG Yuchen 121090486@link.cuhk.edu.cn            Friday     14:00-14:30   TXC703
+
+      • USTF:
+
+              • 冯⽂杰 FENG Wenjie 122090112@link.cuhk.edu.cn          Friday       18:00-19:00
+                      University Library 1st Floor Discussion Space
+
+              • Keven Pratama Hendrata 122040031@link.cuhk.edu.cnThursday        18:00-18:30
+                          University Library 1st Floor Discussion Space
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                                             4
+                                                     Schedule
+                  2025         Date           Class No. Topics
+                     9          3                 1     Lecture 1 Introduction
+                                5                 2     Lecture 2 Sound and acoustics
+                                                        Lecture 3 Lecture 3 Understanding human speech
+                                 10               3
+                                                        production
+                                12                4     Lecture 4 Speech Perception
+                                17                5     Lecture 5 Digital Speech Processing
+                                19                6     Lecture 6 Speech representation
+                                24                7     Lecture 7 Phonetics
+                                26                8     Lecture 8 Speech Coding
+                                28                9     Lecture 9 Text processing
+                     10         (1)           Holiday
+                                (3)           Holiday
+                                (8)           Holiday
+                                10               10     Lecture 10 Words
+                                11               11     Lecture 11 Syntax
+                                15               12     Midterm Summary
+                                17               13     Midterm Exam
+                                22               14     Lecture 12 Word embeddings
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                                              7
+                                                      Schedule
+                 2024         Date            Class No. Topics
+                                 24              15    Lecture 13 Language models
+                                 29              16    Lecture 14 Statistical MT
+                                 31              17    Lecture 15 Neural MT (Encoder-Decoder)
+              11                  5              18    Lecture 16 Transformer
+                                  7              19    Lecture 17 Self Supervised Modeling
+                                 12              20    No class (Absent for International Conference)
+                                 14              21    Lecture 18 Automatic Speech Recognition
+                                 19              22    Lecture 19 Text to Speech Synthesis
+                                 21              23    Lecture 20 Chatbot
+                                 26              24    Lecture 21 QA
+                                 28              25    Lecture 22 LLM
+              12                  3              26    Lecture 23 Affects
+                                  5              27    Summary for the Final Exam
+                                                       Report Review (SN: Absent for International
+                                 10              28
+                                                       Conference)
+                                 12              29    Final Exam
+CSC3160 2025 Fall Semester Satoshi Nakamura                                                             8
+                                              Outline
+  • Recap
+  • Information in human speech
+  • Speech production
+  • Source filter model
+  • Timbre
+  • Prosody
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura             9
+                            Human ear
+‣ human hearing range: ~20 – 20,000 Hz
+
+
+
+
+                    https://www.nidcd.nih.gov/health/how-do-we-hear
+
+                                                                      10
+Basilar Membrane
+
+
+
+
+                   11
+                       Quantifying sound
+
+‣ Physical characteristics         • Perceptual characteristics
+  - Intensity                         • Loudness (Psychological Strength)
+  - Frequency                         • Pitch (Psychological high/low sound)
+
+  - Time variation and frequency      • Timbre (Psychological tone color)
+   distribution/spectrum
+
+
+
+
+                                                                            12
+Physical property vs perceptual property
+
+
+
+
+     Pitch                      Frequency
+
+
+
+
+    Loudness                     Intensity
+
+
+
+                               Time variation
+     Timbre                          &
+                              Spectral content
+
+
+
+
+                                                 13
+                               Frequency
+• Frequency: Physical property
+   • An expression of how frequently a periodic wave form or signal
+     repeats itself at a given amplitude
+
+                       50Hz
+
+
+
+   1
+𝑓=   Hz
+   𝑇
+                       200Hz
+
+                                                                      14
+Time domain vs frequency domain
+
+
+
+
+                                  15
+Spectrum
+
+
+
+
+           16
+                                      Decibel (dB)       分⻉
+
+
+
+
+• Decibel: a logarithmic unit used to measure sound level - difference as a ratio
+
+
+• Example: One loudspeaker plays a sound with power P1, and another plays a louder
+  version of the same sound with power P2, but everything else (how far away, frequency)
+  kept the same
+
+                                    10log(𝑃! /𝑃" )dB
+   • P2 is twice as much power than P1
+
+                                    10log(𝑃! /𝑃" ) = 10log(2) ≈ 3dB
+   • P2 has a million times the power of P1
+
+
+                                    10log(𝑃! /𝑃" ) = 10log1,000,000 ≈ 60dB
+
+                                                                                           17
+                                              Outline
+  • Recap
+  • Information in human speech
+  • Speech production
+  • Source filter model
+  • Timbre
+  • Prosody
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura             18
+                                              Sound: Speech
+  • Speech requires
+        • a source of sound waves (vibrations)
+        • a means of shaping those vibrations into words
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                   19
+                                          Speech Production
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                   20
+                                          Speech production
+  • When a person has the urge or
+    intention to speak, their brain forms a
+    sentence with the intended meaning
+
+
+  • Maps the sequence of words into
+    physiological movements required to
+    produce the corresponding sequence of
+    speech sounds
+                                                              / Vocal folds
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                   21
+                                           Speech production
+• Contracting the lungs, pushing out air from the lungs
+     • Airflow in itself is not audible as a sound
+
+
+• Obstruct airflow to obtain an oscillation or turbulence
+     • Oscillations are primarily produced when the vocal
+       folds are tensioned appropriately
+     • Sounds without oscillations in the vocal folds are
+       known as unvoiced sounds
+
+
+               ⽓流，声带震动。清⾳ unvoiced sounds: 声带⽆震动。
+                                                               / Vocal folds
+
+
+
+
+ CSC3160 2025 Fall Semester Satoshi Nakamura                                   22
+                                       Vocal fold/vocal cord
+
+
+  • Glottis         声⻔
+
+                                                               / Vocal folds
+        • The opening between the vocal folds (the
+          empty space between the vocal folds)
+  • Subglottal area 喉下区域
+        • the airspace between the vocal folds and the
+          lungs
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                             23
+                    Frequency: Vocal fold oscillation
+• The frequency of vocal folds oscillation depending on
+  three main components
+     • amount of lengthwise tension in the vocal folds
+     • pressure differential above and below the vocal folds
+                                                               / Vocal folds
+     • length and mass of the vocal folds
+
+
+• Pressure and tension can be intentionally changed to
+  cause a change in frequency
+• The length and mass of the vocal folds are in turn
+  correlated with overall body size of the speaker
+     • children and females have on average a higher pitch
+       than male speakers
+ CSC3160 2025 Fall Semester Satoshi Nakamura                            24
+                                              Vocal tract
+
+  • Including the larynx, pharynx and oral
+    cavities
+  • Have a great effect on the timbre of the
+    sound
+  • Vocal tract doesn’t change frequency, but
+    changes to modify the air flow for different
+    sounds
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                 25
+                                              Vocal tract
+  • Different shapes of vocal tract result in different vowels
+
+
+
+
+     Head                                                                                        Had
+
+
+
+
+                                                                 Video credit: https://sail.usc.edu/~lgoldste/General_Phonetics/
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                                                              26
+                                  Vocal tract & resonance
+  • The shape of the vocal tract determines the resonances
+  • The shape is determined by a multitude of components, in particular by
+    the position of the jaw, lips and tongue
+
+
+  • The resonances are easily modified by the speaker and perceived by
+    the listener
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                  27
+                        Vocal tract: Consonant sound
+  • In consonant sounds, there is a partial or full obstruction at some part of
+    the vocal tract
+
+                摩擦辅⾳
+
+        • Fricative consonants are characterized by a narrow gap between the tongue
+          and front/top of the mouth
+        • Plosives, the airflow in the vocal tract is fully temporarily obstructed
+               爆破⾳
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                           28
+         Speech production: source-filter model
+
+  • Source-filter model
+        • Source produces an initial sound
+        • Vocal tract filter modifies it
+  • Source
+        • An input of acoustic energy into the speech
+          production system
+  • Vocal tract filter                                      / Vocal folds
+
+
+        • Articulators: tongue, teeth, lips, velum etc
+              https://www.youtube.com/watch?v=DcNMCB-Gsn8
+              https://www.youtube.com/watch?v=n4Y4EQaw5oU
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                 30
+                                              Source
+  • Voicing source: Vocal folds vibrating
+        • A periodic source produced by the modulation of the airflow
+          from the lungs by the vocal folds
+              • The vocal folds are muscular folds located in the larynx
+        • If the vocal folds are close together, then air pressure from the
+          lungs can cause them to vibrate periodically, generating
+          voicing.
+  • Unvoicing source: vocals fold holds close but not vibrating
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                   31
+                                              Filter
+• The vocal tract acts as a filter, modifying the source waveform
+• The sound wave at some distance from the speaker is the result of filtering the source with
+  the vocal tract filter, plus the radiation characteristics of the lips/nose.
+
+
+
+
+     Head                                                                                                   Had
+
+
+
+
+                                                                    Video credit: https://sail.usc.edu/~lgoldste/General_Phonetics/
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                                                                           32
+                                              Resonance
+  • A resonant frequency is a natural frequency of vibration determined by
+    the physical parameters of the vibrating object.
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                  33
+                                                  Filter
+            Source                        (Modify source sound
+                                             by Vocal tract)
+           https://sail.usc.edu/~lgoldste/General_Phonetics/Source_Filter/MATLAB_demo/source-filter.html
+CSC3160 2025 Fall Semester Satoshi Nakamura                                                                34
+CSC3160 2025 Fall Semester Satoshi Nakamura   https://sail.usc.edu/~lgoldste/General_Phonetics/Source_Filter/MATLAB_demo/source-filter.html   35
+                                              Resonance
+• The resonances of the vocal tract are called formants
+• The resonances are easily modified by the speaker and perceived by
+  the listener
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                            36
+                                              Resonance
+  • the acoustic features which differentiate vowels from each other are the
+    frequencies of the resonances in the vocal tract, corresponding to
+    specific places of articulation primarily in terms of tongue position
+  • The spectrum of a voiced speech have the structure of a harmonic signal
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                    37
+                                          Source-filter model
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                   38
+                                                                Image credit: MIT OCW
+                                          Frequency vs pitch
+  • Frequency of the vocal folds refers to the actual physical phenomenon
+  • Resonances in the vocal tract can emphasize harmonics of the fundamental frequency
+    such that the harmonics are louder than the fundamental frequency
+  • The perceived pitch is then the frequency of the harmonic instead of the fundamental
+    frequency.
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                                39
+                  Independence of source and filter
+  • Source
+        • Fundamental frequency (F0) is driven by the frequency of vocal fold
+          vibrations
+        • Harmonics are multiples of F0
+  • Filter
+        • Resonances are driven by the shape of the vocal tract (physical property)
+        • Formants are peaks in the spectral envelope that correspond to resonances
+          (acoustic property)
+  • Independence of source and filter
+        • You can change F0 without changing the vowel you are saying: harmonics
+          change, formants stay the same
+CSC3160 2025 Fall Semester Satoshi Nakamura                                           40
+                                              Timbre
+  • The characteristic quality of a sound, independent of pitch and loudness
+
+
+  • Spectral envelope and its time variation can represent timbre
+
+
+  • The independence of source and filter explains
+        • why vowels of the same timbre can be produced on different pitches
+        • why vowels of the same pitch can have different timbres
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                    41
+                            Prosody: Melody of speech
+  • Same word can have different prosody
+  • Prosody includes pitch, duration, stress
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura             42
+                                              Perceived Pitch
+• Fundamental frequency (F0)
+      • the lowest frequency of a periodic waveform
+      • F0 is driven by the frequency of vocal fold vibrations, not vocal tract resonances
+• In a speech segment, F0 is semi-continuous
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                              43
+                                              Tone
+  • Tonal language: different tonal inflections will convey different
+    meanings
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                             44
+                                              Intonation
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                45
+                                              Summary
+  • Speech production
+  • Source-filter model
+        • Independence of source and filter
+              • vowels of the same timbre can have different pitches
+              • vowels of the same pitches can have different timbre
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                            46
+                                              Readings
+  • Chapter 2.2: Speech production and acoustic properties
+        • https://speechprocessingbook.aalto.fi/Introduction/Speech_production_and_a
+          coustic_properties.html
+
+
+
+
+CSC3160 2025 Fall Semester Satoshi Nakamura                                            47
+

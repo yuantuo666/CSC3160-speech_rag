@@ -1,0 +1,622 @@
+Fundamentals of Speech and Language Processing
+                 CSC3160
+      Lecture 1: Course introduction
+
+
+
+
+       Prof. Satoshi Nakamura (SDS)
+Instructor
+‣ Prof. Satoshi Nakamura
+  - Professor joined in April 2024, Visiting professor from November 2023.
+  - CUHK Shenzhen: Student Information System/ Blackboard System
+  - Email: snakamura@cuhk.edu.cn
+
+‣ IEEE Fellow, ISCA (International Speech Communication Association) Fellow
+‣ Antonio Zampolli Award 2012
+‣ ISCA Elected Board Member (2011-2019),
+‣ ISCA SIG-Spoken Language Translation Chair (2021-)
+‣ Associate Editor of IEEE Signal Processing Magazine
+
+
+                                                                              2
+Course logistics
+  ‣ Course website: SIS and blackboard (coming soon)
+     - Lecture Material in the CUHKSZ Blackboard system
+  ‣ Lecture time and location
+    - Wednesday 8:30-11:00 / Friday 10:30-12:00 in TB102 (Be careful the time slots are different)
+  ‣ Tutorials: The tutorials will be designed later.
+  ‣ Teaching Team
+     - Instructor: Satoshi Nakamura@SDS, snakamura@cuhk.edu.cn
+     - TA:
+           • 李珈祺        Lead       LI Jiaqi            120090727@link.cuhk.edu.cn
+           • 宋语宸                   SONG Yuchen         121090486@link.cuhk.edu.cn
+
+     - USTF:
+           • 冯文杰                  FENG Wenjie          122090112@link.cuhk.edu.cn
+
+           • Keven Pratama Hendrata                    122040031@link.cuhk.edu.cn
+
+                                                                                                3
+Office Hour
+‣ Office hours
+  - Satoshi Nakamura: Thu 10:00-11:00 AM. TXC704
+     • Please send an email request in advance.
+
+  - TA:
+        • 李珈祺(Lead)                LI Jiaqi        120090727@link.cuhk.edu.cn   Time   Location
+
+        • 宋语宸                      SONG Yuchen     121090486@link.cuhk.edu.cn   Time   Location
+
+  - USTF:
+        • 冯文杰                      FENG Wenjie     122090112@link.cuhk.edu.cn   Time   Location
+
+        • Keven Pratama Hendrata                   122040031@link.cuhk.edu.cn   Time   Location
+
+
+
+
+                                                                                                  4
+Enrollment Requirements
+‣ For CS, CSE, and DSBDT students.
+ - Students must take (CSC1001 or CSC1003 or CSC1005) and
+   CSC3100 first.
+‣ Students who have taken AIR6063 cannot take this course.
+
+
+
+
+                                                             5
+Communication and feedback
+‣ We request you to respond CTE course feedback surveys during the
+ semester (1 point)
+
+
+‣ Feel free to send me or TAs/USTFs any feedback regarding the
+ course
+ - Both the instructor and TAs can possibly make mistakes!
+   Communication will help
+
+
+‣ Email is the preferred way of communication.
+                                  6
+Presuming prior knowledge
+  ‣ Solid background of python programming
+  ‣ Knowledge of statistics is a plus
+  ‣ Self-motivated
+
+
+
+
+                                             7
+Grading (details are available on course website)
+‣ Assignment       (30%)
+‣ Midterm exam     (20%)
+‣ Final exam       (45%)
+‣ Participation    (5%)
+    • How to check?: The mobile phone APP, which will be announced later.
+‣ Others
+  - Course evaluation +1 point
+
+‣ For a student who received a grade A and attended all the classes (over 80%), I could
+  write you a recommendation letter.
+
+
+                                                                                          8
+Assignment (30%)
+  ‣ Assignment 1 (6)
+    - Audio and speech processing
+  ‣ Assignment 2 (6)
+    - Text processing
+  ‣ Assignment 3 (8)
+    - Word embedding and DNN models
+  ‣ Assignment 4 (10)
+    - Research Proposal Report
+
+    Assignments will be released shortly.
+
+
+                                            9
+Research Proposal Report
+- Overall quality of report (total 7)
+  - Reference to Prior Work (2)
+  - Originality and creativity (2)
+  - Technical Correctness (2)
+  - Clarity of writing (1)
+
+- Peer review (total 3)
+    • Constructive review of other reports. Each reviews the reports of others.
+    The reviews are NOT used to rate other reports.
+
+
+
+                                                                                  10
+Workload
+ ‣ If you don’t want to get an A or earn fundamental knowledge of speech and language
+   processing only, the workload is NOT very heavy.
+
+
+ ‣ If you want to have a career in the speech and language processing area, please
+   spend more time on your own.
+
+
+ ‣ If you want to have actual research skills, please visit professors and join projects.
+   We welcome you to work together!!
+
+
+
+
+                                                                                            11
+Honesty code
+‣ Strict zero-tolerance policy for cheating or plagiarism
+  - Discussions are encouraged, but not sharing code or copying code
+‣ We will use software to detect plagiarism automatically
+
+‣ Scenarios
+  - A shares code with B, and B directly used the code for their assignment. Both zero
+  - A and B directly copies from internet independently. Both zero
+
+
+
+
+                                                                                         12
+Fundamentals of Speech and Language Processing
+                      CSC3160
+
+
+
+
+            Satoshi Nakamura (SDS)
+                         1
+          Lecture 1: Course introduction
+                         3
+                                           Original Slides are made by Prof. Zhizheng W
+Human language
+
+
+
+
+                                          1
+                                          4
+          https://news.yahoo.com/did-humans-first-start-speak-152613750.html
+Languages in the world
+‣ About 7,000 languages spoken as of 2010. More than half of them have no written
+  form
+
+
+
+
+                           https://en.wikipedia.org/wiki/List_of_languages_by_number_of_native_speakers
+
+
+                                                                                                          15
+Applications of speech and language processing
+
+
+
+
+                                                 16
+Applications: Generative AI startups
+
+
+
+
+                                       17
+What is this course about?
+‣ Natural language can be speech or text, in other words, in spoken form or written
+  form
+
+
+‣ First half: Fundamental knowledge of speech signals and language elements
+  - Fundamentals of speech processing
+    • Spectrogram, prosody, pronunciation, speech signal processing, speech coding
+  - Fundamentals of text processing
+    • Language models, word embedding, tokenization, syntax, parsing.
+
+‣ Second half: Applications of speech and language processing
+  - Machine translation, Transformer, Self-supervised modeling
+  - Speech recognition, synthesis, question answering, chatbot, LLM
+                                                                                      18
+Schedule
+   2025   Date   Class No. Topics
+      9      3       1     Lecture 1 Introduction
+            5        2     Lecture 2 Sound and acoustics
+           10        3     Lecture 3 Digital Speech Processing
+            12       4     Lecture 4 Understanding human speech
+            17       5     Lecture 5 Speech representation
+           19        6     Lecture 6 Phonetics
+           24        7     Lecture 7 Speech Perception
+           26        8     Lecture 8 Speech Coding
+           28        9     Lecture 9 Text processing
+     10    (1)   Holiday
+           (3)   Holiday
+           (8)   Holiday
+           10       10     Lecture 10 Words
+            11       11    Lecture 11 Syntax
+            15      12     Midterm Summary
+            17      13     Midterm Exam
+           22       14     Lecture 12 Word embeddings             19
+Schedule
+       2024   Date   Class No. Topics
+               24       15    Lecture 13 Language models
+               29       16    Lecture 14 Statistical MT
+               31       17    Lecture 15 Neural MT (Encoder-Decoder)
+  11            5       18    Lecture 16 Transformer
+                7       19    Lecture 17 Self Supervised Modeling
+               12       20    No class (Absent for International Conference)
+               14       21    Lecture 18 Automatic Speech Recognition
+               19       22    Lecture 19 Text to Speech Synthesis
+               21       23    Lecture 20 Chatbot
+               26       24    Lecture 21 QA
+               28       25    Lecture 22 LLM
+  12            3       26    Lecture 23 Affects
+                5       27    Summary for the Final Exam
+                              Report Review (SN: Absent for International
+               10       28
+                              Conference)
+               12       29    Final Exam
+                                                                               20
+    One slide overview
+               Named entity recognition                Speech recognition            Machine translation
+
+
+                  Sentiment analysis                 Text-to-speech synthesis        Question answering
+Applications
+
+                 Text summarization                     Voice conversion                  Chatbot
+
+
+
+
+                  Basics of speech processing                  Basics of language       Language models
+
+
+Fundamentals      Phonetics               Prosody and timbre            Morphology       Parts of speech
+
+
+                 Semantics and embedding                   Text normalization        Syntax and parsing
+
+
+
+                                                                                                           21
+Lecture 2 - 3: Sounds and Digital Speech
+Processing
+
+             Pitch                   Frequency
+
+
+
+
+            Loudness                  Intensity
+
+
+
+                                    Time variation
+             Timbre                       &
+                                   Spectral content
+
+
+
+
+                                                      22
+Lecture 4 Understanding Human Speech
+
+
+
+
+                                       23
+Lecture 5 Speech representation
+
+
+
+
+                                  24
+Lecture 6: Phonetics
+
+
+
+
+                       25
+Lecture 7 Speech perception
+
+
+
+
+                              26
+Speech Coding
+
+
+
+   Speech/
+    Audio     Sampling   Quantization   Encoding   Compression
+
+
+                                                   Transmission    Storage
+
+
+    Speech/
+     Audio           D/A convert        Decoding   Decompression
+
+
+
+
+                                                                             27
+Lecture 9: Text processing and regular expressions
+
+
+
+
+                                                     28
+Lecture 10: Words, parts of speech and morphology
+
+                               Adverb
+
+
+
+
+                                     Inflectional
+                   Adjective
+                                    adverb suffix
+
+
+
+
+                    quick                ly
+
+
+                                                    29
+Lecture 11: Syntax - Structure of sentences
+
+
+
+
+                                              30
+Lecture 12: Embedding
+
+
+
+
+             https://developers.google.com/machine-learning/crash-course/embeddings/translating-to-a-lower-dimensional-space
+
+
+
+
+                                                                                                                               31
+Lecture 13: Language model
+
+
+
+
+         S = I am tested positive
+
+               Previous words   Word being
+                  (Context)      predicted
+
+
+
+
+                                             32
+Lecture 14: Statistical Machine Translation
+
+
+
+          “Hello”   Machine translation   “你好”
+
+
+
+
+                                                 33
+Lecture 15: Neural Machine Translation
+
+
+
+
+                                         34
+Lecture 16: Transformer
+
+
+
+
+                          35
+Lecture 17: Self-supervised Modeling
+
+
+
+
+                                       36
+Lecture 18: Automatic Speech Recognition
+
+
+
+
+              https://developer.nvidia.com/blog/solving-automatic-speech-recognition-deployment-challenges/
+
+
+
+
+                                                                                                              37
+Lecture 19: Text-to-Speech Synthesis
+
+
+
+                         Text-to-speech
+             Text                         Audio
+                           synthesis
+
+         “Hello world”
+
+
+
+
+                                                  38
+Lecture 20: Chatbot
+
+
+
+
+                 https://www.hp.com/us-en/shop/tech-takes/what-is-a-chatbot
+
+
+
+
+                                                                              39
+Lecture 21: Question Answering
+
+
+
+
+                                 40
+Lecture 22: Large Language Models
+
+
+
+
+                                    41
+Lecture 23: Affects and sentiment analysis
+
+
+
+
+                                             42
+One slide overview
+               Named entity recognition                Speech recognition            Machine translation
+
+
+                  Sentiment analysis                 Text-to-speech synthesis        Question answering
+Applications
+
+                 Text summarization                     Voice conversion                  Chatbot
+
+
+
+
+                  Basics of speech processing                  Basics of language       Language models
+
+
+Fundamentals      Phonetics               Prosody and timbre            Morphology       Parts of speech
+
+
+                 Semantics and embedding                   Text normalization        Syntax and parsing
+
+
+
+                                                                                                           43
+  Thanks!
+
+Satoshi Nakamura (SDS)
+
+
+
+
+                         44
+What is IEEE?
+
+
+
+
+                45
+‣ IEEE has:
+  • Over 460,000 members in more than 190 countries, with more than 66 percent from outside
+    the United States
+  • More than 171,000 Student members
+  • 344 Sections in ten geographic Regions worldwide
+  • 2,709 Chapters that unite local members with similar technical interests
+  • 3,635 Student Branches at colleges and universities in over 100 countries
+  • 4,194 Student Branch Chapters of IEEE technical Societies
+  • 639 affinity groups; IEEE affinity groups are non-technical sub-units of one or more
+    Sections or a Council. The affinity group parent entities are the IEEE-USA Consultants
+    Network, Young Professionals (YP), Women in Engineering (WIE), and Life Members
+    (LM)
+
+
+
+                                                                                              46
+‣ IEEE:
+  • Has 39 technical Societies and eight Technical Councils representing a wide range of
+    IEEE technical interests
+  • Has more than 6 million documents in the IEEE Xplore® Digital Library
+
+  • Has an active portfolio of 1,144 standards and more than 1,018 projects under development
+
+  • Publishes more than 200 transactions, journals, and magazines
+  • Sponsors more than 2,000 conferences and events in 190 countries while contributing over
+    4 million total conference papers to IEEE Xplore since 1936, with more than 200,000 new
+    papers added annually
+
+‣ 7,236 out of 460,000 members are identified as Fellow grade. (1.5%)
+
+                                                                                                47
+What is ISCA?
+‣ International Speech Communication Association
+‣ Overview
+‣ ISCA is a Nonprofit Association. The purpose of the Association is to promote speech communication science and technology in
+   an international, worldwide context.
+
+‣ The Association will achieve its purpose by:
+   • stimulating scientific research and education;
+   • organizing conferences and exhibitions;
+   • organizing courses;
+   • publishing and promoting the distribution of scientific papers;
+   • promoting the study of different languages;
+   • promoting scientific exchanges;
+   • collaborating with other existing organizations;
+   • promoting relations between research and industry;
+   • serving regional and global needs;
+                                                                                                                                 48
+ISCA Elected Board
+• ISCA Board 2017-19: John Hansen (President), Torbjøn Svendsen (Vice President, Grants/Awards),
+  Kate Knill (Secretary, ISCA Web), Mark Hasegawa-Johnson (Treasurer, IT Infrastructure), Gérard
+  Bailly (SIG, Workshop), Kay Berkling (Communication), Phil Green (Education and Training,
+  Fellows), Tatsuya Kawahara (publications), (SAC Liaison), Lori Lamel (SAC Liaison), Hema Murthy
+  (Fellows, non-Technical Committees), Sebastian Möller (Conference), Satoshi Nakamura (SIGs, DL),
+  Bhuvana Ramabhadran (Industry), Odette Scharenborg (Conference, Technical Committees)
+
+
+• ISCA Board 2015-17: Haizhou Li (President, ISCA Web), John Hansen (Vice President), Douglas
+  O'Shaughnessy (Secretary), Mark Hasegawa-Johnson (Treasurer), Gérard Bailly (SIG, Workshop), Kay
+  Berkling (Communication), Nick Campbell (Conference 2015-16) Martin Cooke (publications), Hynek
+  Hermansky (Education and Training), Keikichi Hirose (Conference), Kate Knill (Fellows, Industry),
+  Lori Lamel (SAC Liaison), Satoshi Nakamura (SIGs, DL),Torbjøn Svendsen (Grants/Awards),
+  Sebastian Möller (Conference 2016-17)
+
+
+
+                                                                                                      49
+What is ACL?
+‣ What is the ACL and what is Computational Linguistics?
+‣ The Association for Computational Linguistics (ACL) is the premier international
+  scientific and professional society for people working on computational problems
+  involving human language, a field often referred to as either computational linguistics
+  or natural language processing (NLP).
+‣ The association was founded in 1962, originally named the Association for Machine
+  Translation and Computational Linguistics (AMTCL), and became the ACL in 1968.
+  Activities of the ACL include the holding of an annual meeting each summer and the
+  sponsoring of the journal Computational Linguistics, published by MIT Press; this
+  conference and journal are the leading publications of the field. For more information,
+  see: https://www.aclweb.org/.
+
+
+
+                                                                                            50
+‣ What is Computational Linguistics?
+‣ Computational linguistics is the scientific study of language from a computational perspective.
+  Computational linguists are interested in providing computational models of various kinds of linguistic
+  phenomena. These models may be "knowledge-based" ("hand-crafted") or "data-driven" ("statistical" or
+  "empirical").
+‣ Work in computational linguistics is in some cases motivated from a scientific perspective in that one is
+  trying to provide a computational explanation for a particular linguistic or psycholinguistic phenomenon; and
+  in other cases the motivation may be more purely technological in that one wants to provide a working
+  component of a speech or natural language system.
+‣ Indeed, the work of computational linguists is incorporated into many working systems today, including
+  speech recognition systems, text-to-speech synthesizers, automated voice response systems, web search
+  engines, text editors, and language instruction materials, to name just a few.
+‣ Popular computational linguistics textbooks include:
+  • Christopher Manning and Hinrich Schütze (1999) Foundations of Statistical Natural Language Processing,
+     Cambridge, Massachusetts, USA. MIT Press.
+     Also see the book's supplemental materials website at Stanford.
+
+  • Daniel Jurafsky and James Martin (2008) An Introduction to Natural Language Processing, Computational
+     Linguistics, and Speech Recognition, Second Edition. Prentice Hall.
+
+                                                                                                              51
+

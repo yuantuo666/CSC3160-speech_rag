@@ -1,0 +1,506 @@
+      ‣ Attendance registration App:
+
+
+
+        Satoshi  CSC3160 Wed. 8:30-9:50          TB102
+        Nakamura         Fri. 10:30-11:50
+
+
+
+
+• It's active 15 minutes before class starts until 20
+  minutes after class start time.
+• It’s active on two time slots on Wednesdays and
+  Fridays; any mismatched check-ins will be filtered out.
+
+
+CSC3160 Satoshi Nakamura                                    12/1/25
+                                                                      1
+Lecture 19: Chatbots and Dialogue
+             Systems
+
+           Satoshi Nakamura (SDS)
+
+
+
+
+                     2
+                                          Schedule
+                   2024    Date   Class No. Topics
+                            24       15    Midterm Exam
+                            29       16    Lecture 13 Statistical MT
+                            31       17    Lecture 14 Neural MT (Encoder-Decoder)
+                11           5       18    Lecture 15 Transformer
+                             7       19    Lecture 16 Self Supervised Modeling
+                            12       20    No class (Absent for International Conference)
+                            14       21    Lecture 17 Automatic Speech Recognition
+                            19       22    Lecture 18 Text to Speech Synthesis
+                            21       23    Lecture 19 Chatbot and Dialogue System
+                            26       24    Lecture 20 QA
+                            28       25    Lecture 21 LLM
+                12           3       26    Lecture 22 Affects
+                             5       27    Summary for the Final Exam
+                                           Report Review (SN: Absent for International
+                            10       28
+                                           Conference)
+                            12       29    Final Exam
+CSC3160 Satoshi Nakamura                                                              12/1/25
+                                                                                                3
+                              Assignment Plan
+
+
+            Assignment       Scope     Release Deadline Answer session+
+                 No                                        Tutorial
+                  1         Class 1-7    9/26   10/10       10/17
+                  2        Class 8-12    9/28   10/21      (10/22)
+                  3        Class 13-21   11/7    12/3       11/28
+                  4          Report     10/24    12/3       12/10
+
+
+
+
+CSC3160 Satoshi Nakamura                                           12/1/25
+                                                                             4
+                                    Contents
+
+   • Recap
+   • Properties of human conversations
+   • Chatbot architectures
+   • Dialogue systems
+
+
+
+
+Satoshi Nakamura, CSC3160    01/12/2025        5
+                           Speech Synthesis
+
+
+
+
+CSC3160 Satoshi Nakamura                      12/1/25
+                                                        6
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                                7
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                                8
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                                9
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   10
+                                shooting                              shooting
+
+
+
+
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019              12/1/25
+                                                                                 12/1/25   11
+                                                                      P(x(0)*
+                                                                      P(x(1)|x(0))*
+                                                                      P(x(2)|x(1),x(0))*…
+                                                                      Same as language
+                                                                      modeling
+
+
+
+
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019                     12/1/25
+                                                                                        12/1/25   12
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019   12/1/25
+                                                                      12/1/25   13
+                Acoustic model - Transformer based
+   • FastSpeech2: parallel generation and not depending on the
+     location attention
+
+
+
+
+                              Ren, Yi, Chenxu Hu, Xu Tan, Tao Qin, Sheng Zhao, Zhou Zhao, and Tie-Yan Liu. "Fastspeech 2: Fast and high-quality end-to-end text to speech." arXiv preprint arXiv:2006.04558 (2020).
+
+
+
+CSC3160 Satoshi Nakamura   CREDIT: Keiichi Tokuda: INTERSPEECH 2019                                                                                                                                                   12/1/25
+                                                                                                                                                                                                                       12/1/25
+                                                                                                                                                                                                                                 14
+                                    Contents
+
+   • Recap
+   • Properties of human conversations
+   • Chatbot architectures
+   • Dialogue systems
+
+
+
+
+Satoshi Nakamura, CSC3160    01/12/2025        15
+           Human conversation
+
+
+
+
+Satoshi Nakamura, CSC3160   01/12/2025   16
+                            Properties of Human Conversation
+
+
+
+
+Satoshi Nakamura, CSC3160           01/12/2025                 17
+Satoshi Nakamura, CSC3160   01/12/2025   18
+                      Properties of Human Conversation
+
+   Turns
+      • We call each contribution a "turn"
+      • As if conversation was the kind of game where
+        everyone takes turns.
+
+
+
+
+Satoshi Nakamura, CSC3160      01/12/2025                19
+Satoshi Nakamura, CSC3160   01/12/2025   20
+                      Properties of Human Conversation
+
+   Turn-taking issues
+      • When to take the floor?
+      • When to yield the floor?
+   Interruptions
+
+
+
+
+Satoshi Nakamura, CSC3160      01/12/2025                21
+Satoshi Nakamura, CSC3160   01/12/2025   22
+                Implications for Conversational Agents
+
+   Barge-in
+      • Allowing the user to interrupt
+   End-pointing
+      • The task for a speech system of deciding whether the
+        user has stopped talking.
+      • Very hard, since people often pause in the middle of
+        turns
+
+
+Satoshi Nakamura, CSC3160   01/12/2025                         23
+                            Language as Action
+
+
+
+                             Each turn in a dialogue is a kind of action
+                             Wittgenstein (1953) and Austin (1962)
+
+
+
+
+Satoshi Nakamura, CSC3160      01/12/2025                                  24
+                            Speech Acts (aka Dialogue Acts)
+                                                          Bach and Harnish (1979)
+
+        Constatives: committing the speaker to something’s being the case
+        (answering, claiming, confirming, denying, disagreeing, stating)
+
+        Directives: attempts by the speaker to get the addressee to do something
+        (advising, asking, forbidding, inviting, ordering, requesting)
+
+        Commissives: committing the speaker to some future course of action
+        (promising, planning, vowing, betting, opposing)
+        Acknowledgments: express the speaker’s attitude regarding the hearer
+        with respect to some social action (apologizing, greeting, thanking,
+        accepting an acknowledgment)
+Satoshi Nakamura, CSC3160          01/12/2025                                       25
+                             Speech acts
+   "Turn up the music!"
+     DIRECTIVE
+
+   "What day in May do you want to travel?"
+       DIRECTIVE
+
+   "I need to travel in May"
+     CONSTATIVE
+
+   Thanks
+     ACKNOWLEDGEMENT
+
+
+
+Satoshi Nakamura, CSC3160   01/12/2025        26
+                               Grounding
+   • Participants in conversation or any joint activity need
+     to establish common ground.
+   • Principle of closure. Agents performing an action require
+     evidence, sufficient for current purposes, that they have
+     succeeded in performing it (Clark 1996, after Norman 1988)
+   • Speech is an action too! So speakers need to ground
+     each other’s utterances.
+     • Grounding: acknowledging that the hearer has understood
+Satoshi Nakamura, CSC3160   01/12/2025                            27
+                                          Grounding
+   • Grounding is relevant for human-machine interaction
+     •   Why do elevator buttons light up?
+
+
+
+
+Satoshi Nakamura, CSC3160              01/12/2025          28
+            Grounding: Establishing Common Ground
+   A: And you said returning on May 15th?
+   C: Uh, yeah, at the end of the day.
+   A: OK
+
+
+   C: OK I’ll take the 5ish flight on the night before on the 11th.
+   A: On the 11th? OK.
+
+
+   C: ...I need to travel in May.
+   A: And, what day in May did you want to travel?
+Satoshi Nakamura, CSC3160   01/12/2025                                29
+          Grounding is important for computers too!
+                                                     Cohen et al (2004)
+
+
+
+   System: Did you want to review some more of your profile?
+   User: No.
+   System: What’s next?
+
+
+   System: Did you want to review some more of your profile?
+   User: No.
+   System: Okay, what’s next?
+
+Satoshi Nakamura, CSC3160   01/12/2025                                    30
+                            Conversations have structure
+
+   Local structure between adjacent speech acts, from
+   the field of conversational analysis (Sacks et al. 1974)
+
+
+   Called adjacency pairs:
+              QUESTION… ANSWER
+   PROPOSAL… ACCEPTANCE/REJECTION
+   COMPLIMENTS ("Nice jacket!")… DOWNPLAYER ("Oh, this old
+   thing?")
+Satoshi Nakamura, CSC3160         01/12/2025                  31
+                            Clarification Sub-dialogues
+   User: What do you have going to UNKNOWN WORD on
+   the 5th?
+   System: Let’s see, going where on the 5th?
+   User: Going to Hong Kong.
+   System: OK, here are some flights...
+
+
+
+
+Satoshi Nakamura, CSC3160         01/12/2025              32
+                            Presequences
+   User: Can you make train reservations?
+   System: Yes I can.
+   User: Great, I’d like to reserve a seat on the 4pm
+   train to New York.
+
+
+
+
+Satoshi Nakamura, CSC3160   01/12/2025                  33
+                                    Conversational Initiative
+
+   Some conversations are controlled by one person
+   • A reporter interviewing a chef asks questions, and the chef responds.
+
+   • This reporter has the conversational initiative (Walker and Whittaker 1990)
+
+   Most human conversations have mixed initiative:
+     • I lead, then you lead, then I lead.
+   • Mixed initiative is very hard for NLP systems, which often default to simpler styles
+     that can be frustrating for humans:
+     •   User initiative (user asks or commands, system responds)
+     •   System initiative (system asks user questions to fill out a form, user can't change the direction)
+
+
+Satoshi Nakamura, CSC3160                  01/12/2025                                                         34
+                            Even harder problems: Inference
+
+   Agent: And, what day in May did you want to
+   travel?
+
+   Client: OK, uh, I need to be there for a meeting
+   that’s from the 12th to the 15th.
+
+
+
+
+Satoshi Nakamura, CSC3160          01/12/2025                 35
+                            Chatbots vs Dialogue Systems
+
+   • Chatbots
+        • mimic informal human chatting
+        • for fun, or even for therapy
+        • Non-goal oriented
+
+
+   • Dialogue systems
+        • interfaces to personal assistants
+        • cars, robots, appliances
+        • booking flights or restaurants
+        • Goal oriented
+
+Satoshi Nakamura, CSC3160         01/12/2025               36
+                                  Chatbot Architectures
+
+   • Rule based
+        • ELIZA: designed to simulate a Rogerian psychologist
+              • is the most important chatbot dialogue system in the history of the field
+        • PARRY: A clinical psychology focus
+              • The first system to pass the Turing Test!
+
+
+   • Corpus based
+        • Xiaoice: Information retrieval
+        • BlenderBot: Neural encoder decoder
+
+
+Satoshi Nakamura, CSC3160              01/12/2025                                           37
+                                         ELIZA
+
+
+
+
+Satoshi Nakamura, CSC3160   01/12/2025           38
+                     A simplified sketch of the ELIZA algorithm
+
+
+
+
+Satoshi Nakamura, CSC3160        01/12/2025                       39
+                                                           Parry
+
+     • PARRY was described as “ELIZA with attitude”
+
+
+
+
+Satoshi Nakamura, CSC3160
+                             http://www.cs.cmu.edu/afs/cs/project/ai-repository/ai/areas/classics/parry/
+                                         01/12/2025                                                        40
+                            Retrieval vs Generation
+
+
+
+
+Satoshi Nakamura, CSC3160      01/12/2025             41
+                        Response by neural encoder-decoder
+
+
+
+
+Satoshi Nakamura, CSC3160         01/12/2025                 42
+                            BlenderBot (Roller et al. 2020)
+
+
+
+
+Satoshi Nakamura, CSC3160         01/12/2025                  43
+                            XiaoIce (Zhou et al., 2020)
+
+
+
+
+Satoshi Nakamura, CSC3160         01/12/2025              44
+                                Dialogue systems
+
+   • Systems that are capable of performing a task-driven dialogue
+     with a human user
+
+
+   • Standard tasks
+        • Travel arrangements
+        • Telephone call routing
+        • Customer support
+        • Tutoring system
+
+
+
+Satoshi Nakamura, CSC3160          01/12/2025                        45
+                            Dialogue-State Architecture
+
+
+
+
+Satoshi Nakamura, CSC3160         01/12/2025              46
+                                    Dialogue acts
+
+   • Dialogue acts represent the interactive function of the turn or sentence, combining the
+     idea of speech acts and grounding into a single representation
+
+
+
+
+                                                                       Young et al. (2010)
+
+
+Satoshi Nakamura, CSC3160          01/12/2025                                                  47
+                                   Slot filling
+
+
+
+
+Satoshi Nakamura, CSC3160   01/12/2025            48
+                             Dialogue State Tracking
+
+   • The job of the dialogue-state tracker is to determine both the current state of the frame
+     (the fillers of each slot), as well as the user’s most recent dialogue act.
+
+
+
+
+                                                     Mrksicet al. (2017)
+
+
+
+
+Satoshi Nakamura, CSC3160           01/12/2025                                                   49
+                              Dialogue Policy
+
+   • to decide what action the system should take next, that is,
+     what dialogue act to generate
+
+
+   • Systems also need to decide when to confirm or reject
+     input
+        • Explicit confirmation: “Did you say you want Italian?”
+        • Implicit confirmation: “How expensive should this Italian
+          restaurant be?”
+        • Rejection: “Sorry, I didn’t understand what you just said”
+
+Satoshi Nakamura, CSC3160     01/12/2025                               50
+                            Natural language generation
+
+
+
+
+                                               (Nayak et al., 2017),
+
+
+
+
+Satoshi Nakamura, CSC3160         01/12/2025                           51
+                                         Summary
+
+   • Properties of human conversations
+   • Chatbot architectures
+   • Dialogue systems
+
+
+
+
+Satoshi Nakamura, CSC3160         01/12/2025       52
+                                               Reading
+
+   • Chapter 15: Chatbots & Dialogue Systems
+        • https://web.stanford.edu/~jurafsky/slp3/15.pdf
+
+
+
+
+Satoshi Nakamura, CSC3160              01/12/2025          53
+
