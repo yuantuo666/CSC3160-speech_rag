@@ -62,15 +62,15 @@ As shown in Figure~\ref{fig:architecture}, we propose a pipeline that transforms
 
 \section{Experiments}
 
-\paragraph{Setup \& Results}
-Our evaluation is built on a knowledge base constructed by indexing all course PDFs and slides into a vector store. We generated a \textbf{Test Set} of multiple-choice questions using \textbf{Gemini} (\texttt{gemini-2.5-flash}). These queries were synthesized into speech using \textbf{Gemini TTS} (\texttt{gemini-2.5-flash-preview-tts}), employing random speaker profiles to simulate realistic acoustic diversity and intonation. 
+\paragraph{Setup}
+Our evaluation is built on a knowledge base constructed by indexing all course PDFs and slides into a vector store. We generated a test set containing 100 multiple-choice questions using \textbf{Gemini} (\texttt{gemini-2.5-flash}). These queries were synthesized into speech using \textbf{Gemini TTS} (\texttt{gemini-2.5-flash-preview-tts}), employing random speaker profiles to simulate realistic acoustic diversity and intonation. 
 
 We utilize \textbf{Accuracy} as the primary metric, verified automatically against ground truth using the xFinder~\cite{xfinder} model. We benchmarked four scenarios to isolate the impact of retrieval and modality: \textbf{No-RAG} vs. \textbf{Speech-RAG} across both \textbf{Text} and \textbf{Audio} inputs.
 
 \begin{table}[H]
     \centering
     \small
-    \begin{minipage}[t]{0.49\textwidth}
+    \begin{minipage}[t]{0.50\textwidth}
         \centering
         \caption{Comparison across modalities (N=100).}
         \label{tab:results}
@@ -81,16 +81,16 @@ We utilize \textbf{Accuracy} as the primary metric, verified automatically again
                 \toprule
                 \textbf{Method} & \textbf{Modality} & \textbf{Acc. (\%)} \\
                 \midrule
-                No-RAG & Text & 66.00  \\
-                No-RAG & Audio & 58.00  \\
-                Speech-RAG (Ab.) & Text & 91.00  \\
-                \textbf{Speech-RAG} & \textbf{Audio} & \textbf{79.00}  \\
+                No-RAG & Text & 66  \\
+                No-RAG & Audio & 58  \\
+                Ours (Ablation) & Text & 91  \\
+                Ours & Audio & 79  \\
                 \bottomrule
             \end{tabular}
         }
     \end{minipage}
     \hfill
-    \begin{minipage}[t]{0.48\textwidth}
+    \begin{minipage}[t]{0.49\textwidth}
         \centering
         \caption{Representative correction cases.}
         \label{tab:cases}
@@ -124,7 +124,8 @@ We utilize \textbf{Accuracy} as the primary metric, verified automatically again
     \end{minipage}
 \end{table}
 
-As shown in Table~\ref{tab:results}, retrieval is the critical factor for reliability. Incorporating RAG improves accuracy by 25\% for text and 21\% for audio inputs. Although acoustic processing introduces minor degradation compared to pure text (91\% vs. 79\%), our end-to-end \textbf{Speech-RAG} system significantly outperforms the text-only baseline without RAG (66\%). This confirms that grounding the model in course materials effectively neutralizes hallucinations, even amidst the noise of speech understanding.
+\paragraph{Results}
+As shown in Table~\ref{tab:results}, retrieval is the critical factor for reliability. Incorporating RAG improves accuracy by 25\% for text and 21\% for audio inputs. Although acoustic processing introduces minor degradation compared to pure text (91\% vs. 79\%), our end-to-end \textbf{Speech-RAG} system still outperforms the text-only baseline without RAG (66\%). This confirms that grounding the model in course materials effectively neutralizes hallucinations, even amidst the noise of speech understanding.
 
 \paragraph{Case Studies}
 We highlight two cases where general-purpose models fail. As illustrated in Table~\ref{tab:cases}, the No-RAG baseline hallucinates plausible but incorrect logistics. In contrast, our system retrieves specific document chunks (e.g., distinguishing ``TB 102'' from generic office locations).
